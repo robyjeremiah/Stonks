@@ -12,7 +12,7 @@ Link to Site: [Stonks Financial Solutions - Project Link](http://stonks-env.eba-
 
    **Sprint 1 Task List**
 
-   - [ ] Email professor about the syllabus and structure of the course. Also ask about email server. - JS
+   - [x] Email professor about the syllabus and structure of the course. Also ask about email server. - JS
    - [x] Create Initial Project and Publish to Github - JS
    - [x] Place the initial project unto AWS - JS
    - [ ] Create the Database for the project in AWS - JS
