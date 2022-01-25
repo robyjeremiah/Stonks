@@ -36,10 +36,6 @@ Welcome to the Stonks Financial Solutions App. This project utilizes a Django Fr
 - [ ] Sprint 1 - Task #6 - #8 (Frontend) - LT
 - [ ] Sprint 1 - Task #9 - #15 (Frontend) - SS
 - [ ] Sprint 1 - Task #16 - #20 (Frontend) - Team
-- [ ]
-- [ ]
-- [ ]
-- [ ]
 
 
 ## Initial Project Setup
