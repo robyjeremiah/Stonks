@@ -75,15 +75,15 @@ Link to Site: [Stonks Financial Solutions - Project Link](http://stonks-env.eba-
 
     Windows:
 
-    Command Prompt: `<my_env_name>\Scripts\activate.bat`
-    Powershell: `<my_env_name>\Scripts\Activate.ps1
+    - Command Prompt: `<my_env_name>\Scripts\activate.bat`
+    - Powershell:     `<my_env_name>\Scripts\Activate.ps1`
 
     POSIX:
 
-    bash/zsh:         `<my_env_name>/bin/activate
-    fish:             `<my_env_name>/bin/activate.fish
-    csh/tsch:         `<my_env_name>/bin/activate.csh
-    Powershell Core:  `<my_env_name>/bin/Activate.ps1
+    - bash/zsh:         `<my_env_name>/bin/activate`
+    - fish:             `<my_env_name>/bin/activate.fish`
+    - csh/tsch:         `<my_env_name>/bin/activate.csh`
+    - Powershell Core:  `<my_env_name>/bin/Activate.ps1`
 
 #### Deactivate virtualenv
 
