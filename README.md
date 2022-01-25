@@ -2,7 +2,7 @@
 
 Welcome to the Stonks Financial Solutions App. This project utilizes a Django Framework to manage and handle the basic financial requests for accountants and their managers.
 
-[Stonks Financial Solutions - Project Link](http://stonks-env.eba-p7p3wuag.us-west-2.elasticbeanstalk.com/)
+Link to Site: [Stonks Financial Solutions - Project Link](http://stonks-env.eba-p7p3wuag.us-west-2.elasticbeanstalk.com/)
 
 ## Project Tracking
 
