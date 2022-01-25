@@ -10,23 +10,23 @@ Welcome to the Stonks Financial Solutions App. This project utilizes a Django Fr
 
 #### Contributors: Jillian Puplampu (JP), Jeremiah Roby (JR), Samir Spraggins (SS), Jalen Springer (JS), Lillivia Taylor (LT), & Raeven Whitfield (RW)
 
-    **Sprint 1 Task List**
+   **Sprint 1 Task List**
 
-    - [ ] Email professor about the syllabus and structure of the course. Also ask about email server. - JS
-    - [x] Create Initial Project and Publish to Github - JS
-    - [x] Place the initial project unto AWS - JS
-    - [ ] Create the Database for the project in AWS - JS
-    - [ ] Create an ER Diagram for Database Design - SS
-    - [ ] Finish high fidelity design for the login - RW
-    - [ ] Create an App logo - RW
-    - [ ] Sprint 1 - Task #1 - #5 (Backend) - JR
-    - [ ] Sprint 1 - Task #6 - #8 (Backend) - JP
-    - [ ] Sprint 1 - Task #9 - #15 (Backend) - Team
-    - [ ] Sprint 1 - Task #16 - #20 (Backend) - JS
-    - [ ] Sprint 1 - Task #1 - #5 (Frontend) - RW
-    - [ ] Sprint 1 - Task #6 - #8 (Frontend) - LT
-    - [ ] Sprint 1 - Task #9 - #15 (Frontend) - SS
-    - [ ] Sprint 1 - Task #16 - #20 (Frontend) - Team
+   - [ ] Email professor about the syllabus and structure of the course. Also ask about email server. - JS
+   - [x] Create Initial Project and Publish to Github - JS
+   - [x] Place the initial project unto AWS - JS
+   - [ ] Create the Database for the project in AWS - JS
+   - [ ] Create an ER Diagram for Database Design - SS
+   - [ ] Finish high fidelity design for the login - RW
+   - [ ] Create an App logo - RW
+   - [ ] Sprint 1 - Task #1 - #5 (Backend) - JR
+   - [ ] Sprint 1 - Task #6 - #8 (Backend) - JP
+   - [ ] Sprint 1 - Task #9 - #15 (Backend) - Team
+   - [ ] Sprint 1 - Task #16 - #20 (Backend) - JS
+   - [ ] Sprint 1 - Task #1 - #5 (Frontend) - RW
+   - [ ] Sprint 1 - Task #6 - #8 (Frontend) - LT
+   - [ ] Sprint 1 - Task #9 - #15 (Frontend) - SS
+   - [ ] Sprint 1 - Task #16 - #20 (Frontend) - Team
 
 
 ## Initial Project Setup
@@ -94,7 +94,7 @@ Welcome to the Stonks Financial Solutions App. This project utilizes a Django Fr
 
   - There is a **requirements.txt** file incorporated within this project. After configuring your python virtual environment and activating it. Execute the command:
 
-  `pip install -r requirements.txt --no-index`
+   `pip install -r requirements.txt --no-index`
 
 
 ## Resources & Guides
