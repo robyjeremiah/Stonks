@@ -8,13 +8,9 @@ Welcome to the Stonks Financial Solutions App. This project utilizes a Django Fr
 
 ### Tasks to complete:
 
-##### Contributors: 
-- Jillian Puplampu (JP) 
-- Jeremiah Roby (JR)
-- Samir Spraggins (SS)
-- Jalen Springer (JS)
-- Lillivia Taylor (LT)
-- Raeven Whitfield (RW)
+#### Contributors: Jillian Puplampu (JP), Jeremiah Roby (JR), Samir Spraggins (SS), Jalen Springer (JS), Lillivia Taylor (LT), & Raeven Whitfield (RW)
+
+    **Sprint 1 Task List**
 
     - [ ] Email professor about the syllabus and structure of the course. Also ask about email server. - JS
     - [x] Create Initial Project and Publish to Github - JS
@@ -43,7 +39,7 @@ Welcome to the Stonks Financial Solutions App. This project utilizes a Django Fr
 
 ### How to Configure a Python Virtual Environment
 
-##### Install the virtualenv
+#### Install the virtualenv
 
   - Check if you have virtualenv
 
@@ -69,7 +65,7 @@ Welcome to the Stonks Financial Solutions App. This project utilizes a Django Fr
 
     `pip3 install virtualenv`
 
-##### Install & Activate the virtualenv
+#### Install & Activate the virtualenv
 
   - Navigate to the directory for the project. To create a virtual environment in the current directory:
 
@@ -89,7 +85,7 @@ Welcome to the Stonks Financial Solutions App. This project utilizes a Django Fr
     csh/tsch:         `<my_env_name>/bin/activate.csh
     Powershell Core:  `<my_env_name>/bin/Activate.ps1
 
-##### Deactivate virtualenv
+#### Deactivate virtualenv
 
   - You can simply deactive the **virtualenv** by either closing the terminal session or running the command  `deactivate`.
 
