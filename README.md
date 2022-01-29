@@ -96,6 +96,10 @@ Link to Site: [Stonks Financial Solutions - Project Link](http://stonks-env.eba-
 
    `pip install -r requirements.txt --no-index`
 
+### How to Run the Project
+  - Execute the following command:
+
+  `python manage.py runserver`
 
 ## Resources & Guides
 
