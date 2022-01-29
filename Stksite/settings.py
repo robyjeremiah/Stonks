@@ -72,7 +72,7 @@ WSGI_APPLICATION = 'Stksite.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-if 'RDS_HOSTNAME' in os.os.environ:
+if 'RDS_HOSTNAME' in os.environ:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
