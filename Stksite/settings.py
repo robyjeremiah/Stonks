@@ -25,7 +25,8 @@ SECRET_KEY = 'uwmk6z*q74@e&y&ahmt2^4%9mvqj%_-sb#uyj2!g+d+8he7zs@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['Stonks-env.eba-p7p3wuag.us-west-2.elasticbeanstalk.com']
+ALLOWED_HOSTS = ['Stonks-env.eba-p7p3wuag.us-west-2.elasticbeanstalk.com',
+                 '.localhost', '127.0.0.1', '[::1]']
 
 
 # Application definition
@@ -83,16 +84,15 @@ if 'RDS_HOSTNAME' in os.environ:
             'PORT': os.environ['RDS_PORT'],
         }
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': os.environ['MYSQL_DB_NAME'],
-            'USER': os.environ['MYSQL_USERNAME'],
-            'PASSWORD':os.environ['MYSQL_PASSWORD']
-        }
-    }
-
+# else:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.mysql',
+#             'NAME': os.environ['MYSQL_DB_NAME'],
+#             'USER': os.environ['MYSQL_USERNAME'],
+#             'PASSWORD': os.environ['MYSQL_PASSWORD']
+#         }
+#     }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
