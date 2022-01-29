@@ -15,7 +15,8 @@ Link to Site: [Stonks Financial Solutions - Project Link](http://stonks-env.eba-
    - [x] Email professor about the syllabus and structure of the course. Also ask about email server. - JS
    - [x] Create Initial Project and Publish to Github - JS
    - [x] Place the initial project unto AWS - JS
-   - [ ] Create the Database for the project in AWS - JS
+   - [x] Create the Database for the project in AWS - JS
+   - [ ] Need to figure out how to map DB file to docker container - JS
    - [ ] Create an ER Diagram for Database Design - SS
    - [ ] Finish high fidelity design for the login - RW
    - [ ] Create an App logo - RW
@@ -100,6 +101,28 @@ Link to Site: [Stonks Financial Solutions - Project Link](http://stonks-env.eba-
   - Execute the following command:
 
   `python manage.py runserver`
+
+### How to Use Docker Containers
+
+  - Make sure that you have Docker Desktop downloaded from [Docker](https://www.docker.com/get-started).
+  - After installing docker on your system, you can execute the following command:
+
+  `docker-compose build --no-cache` - This will pull the docker images and build the docker-compose.yml file in the repo
+
+  - After the containers are built, you can execute the following command:
+
+  `docker-compose up -d` - This will start up the containers that were built, and run them in a detached mode.
+
+  - You will then need to browse over to on your system to [Adminer](http://localhost:8081).
+  - After the browsing to the database view in your web browser you will need to enter the following credentials:
+
+  System: MySQL
+  Server: stonks-db
+  Username: root
+  Password: test1234
+  Database: Stonks
+
+  - You will now be able to use Adminer to view the contents of the database and make changes locally.
 
 ## Resources & Guides
 
