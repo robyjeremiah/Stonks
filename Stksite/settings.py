@@ -83,6 +83,15 @@ if 'RDS_HOSTNAME' in os.environ:
             'PORT': os.environ['RDS_PORT'],
         }
     }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': os.environ['MYSQL_DB_NAME'],
+            'USER': os.environ['MYSQL_USERNAME'],
+            'PASSWORD':os.environ['MYSQL_PASSWORD']
+        }
+    }
 
 
 # Password validation

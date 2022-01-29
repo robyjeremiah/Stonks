@@ -1,0 +1,27 @@
+version: '3.1'
+
+services:
+
+  Stonks-db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: test1234,
+      MYSQL_USER: admin,
+      MYSQL_PASSWORD: password
+    networks:
+      - Stonks-net
+
+  Stonks-adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8000:8000
+    depends_on:
+      - Stonks-db
+    networks:
+      - Stonks-net
+
+networks:
+  Stonks-net:
