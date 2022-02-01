@@ -15,7 +15,7 @@ Link to Site: [Stonks Financial Solutions - Project Link](http://stonks-env.eba-
    - [x] Email professor about the syllabus and structure of the course. Also ask about email server. - JS
    - [x] Create Initial Project and Publish to Github - JS
    - [x] Place the initial project unto AWS - JS
-   - [x] Create the Database for the project in AWS - JS
+   - [ ] Create the Database for the project in AWS - JS
    - [ ] Need to figure out how to map DB file to docker container - JS
    - [ ] Create an ER Diagram for Database Design - SS
    - [ ] Finish high fidelity design for the login - RW
