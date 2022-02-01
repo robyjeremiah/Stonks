@@ -69,6 +69,4 @@ coverage.xml
 .history
 
 #Mac Environment
-.DS_Store 
-git config --global user.email "you@example.com"
-  git config --global user.name "Your Name"
+.DS_Store
