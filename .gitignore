@@ -72,3 +72,6 @@ coverage.xml
 
 #Mac Environment
 .DS_Store
+
+# Visual Studio #
+.vs/
