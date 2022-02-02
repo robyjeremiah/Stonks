@@ -55,7 +55,7 @@ ROOT_URLCONF = 'Stksite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -84,17 +84,17 @@ if 'RDS_HOSTNAME' in os.environ:
             'PORT': os.environ['RDS_PORT'],
         }
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'Stonks',
-            'USER': 'jsprin',
-            'PASSWORD': 'jsprin1234',
-            'HOST': 'db',
-            'PORT': 3306,
-        }
-    }
+# else:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.mysql',
+#             'NAME': 'Stonks',
+#             'USER': 'jsprin',
+#             'PASSWORD': 'jsprin1234',
+#             'HOST': 'db',
+#             'PORT': 3306,
+#         }
+#     }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
