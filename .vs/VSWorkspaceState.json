@@ -2,8 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\Stksite",
-    "\\Stonks",
-    "\\Stonks\\templates"
+    "\\Stonks"
   ],
+  "SelectedNode": "\\Stonks\\urls.py",
   "PreviewInSolutionExplorer": false
 }
