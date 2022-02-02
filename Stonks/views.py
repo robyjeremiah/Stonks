@@ -10,3 +10,6 @@ def profile(request):
 
 def test(request):
     return HttpResponse('Welcome to the Test Page!')
+
+def login(request):
+    return render(request, 'login.html')
