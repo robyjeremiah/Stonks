@@ -102,8 +102,17 @@ Link to Site: [Stonks Financial Solutions - Project Link](http://stonks-env.eba-
 
   `python manage.py runserver`
 
-### How to Use Docker Containers
+### How to Use Docker Containers (Windows Only) --> Working on MacOS soon
 
+  #### Setting Up Environment Variables for Docker
+  - In the directory, you should see a .env.example file. Open that file, and change the following:
+    
+    MY_USER='your-username'
+    MY_PASSWORD='password_of_your_choice'
+  
+  - The remaining items can remain the same. After saving the file, rename the file to be '.env' instead of '.env.example'
+  - You have successfully created your environment variables!
+  #### Running Docker
   - Make sure that you have Docker Desktop downloaded from [Docker](https://www.docker.com/get-started).
   - After installing docker on your system, you can execute the following command:
 
@@ -112,18 +121,24 @@ Link to Site: [Stonks Financial Solutions - Project Link](http://stonks-env.eba-
   - After the containers are built, you can execute the following command:
 
   `docker-compose up -d` - This will start up the containers that were built, and run them in a detached mode.
+  
+  - After the containers are running, you can browse to view the project at [Stonks-App](http://localhost:9000)
+  - The last thing left to do is connect to the database!
+  #### Installing MySQL Workbench (Temporary until I can configure the web version)
 
-  - You will then need to browse over to on your system to [Adminer](http://localhost:8081).
-  - After the browsing to the database view in your web browser you will need to enter the following credentials:
+  - Trying to still configure the database connection through the browser, however, temporarily install [MySQL Workbench](https://dev.mysql.com/downloads/workbench/). We will use it to connect to the database.
+  - After the installation is completed, add a new connection. Enter the information as follows:
 
-  System: MySQL
-  Server: stonks-db
-  Username: root
-  Password: test1234
-  Database: Stonks
+    Connection Name: 'Whatever Name You Would Like, I Went With Stonks'
+    Port: 3307
+    Username: 'The Username You Created in .env'
+    Password: 'The Password You Created in .env'
+  
+  - Make sure to test your connection at the bottom. If successful, you can close out the window and connect. You should see all the tables for the database!
 
-  - You will now be able to use Adminer to view the contents of the database and make changes locally.
+  #### Using Docker to Run the environment
 
+  - Currently the project is configured to use the docker containers to manage the project. So that means when running python migrate inside...
 ## Resources & Guides
 
 - [Django Project & App Tutorial](https://docs.djangoproject.com/en/4.0/intro/tutorial01/)

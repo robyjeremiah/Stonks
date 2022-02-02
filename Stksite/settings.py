@@ -91,8 +91,8 @@ else:
             'NAME': 'Stonks',
             'USER': 'jsprin',
             'PASSWORD': 'jsprin1234',
-            'HOST': '',
-            'PORT': 3307,
+            'HOST': 'db',
+            'PORT': 3306,
         }
     }
 

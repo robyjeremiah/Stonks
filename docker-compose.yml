@@ -1,44 +1,33 @@
-version: '3.1'
-
+version: '3.8'
 services:
-
-  stonks-db:
-    image: mariadb:latest
-    environment:
-      - MARIADB_DATABASE=${DB_NAME}
-      - MARIADB_USER=${MY_USER}
-      - MARIADB_PASSWORD=${MY_PASSWORD}
-      - MARIADB_ROOT_PASSWORD=${ROOT_PASSWORD}
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - 3307:3306
-    networks:
-      - Stonks-net
-
-  stonks-web:
-    build: .
-    command: python manage.py runserver 0.0.0.0:8000
+      - 9000:8000
     volumes:
       - .:/Stonks
-    ports:
-      - "9000:8000"
-    environment:
-      - POSTGRES_NAME=${DB_NAME}
-      - POSTGRES_USER=${MY_USER}
-      - POSTGRES_PASSWORD=${MY_PASSWORD}
     depends_on:
-      - stonks-db
-    networks:
-      - Stonks-net
+      - db
 
-  stonks-adminer:
-    image: adminer
+  db:
+    image: mysql:latest
+    restart: always
+    environment:
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${MY_USER}
+      - MYSQL_PASSWORD=${MY_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${ROOT_PASSWORD}
+    volumes:
+      - .dbdata:/var/lib/mysql
+    ports:
+      - 3307:3306
+    
+  phpmyadmin:
+    image: phpmyadmin
     restart: always
     ports:
-      - 9001:8080
-    depends_on:
-      - stonks-db
-    networks:
-      - Stonks-net
-
-networks:
-  Stonks-net:
+      - 8081:80
+    environment:
+      - PMA_ARBITRARY=1
