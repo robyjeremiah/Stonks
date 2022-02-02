@@ -1,26 +1,33 @@
-version: '3.1'
-
+version: '3.8'
 services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 9000:8000
+    volumes:
+      - .:/Stonks
+    depends_on:
+      - db
 
-  stonks-db:
-    image: mariadb:latest
+  db:
+    image: mysql:latest
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: test1234
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${MY_USER}
+      - MYSQL_PASSWORD=${MY_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${ROOT_PASSWORD}
+    volumes:
+      - .dbdata:/var/lib/mysql
     ports:
       - 3307:3306
-    networks:
-      - Stonks-net
-
-  stonks-adminer:
-    image: adminer
+    
+  phpmyadmin:
+    image: phpmyadmin
     restart: always
     ports:
-      - 8081:8080
-    depends_on:
-      - Stonks-db
-    networks:
-      - Stonks-net
-
-networks:
-  Stonks-net:
+      - 8081:80
+    environment:
+      - PMA_ARBITRARY=1
