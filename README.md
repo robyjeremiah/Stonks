@@ -138,7 +138,8 @@ Link to Site: [Stonks Financial Solutions - Project Link](http://stonks-env.eba-
 
   #### Using Docker to Run the environment
 
-  - Currently the project is configured to use the docker containers to manage the project. So that means when running python migrate inside...
+  - To get the latest migrations for the project run the following command in your terminal:
+    `docker-compose run web python manage.py migrate`
 ## Resources & Guides
 
 - [Django Project & App Tutorial](https://docs.djangoproject.com/en/4.0/intro/tutorial01/)
