@@ -1,0 +1,49 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: url('Stonks.png');
+    background-size: cover;
+    background-position: center 35%;
+    font-family: sans-serif;
+}
+
+.resetbox {
+    width: 400px;
+    height: auto;
+    background: #000;
+    opacity: 0.85;
+    color: #fff;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    box-sizing: border-box;
+    padding: 40px 30px;
+}
+
+h1 {
+    margin: 0;
+    padding: 0 0 15px;
+    text-align: center;
+    font-size: 26px;
+}
+
+#description {
+    font-size: 14px;
+}
+
+.return {
+    margin-top: 30px;
+}
+
+.resetbox a {
+    text-decoration: none;
+    font-size: 12px;
+    line-height: 20px;
+    color: #BCAB6F;
+    margin-top: 30px;
+}
+
+    .resetbox a:hover {
+        color: #FFF8E3;
+    }
