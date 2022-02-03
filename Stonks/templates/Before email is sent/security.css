@@ -1,0 +1,137 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: url('Stonks.png');
+    background-size: cover;
+    background-position: center 35%;
+    font-family: sans-serif;
+}
+
+.resetbox {
+    width: 400px;
+    height: auto;
+    background: #000;
+    opacity: 0.85;
+    color: #fff;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    box-sizing: border-box;
+    padding: 40px 30px;
+}
+
+h1 {
+    margin: 0;
+    padding: 0 0 15px;
+    text-align: center;
+    font-size: 26px;
+}
+
+.chart {
+    height: 60px;
+    width: 80%;
+    margin: auto;
+    text-align: center;
+}
+
+.chart h3 {
+    color: black;
+    font-weight: bolder;
+}
+
+#step1 {
+    opacity: 0.5;
+}
+
+.circle1 {
+    height: 60px;
+    width: 60px;
+    float: left;
+    background: #FFF8E3;
+    border-radius: 50px;
+}
+
+.line {
+    width: 35%;
+    margin-top: 10%;
+    height: 2px;
+    background: #BCAB6F;
+    display: inline-block;
+}
+
+.circle2 {
+    height: 60px;
+    width: 60px;
+    float: right;
+    background: #FFF8E3;
+    border-radius: 50px;
+}
+
+.charttext {
+    height: 20px;
+    width: 76%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    margin-left: 11%;
+    margin-bottom: 20px;
+}
+
+#description {
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+
+#question {
+    padding: 10px;
+    margin: 10px 0;
+    font-weight: bold;
+    background: #FFF8E3;
+    border-radius: 5px;
+    cursor: pointer;
+    color: black;
+    border: none;
+}
+
+.resetbox input {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+    .resetbox input[type="text"] {
+        border: none;
+        border-bottom: 1px solid #fff;
+        background: transparent;
+        outline: none;
+        height: 40px;
+        color: #fff;
+        font-size: 16px;
+    }
+
+    .resetbox input[type="submit"] {
+        border: none;
+        outline: none;
+        height: 40px;
+        background: #6F6236;
+        color: #fff;
+        font-size: 18px;
+        border-radius: 20px;
+    }
+
+        .resetbox input[type="submit"]:hover {
+            cursor: pointer;
+            background: #FFF8E3;
+            color: #000;
+        }
+
+.resetbox a {
+    text-decoration: none;
+    font-size: 16px;
+    line-height: 20px;
+    color: gainsboro;
+}
+
+    .resetbox a:hover {
+        color: #BCAB6F;
+    }

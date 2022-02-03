@@ -59,6 +59,8 @@ coverage.xml
 # Environments 
 .env 
 .Stonks-env
+.dbdata
+
 
 # Visual Studio Code # 
 .vscode/* 
@@ -70,3 +72,6 @@ coverage.xml
 
 #Mac Environment
 .DS_Store
+
+# Visual Studio #
+.vs/
