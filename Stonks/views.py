@@ -7,10 +7,13 @@ def index(request):
     return HttpResponse('Welcome to the Home Page!')
 
 def profile(request):
-    return HttpResponse('Welcome to the Profile Page!')
+    return HttpResponse('Welcome to the Profile Page! Bubble butt')
 
 def test(request):
     return HttpResponse('Welcome to the Test Page!')
 
 def login(request):
-    return HttpResponse(loader.get_template('Stonks\login.html'))
+    return render(request, 'login.html')
+
+def newUser(request):
+    return render(request, 'newUser.html')
