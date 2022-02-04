@@ -17,3 +17,18 @@ def login(request):
 
 def newUser(request):
     return render(request, 'newUser.html')
+
+def forgotPass(request):
+    return render(request, 'forgotPass.html')
+
+def security(request):
+    return render(request, 'security.html')
+
+def emailSent(request):
+    return render(request, 'emailSent.html')
+
+def passwordReset(request):
+    return render(request, 'passwordReset.html')
+
+def passwordConfirm(request):
+    return render(request, 'passwordConfirm.html')
