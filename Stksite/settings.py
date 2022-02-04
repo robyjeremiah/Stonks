@@ -85,17 +85,17 @@ if 'RDS_HOSTNAME' in os.environ:
             'PORT': os.environ['RDS_PORT'],
         }
     }
-# else:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.mysql',
-#             'NAME': 'Stonks',
-#             'USER': 'jsprin',
-#             'PASSWORD': 'jsprin1234',
-#             'HOST': 'db',
-#             'PORT': 3306,
-#         }
-#     }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'Stonks',
+            'USER': 'jsprin',
+            'PASSWORD': 'jsprin1234',
+            'HOST': 'Stonks_mysql',
+            'PORT': 3306
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
