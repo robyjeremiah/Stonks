@@ -29,9 +29,13 @@ ALLOWED_HOSTS = ['Stonks-env.eba-p7p3wuag.us-west-2.elasticbeanstalk.com',
                  '.localhost', '127.0.0.1', '[::1]']
 
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+AUTH_USER_MODEL = 'Stonks.User'
+
 # Application definition
 
 INSTALLED_APPS = [
+    'Stonks',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -73,28 +77,34 @@ WSGI_APPLICATION = 'Stksite.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-if 'RDS_HOSTNAME' in os.environ:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': os.environ['RDS_DB_NAME'],
-            'USER': os.environ['RDS_USERNAME'],
-            'PASSWORD': os.environ['RDS_PASSWORD'],
-            'HOST': os.environ['RDS_HOSTNAME'],
-            'PORT': os.environ['RDS_PORT'],
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'Stonks',
-            'USER': 'jsprin',
-            'PASSWORD': 'jsprin1234',
-            'HOST': 'db',
-            'PORT': 3306,
-        }
-    }
+}
+# if 'RDS_HOSTNAME' in os.environ:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.mysql',
+#             'NAME': os.environ['RDS_DB_NAME'],
+#             'USER': os.environ['RDS_USERNAME'],
+#             'PASSWORD': os.environ['RDS_PASSWORD'],
+#             'HOST': os.environ['RDS_HOSTNAME'],
+#             'PORT': os.environ['RDS_PORT'],
+#         }
+#     }
+# else:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.mysql',
+#             'NAME': 'Stonks',
+#             'USER': 'jsprin',
+#             'PASSWORD': 'jsprin1234',
+#             'HOST': 'db',
+#             'PORT': 3306,
+#         }
+#     }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators

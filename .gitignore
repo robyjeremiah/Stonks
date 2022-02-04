@@ -60,6 +60,9 @@ coverage.xml
 .env 
 .Stonks-env
 .dbdata
+#Jeremiah
+.venv
+.venv\Scripts
 
 
 # Visual Studio Code # 
