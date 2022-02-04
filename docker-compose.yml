@@ -1,17 +1,8 @@
 version: '3.8'
 services:
-  web:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - 9000:8000
-    volumes:
-      - .:/Stonks
-    depends_on:
-      - db
 
-  db:
+  mysql:
+    container_name: Stonks_mysql
     image: mysql:latest
     restart: always
     environment:
@@ -21,5 +12,41 @@ services:
       - MYSQL_ROOT_PASSWORD=${ROOT_PASSWORD}
     volumes:
       - .dbdata:/var/lib/mysql
+    networks:
+      - stonks-network
     ports:
       - 3307:3306
+    expose:
+      - "3306"
+
+  web:
+    container_name: Stonks_django
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 9000:8000
+    volumes:
+      - .:/Stonks
+    networks:
+      - stonks-network
+    depends_on:
+      - mysql
+    
+  phpmyadmin:
+    container_name: Stonks_phpmyadmin
+    image: phpmyadmin
+    restart: always
+    environment:
+      - PMA_ARBITRARY=1
+    ports:
+      - 9001:80
+    networks:
+      - stonks-network
+    depends_on:
+      - mysql
+
+networks:
+  stonks-network:
+    driver: bridge
+  
