@@ -1,10 +1,10 @@
-<!--{% load static %}-->
+{% load static %}
 
 <!DOCTYPE html>
 <html>
     <head>
         <title>Create an Account</title>
-            <link rel="stylesheet" type="text/css" href="newUser.css">
+            <link rel="stylesheet" type="text/css" href="{% static 'newUser.css' %}">
     </head>
     <body>
         <form>
@@ -18,7 +18,7 @@
             <input type="password" name="" placeholder="Password">
             <input type="password" name="" placeholder="Confirm Password">
             <input type="submit" name="" value="Create Account">
-            <a href="#">Already have an account?</a><br>
+            <a href="/login">Already have an account?</a><br>
         </div>
     </form>
     </body>
