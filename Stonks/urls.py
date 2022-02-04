@@ -9,4 +9,9 @@ urlpatterns = [
     path('test/', views.test),
     path('login/', views.login),
     path('newUser/', views.newUser),
+    path('forgotPass/', views.forgotPass),
+    path('security/', views.security),
+    path('emailSent/', views.emailSent),
+    path('passwordReset/', views.passwordReset),
+    path('passwordConfirm/', views.passwordConfirm),
 ]

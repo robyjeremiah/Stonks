@@ -1,7 +1,7 @@
 body {
     margin: 0;
     padding: 0;
-    background: url('Stonks.png');
+    background: url("images/Stonks.png");
     background-size: cover;
     background-position: center 35%;
     font-family: sans-serif;
@@ -35,17 +35,13 @@ h1 {
     text-align: center;
 }
 
-#one {
+.chart h3 {
     color: black;
     font-weight: bolder;
 }
 
-#two {
-    color: lightgrey;
-}
-
-#step2 {
-    color: lightgrey;
+#step1 {
+    opacity: 0.5;
 }
 
 .circle1 {
@@ -68,7 +64,7 @@ h1 {
     height: 60px;
     width: 60px;
     float: right;
-    background: #6F6236;
+    background: #FFF8E3;
     border-radius: 50px;
 }
 
@@ -84,6 +80,18 @@ h1 {
 
 #description {
     font-size: 13px;
+    margin-bottom: 20px;
+}
+
+#question {
+    padding: 10px;
+    margin: 10px 0;
+    font-weight: bold;
+    background: #FFF8E3;
+    border-radius: 5px;
+    cursor: pointer;
+    color: black;
+    border: none;
 }
 
 .resetbox input {
@@ -119,7 +127,7 @@ h1 {
 
 .resetbox a {
     text-decoration: none;
-    font-size: 12px;
+    font-size: 16px;
     line-height: 20px;
     color: gainsboro;
 }

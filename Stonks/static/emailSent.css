@@ -1,7 +1,7 @@
 body {
     margin: 0;
     padding: 0;
-    background: url('Stonks.png');
+    background: url("images/Stonks.png");
     background-size: cover;
     background-position: center 35%;
     font-family: sans-serif;
@@ -29,27 +29,21 @@ h1 {
 }
 
 #description {
-    font-size: 16px;
-    text-align:center;
-    width: 80%;
-    margin: 10px auto 30px;
+    font-size: 14px;
 }
 
-button {
-    border: none;
-    outline: none;
-    height: 40px;
-    width: 70%;
-    background: #6F6236;
-    color: #fff;
-    font-size: 18px;
-    border-radius: 20px;
-    margin: auto;
-    display: block;
+.return {
+    margin-top: 30px;
 }
 
-button:hover {
-    cursor: pointer;
-    background: #FFF8E3;
-    color: #000;
+.resetbox a {
+    text-decoration: none;
+    font-size: 12px;
+    line-height: 20px;
+    color: #BCAB6F;
+    margin-top: 30px;
 }
+
+    .resetbox a:hover {
+        color: #FFF8E3;
+    }
