@@ -1,0 +1,36 @@
+{% load static %}
+
+<!--This is the first of in the forgot password templates-->
+<!--The order is [ forgotPass.html -> security.html -> emailSent.html ] -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stonks Accounting Solutions | Forgot Password</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'forgotpass.css' %}">
+</head>
+<body>
+    <div class="resetbox">
+        <h1>Forgot Your Password?</h1>
+        <div class="chart">
+            <div class="circle1">
+                <h3 id="one">1</h3>
+            </div>
+            <div class="line"></div>
+            <div class="circle2">
+                <h3 id="two">2</h3>
+            </div>
+        </div>
+        <div class="charttext">
+            <p id="step1">Email Input</p>
+            <p id="step2">Security</p>
+        </div>
+            <form>
+                <p id="description">Please enter the email address you'd like the password reset information to go to.</p>
+                <input type="text" name="" placeholder="Enter Email">
+                <input type="submit" name="" value="Submit">
+                <a href="/login">Back to login</a>
+            </form>
+        </div>
+</body>
+</html>
