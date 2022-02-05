@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'Stonks'
 ]
 
 MIDDLEWARE = [
@@ -55,7 +56,7 @@ ROOT_URLCONF = 'Stksite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -84,6 +85,17 @@ if 'RDS_HOSTNAME' in os.environ:
             'PORT': os.environ['RDS_PORT'],
         }
     }
+elif 'HOST' == 'Stonks_mysql':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'Stonks',
+            'USER': 'jsprin',
+            'PASSWORD': 'jsprin1234',
+            'HOST': 'Stonks_mysql',
+            'PORT': 3306
+        }
+    }
 else:
     DATABASES = {
         'default': {
@@ -91,8 +103,8 @@ else:
             'NAME': 'Stonks',
             'USER': 'jsprin',
             'PASSWORD': 'jsprin1234',
-            'HOST': 'db',
-            'PORT': 3306,
+            'HOST': 'mariadb',
+            'PORT': 3306
         }
     }
 
@@ -134,3 +146,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = 'static'
+STATICFILES_DIRS = [
+    "./Stonks/static"
+]

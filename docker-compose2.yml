@@ -1,9 +1,9 @@
 version: '3.8'
 services:
 
-  mysql:
-    container_name: Stonks_mysql
-    image: mysql:latest
+  mariadb:
+    container_name: Stonks_mariadb
+    image: mariadb
     restart: always
     environment:
       - MYSQL_DATABASE=${DB_NAME}
@@ -15,36 +15,34 @@ services:
     networks:
       - stonks-network
     ports:
-      - 3307:3306
+      - 3308:3306
     expose:
       - "3306"
 
-  web:
+  webmac:
     container_name: Stonks_django
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - 9000:8000
+      - 8000:8000
     volumes:
       - .:/Stonks
     networks:
       - stonks-network
     depends_on:
-      - mysql
+      - mariadb
     
-  phpmyadmin:
-    container_name: Stonks_phpmyadmin
-    image: phpmyadmin
+  adminer:
+    container_name: Stonks_adminer
+    image: adminer
     restart: always
-    environment:
-      - PMA_ARBITRARY=1
     ports:
-      - 9001:80
+      - 8001:8080
     networks:
       - stonks-network
     depends_on:
-      - mysql
+      - mariadb
 
 networks:
   stonks-network:
