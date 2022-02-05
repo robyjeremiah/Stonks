@@ -60,6 +60,7 @@ coverage.xml
 .env 
 .Stonks-env
 .dbdata
+data
 
 
 # Visual Studio Code # 

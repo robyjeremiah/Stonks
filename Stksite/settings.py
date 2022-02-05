@@ -85,7 +85,7 @@ if 'RDS_HOSTNAME' in os.environ:
             'PORT': os.environ['RDS_PORT'],
         }
     }
-else:
+elif 'HOST' == 'Stonks_mysql':
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
@@ -93,6 +93,17 @@ else:
             'USER': 'jsprin',
             'PASSWORD': 'jsprin1234',
             'HOST': 'Stonks_mysql',
+            'PORT': 3306
+        }
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'Stonks',
+            'USER': 'jsprin',
+            'PASSWORD': 'jsprin1234',
+            'HOST': 'mariadb',
             'PORT': 3306
         }
     }
