@@ -1,0 +1,50 @@
+version: '3.8'
+services:
+
+  mariadb:
+    container_name: Stonks_mariadb
+    image: mariadb
+    restart: always
+    environment:
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${MY_USER}
+      - MYSQL_PASSWORD=${MY_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${ROOT_PASSWORD}
+    volumes:
+      - .dbdata:/var/lib/mysql
+    networks:
+      - stonks-network
+    ports:
+      - 3308:3306
+    expose:
+      - "3306"
+
+  webmac:
+    container_name: Stonks_django
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/Stonks
+    networks:
+      - stonks-network
+    depends_on:
+      - mariadb
+    
+  adminer:
+    container_name: Stonks_adminer
+    image: adminer
+    restart: always
+    ports:
+      - 8001:8080
+    networks:
+      - stonks-network
+    depends_on:
+      - mariadb
+
+networks:
+  stonks-network:
+    driver: bridge
+  
