@@ -30,10 +30,10 @@ DEBUG = True
 ALLOWED_HOSTS = ['Stonks-env.eba-p7p3wuag.us-west-2.elasticbeanstalk.com',
                  '.localhost', '127.0.0.1', '[::1]']
 
-
 # Application definition
 
 INSTALLED_APPS = [
+    'Stonks',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -109,6 +109,8 @@ else:
         }
     }
 
+AUTH_USER_MODEL = 'Stonks.User'
+
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
@@ -150,5 +152,3 @@ STATIC_ROOT = 'static'
 STATICFILES_DIRS = [
     "./Stonks/static"
 ]
-
-AUTH_USER_MODEL = 'Stonks.User'
