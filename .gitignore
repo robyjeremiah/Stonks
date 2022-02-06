@@ -61,9 +61,6 @@ coverage.xml
 .Stonks-env
 .dbdata
 data
-.venv
-.venv\Scripts
-
 
 
 # Visual Studio Code # 

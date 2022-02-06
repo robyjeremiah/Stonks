@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 #database operating system variable
-OS = True
+OS = False
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -29,10 +29,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['Stonks-env.eba-p7p3wuag.us-west-2.elasticbeanstalk.com',
                  '.localhost', '127.0.0.1', '[::1]']
-
-
-DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
-AUTH_USER_MODEL = 'Stonks.User'
 
 # Application definition
 
@@ -79,7 +75,6 @@ WSGI_APPLICATION = 'Stksite.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
 if 'RDS_HOSTNAME' in os.environ:
     DATABASES = {
         'default': {
@@ -109,12 +104,12 @@ else:
             'NAME': 'Stonks',
             'USER': 'jsprin',
             'PASSWORD': 'jsprin1234',
-            'HOST': 'mariadb',
+            'HOST': 'Stonks_mariadb',
             'PORT': 3306
         }
-
     }
 
+AUTH_USER_MODEL = 'Stonks.User'
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
