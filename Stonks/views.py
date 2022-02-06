@@ -9,7 +9,6 @@ from django.db.models.query_utils import Q
 from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
-from django.contrib import messages
 
 # Create your views here.
 def index(request):
@@ -36,7 +35,6 @@ def passwordReset(request):
             if associated_users.exists():
                 for user in associated_users:
                     subject = "Password Reset Requested"
-                    email_template_name = "Stonks/password/password_reset_email.txt"
                     c = {
                         "email":user.email,
                         'domain':'127.0.0.1:8000',
@@ -46,12 +44,11 @@ def passwordReset(request):
                         'token': default_token_generator.make_token(user),
                         'protocol': 'http',
                     }
-                    email = render_to_string(email_template_name, c)
+                    email = render_to_string(c)
                     try:
                         send_mail(subject, email, [user.email], fail_silently=False)
                     except BadHeaderError:
                         return HttpResponse("Invalid header found.")
-                    
                     return redirect("/passwordConfirm/")
     password_reset_form = PasswordResetForm()
     return render(request=request, template_name='passwordReset.html', context={"password_reset_form":password_reset_form})
