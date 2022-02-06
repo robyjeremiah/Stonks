@@ -126,17 +126,6 @@ Link to Sprint #1: [Sprint List](https://kennesawedu.sharepoint.com/:w:/r/sites/
   
   - After the containers are running, you can browse to view the project at [Stonks-App](http://localhost:9000)
   - The last thing left to do is connect to the database!
-  #### Installing MySQL Workbench (Temporary until I can configure the web version)
-
-  - Trying to still configure the database connection through the browser, however, temporarily install [MySQL Workbench](https://dev.mysql.com/downloads/workbench/). We will use it to connect to the database.
-  - After the installation is completed, add a new connection. Enter the information as follows:
-
-    Connection Name: 'Whatever Name You Would Like, I Went With Stonks'
-    Port: 3307
-    Username: 'The Username You Created in .env'
-    Password: 'The Password You Created in .env'
-  
-  - Make sure to test your connection at the bottom. If successful, you can close out the window and connect. You should see all the tables for the database!
 
   #### Using Docker to Run the environment
 
