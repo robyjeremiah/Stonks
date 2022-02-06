@@ -96,8 +96,8 @@ elif (OS == True):
         'default': {
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'Stonks',
-            'USER': 'jsprin',
-            'PASSWORD': 'jsprin1234',
+            'USER': 'jeremiah',
+            'PASSWORD': 'roby1234',
             'HOST': 'Stonks_mysql',
             'PORT': 3306
         }
