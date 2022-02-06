@@ -3,6 +3,7 @@
     <head>
         <title>Stonks Home Page</title>
         <link rel="stylesheet" type="text/css" href="{% static 'home.css' %}" />
+        <link rel="stylesheet" href="{% static 'fontawesome_free/css/all.min.css' %}">
         <script type="text/javascript" src="{% static '/js/jquery-3.6.0.js' %}"></script>
     </head>
     <script>
@@ -34,7 +35,7 @@ window.onclick = function(event) {
                     <li><a href="#">Reports</a></li>
                     <li>
                         <div class="dropdown">
-                            <button onclick="myFunction()" class="dropbtn"></button>
+                            <button onclick="myFunction()" class="dropbtn"><i class="far fa-user"></i></button>
                             <div id="myDropdown" class="dropdown-content">
                               <a href="#">My Profile</a>
                               <a href="#">Accounts</a>
