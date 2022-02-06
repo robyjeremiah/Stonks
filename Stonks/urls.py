@@ -7,13 +7,13 @@ from . import views
 urlpatterns = [
     # Login Views
     path('', auth_views.LoginView.as_view(template_name='login.html'), name='index'),
-
+    path('generalHome/', views.generalHome, name='userHome'),
     # Create User Views
     path('newUser/', views.newUser, name='newUser'),
 
     # Forgot Password View
     path('security/', views.security, name='security'),
-
+ 
     # Django Admin Forgot Password Functionalities
     path ('forgotPass/', auth_views.PasswordResetView.as_view(template_name='forgotPass.html'), name="reset_password"),
 
