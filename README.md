@@ -3,6 +3,7 @@
 Welcome to the Stonks Financial Solutions App. This project utilizes a Django Framework to manage and handle the basic financial requests for accountants and their managers.
 
 Link to Site: [Stonks Financial Solutions - Project Link](http://stonks-env.eba-p7p3wuag.us-west-2.elasticbeanstalk.com/)
+
 Link to Sprint #1: [Sprint List](https://kennesawedu.sharepoint.com/:w:/r/sites/Team-Group6SWE-4713AppDomain/_layouts/15/doc2.aspx?sourcedoc=%7B2811871A-3662-47A8-8703-3DB4D9BFF3A7%7D&file=SWE4713%20-%20Application%20Domain%20-%20Sprint%201%20-%20Feature%20for%20User%20Interface%20Module.docx&action=default&mobileredirect=true&DefaultItemOpen=1&ct=1643793612811&wdOrigin=OFFICECOM-WEB.MAIN.OTHER&cid=74f90ef7-ed49-4ef0-b2a7-c1d3885e0556)
 
 ## Project Tracking
@@ -19,15 +20,15 @@ Link to Sprint #1: [Sprint List](https://kennesawedu.sharepoint.com/:w:/r/sites/
    - [x] Create the Database for the project in AWS - JS
    - [x] Need to figure out how to map DB file to docker container - JS
    - [x] Create an ER Diagram for Database Design - SS
-   - [ ] Finish high fidelity design for the login - RW
-   - [ ] Create an App logo - RW
+   - [x] Finish high fidelity design for the login - RW
+   - [x] Create an App logo - RW
    - [ ] Sprint 1 - Task #1 - #5 (Backend) - JR
    - [ ] Sprint 1 - Task #6 - #8 (Backend) - JP
    - [ ] Sprint 1 - Task #9 - #15 (Backend) - Team
    - [ ] Sprint 1 - Task #16 - #20 (Backend) - JS
    - [ ] Sprint 1 - Task #1 - #5 (Frontend) - RW
    - [x] Sprint 1 - Task #6 - #8 (Frontend) - LT
-   - [ ] Sprint 1 - Task #9 - #15 (Frontend) - SS
+   - [x] Sprint 1 - Task #9 - #15 (Frontend) - SS
    - [ ] Sprint 1 - Task #16 - #20 (Frontend) - Team
 
 
