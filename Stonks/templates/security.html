@@ -25,7 +25,8 @@
             <p id="step1">Email Input</p>
             <p id="step2">Security</p>
         </div>
-        <form>
+        <form method='POST' action='/'>
+            {% csrf_token %}
             <p id="description">Please choose a question and fill out the answer in the security form below.</p>
             <label for="question">Select a question:</label>
             <select id="question" name="">
@@ -34,7 +35,7 @@
                 <option value="Question 3">What is your mother's maiden name?</option>
             </select>
             <input type="text" name="" placeholder="Answer">
-            <input type="submit" name="" value="Send Email">
+            <input type="submit" name="submit" value="Send Email">
             <a href="/forgotPass">&#8592 Back</a>
         </form>
     </div>

@@ -25,10 +25,11 @@
             <p id="step1">Email Input</p>
             <p id="step2">Security</p>
         </div>
-            <form>
+            <form method='POST'>
+                {% csrf_token %}
                 <p id="description">Please enter the email address you'd like the password reset information to go to.</p>
-                <input type="text" name="" placeholder="Enter Email">
-                <input type="submit" name="" value="Submit">
+                <input type="text" name="email" maxlength="100" placeholder="Enter Email" required>
+                <input type="submit" name="forgotPass" value="Submit">
                 <a href="/">Back to login</a>
             </form>
         </div>

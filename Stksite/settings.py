@@ -152,3 +152,5 @@ STATIC_ROOT = 'static'
 STATICFILES_DIRS = [
     "./Stonks/static"
 ]
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
