@@ -6,6 +6,7 @@
 <head>
     <title>Create an Account</title>
     <link rel="stylesheet" type="text/css" href="{% static 'newUser.css' %}">
+    <link rel="icon" type="image/png" href="{%static 'Stonks.png' %}">
     <script type="text/javascript" src="{% static '/js/jquery-3.6.0.js' %}"></script>
 </head>
 <script>
@@ -65,8 +66,7 @@
         $('#password').keyup(function(){
             // Validate length
             var value = this.value;
-            var length = 8;
-            if(value >= 8) {
+            if(value.length >= 8) {
                 $('#length').removeClass('invalid');
                 $('#length').addClass('valid');
             } else {
@@ -92,13 +92,20 @@
     }
 
     function generateAlert(classType){
-        $(".newUserAccount").prepend('p').addClass(classType);
+        $(".newUserAccount").prepend('You have successfully created an account!').addClass(classType);
     }
 </script>
 
 <body>
     <form method="POST" action="/">
         {% csrf_token %}
+        <div id="message" style="display: none;">
+            <h3>Password must contain the following:</h3>
+            <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+            <p id="capital" class="invalid">First character is <b>capital (uppercase)</b> letter</p>
+            <p id="number" class="invalid">A <b>number</b></p>
+            <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+        </div>
         <div class="newUserAccount">
             <h1>Create an Account</h1>
             <input type="fname" name="lname" id="fname" placeholder="First Name">
@@ -107,13 +114,6 @@
             <input type="password" id="password" name="password" placeholder="Password"
                 pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required
                 title="Must be a minimum of 8 characters, first letter is capitalized, and has mixed letters/numbers">
-            <div id="message" style="display: none;">
-                <h3>Password must contain the following:</h3>
-                <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
-                <p id="capital" class="invalid">First character is <b>capital (uppercase)</b> letter</p>
-                <p id="number" class="invalid">A <b>number</b></p>
-                <p id="length" class="invalid">Minimum <b>8 characters</b></p>
-            </div>
             <input type="password" id="confirmPassword" placeholder="Confirm Password">
             <input type="submit" id="submit" name="Submit" value="Create Account">
             <a href="/">Already have an account?</a><br>

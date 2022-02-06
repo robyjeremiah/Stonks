@@ -23,3 +23,6 @@ def passwordReset(request):
 
 def passwordConfirm(request):
     return render(request, 'passwordConfirm.html')
+
+def generalHome(request):
+    return render(request, 'generalHome.html')

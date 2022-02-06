@@ -11,4 +11,5 @@ urlpatterns = [
     path('emailSent/', views.emailSent, name='emailSent'),
     path('passwordReset/', views.passwordReset, name='passwordReset'),
     path('passwordConfirm/', views.passwordConfirm, name='passwordConfirm'),
+    path('generalHome/', views.generalHome, name='userHome'),
 ]
