@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 #database operating system variable
-OS = True
+OS = False
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -105,7 +105,7 @@ else:
             'NAME': 'Stonks',
             'USER': 'jsprin',
             'PASSWORD': 'jsprin1234',
-            'HOST': 'mariadb',
+            'HOST': 'Stonks_mariadb',
             'PORT': 3306
         }
     }
@@ -151,3 +151,5 @@ STATIC_ROOT = 'static'
 STATICFILES_DIRS = [
     "./Stonks/static"
 ]
+
+AUTH_USER_MODEL = 'Stonks.User'
