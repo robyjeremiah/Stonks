@@ -92,36 +92,53 @@ input[type="email"] {
 
 #message {
     display: none;
-    background: #f1f1f1;
-    color: #000;
+    background: #fff;
+    color: #6F6236;
+    opacity: 0.95;
     position: relative;
     padding: 20px;
-    margin-top: 10px;
+    border-radius: 5px;
+    box-sizing: border-box; /* Sit on top of the page content */
+    width: 300px; /* Full width (cover the whole page) */
+    height: 350px; /* Full height (cover the whole page) */
+    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer; /* Add a pointer on hover */
+    margin: 0 auto;
+    float: right;
 }
 
 #message p {
     padding: 10px 35px;
-    font-size: 18px;
+    font-size: 12px;
 }
 
 /* Add a green text color and a checkmark when the requirements are right */
 .valid {
     color: green;
+    content: \2713;
   }
   
   .valid:before {
     position: relative;
     left: -35px;
-    content: "&#10004;";
+    content: "\2713";
   }
   
   /* Add a red text color and an "x" icon when the requirements are wrong */
   .invalid {
     color: red;
+    content: "\2713";
   }
   
   .invalid:before {
     position: relative;
     left: -35px;
-    content: "&#10006;";
+    content: "\2713";
+  }
+
+  .alert {
+    padding: 20px;
+    background-color: #f44336; /* Red */
+    color: white;
+    margin-bottom: 15px;
   }

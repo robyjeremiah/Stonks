@@ -3,7 +3,27 @@
     <head>
         <title>Stonks Home Page</title>
         <link rel="stylesheet" type="text/css" href="{% static 'home.css' %}" />
+        <script type="text/javascript" src="{% static '/js/jquery-3.6.0.js' %}"></script>
     </head>
+    <script>
+        function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown menu if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+    </script>
     <body>
         <div class="banner">
             <div class="navbar">
@@ -12,15 +32,16 @@
                     <li><a href="#">Home</a></li>
                     <li><a href="#">Portfolio</a></li>
                     <li><a href="#">Reports</a></li>
-                    <li><li>
+                    <li>
                         <div class="dropdown">
-                         <button class="dropbtn"><img src="Avatar.png" class="avatar"></button>
-                         <div class="dropdown-content">
-                           <a href="#"><img src="{% static 'images/user.png' %}"> My Profile</a>
-                           <a href="#"><img src="{% static 'images/books.png' %}"> Ledgers</a>
-                           <a href="#"><img src="{% static 'images/logout.png' %}"> Logout</a>
-                         </div>
-                     </li>
+                            <button onclick="myFunction()" class="dropbtn"></button>
+                            <div id="myDropdown" class="dropdown-content">
+                              <a href="#">My Profile</a>
+                              <a href="#">Accounts</a>
+                              <a href="#">Ledgers</a>
+                            </div>
+                          </div>
+                    </li>
                 </ul>
             </div>
             <div class="content">
