@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'fontawesome-free',
 ]
 
 MIDDLEWARE = [
@@ -91,8 +92,8 @@ elif (OS == True):
         'default': {
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'Stonks',
-            'USER': 'jsprin',
-            'PASSWORD': 'jsprin1234',
+            'USER': 'jeremiah',
+            'PASSWORD': 'roby1234',
             'HOST': 'Stonks_mysql',
             'PORT': 3306
         }
@@ -102,8 +103,8 @@ else:
         'default': {
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'Stonks',
-            'USER': 'ltaylor',
-            'PASSWORD': 'ltaylor555',
+            'USER': 'jsprin',
+            'PASSWORD': 'jsprin1234',
             'HOST': 'Stonks_mariadb',
             'PORT': 3306
         }
@@ -152,3 +153,5 @@ STATIC_ROOT = 'static'
 STATICFILES_DIRS = [
     "./Stonks/static"
 ]
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
