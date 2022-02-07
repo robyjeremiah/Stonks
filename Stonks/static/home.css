@@ -114,11 +114,15 @@ button:hover{
     width: 50px;
     height: 50px;
     border-radius: 50%;
+    border: none;
+    background-color: #6F6236;
   }
 
 /* Dropdown Button */
 .dropbtn {
     background: url("images/Avatar.png");
+    background-color: #6F6236;
+    border: none;
     cursor: pointer;
     vertical-align: middle;
     width: 50px;
@@ -156,7 +160,18 @@ button:hover{
   }
   
   /* Change color of dropdown links on hover */
-  .dropdown-content a:hover {background-color: #ddd}
+  .dropdown-content a:hover {background-color: #BCAB6F;}
   
   /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
   .show {display:block;}
+
+  .fas{
+    color: #6F6236;
+  }
+  .far{
+      color: #6F6236;
+  }
+
+  .dropdown-content h3{
+      text-align: center;
+  }
