@@ -20,6 +20,9 @@ def newUser(request):
 def forgotPass(request):
     return render(request, 'forgotPass.html')
 
+def adminHome(request):
+    return render(request, 'adminhome.html')
+
 def security(request):
     return render(request, 'security.html')
 

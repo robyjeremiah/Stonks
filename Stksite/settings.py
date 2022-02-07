@@ -99,8 +99,8 @@ else:
         'default': {
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'Stonks',
-            'USER': 'ltaylor',
-            'PASSWORD': 'ltaylor555',
+            'USER': 'jsprin',
+            'PASSWORD': 'jsprin1234',
             'HOST': 'Stonks_mariadb',
             'PORT': 3306
         }
