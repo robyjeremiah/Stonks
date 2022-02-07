@@ -53,6 +53,7 @@ h1 {
 input[type="fname"],
 input[type="lname"],
 input[type="password"],
+input[type="date"],
 input[type="email"] {
     border: none;
     border-bottom: 1px solid #fff;
