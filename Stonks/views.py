@@ -26,3 +26,6 @@ def passwordConfirm(request):
 
 def generalHome(request):
     return render(request, 'generalHome.html')
+
+def adminHome(request):
+    return render(request, 'adminHome.html')
