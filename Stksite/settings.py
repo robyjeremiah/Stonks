@@ -8,8 +8,11 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-#database operating system variable
-OS = False
+import environ
+
+# Setting up environment variables for the project
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -83,25 +86,14 @@ if 'RDS_HOSTNAME' in os.environ:
             'PORT': os.environ['RDS_PORT'],
         }
     }
-elif (OS == True):
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'Stonks',
-            'USER': 'jsprin',
-            'PASSWORD': 'jsprin1234',
-            'HOST': 'Stonks_mysql',
-            'PORT': 3306
-        }
-    }
 else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'Stonks',
-            'USER': 'jsprin',
-            'PASSWORD': 'jsprin1234',
-            'HOST': 'Stonks_mariadb',
+            'NAME': env('DB_NAME'),
+            'USER': env('MY_USER'),
+            'PASSWORD': env('MY_PASSWORD'),
+            'HOST': env('DB_ENV'),
             'PORT': 3306
         }
     }
