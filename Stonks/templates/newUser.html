@@ -15,58 +15,37 @@
         confirmPassword();
     })
 
-    function validatePassword(){
-        $("#password").focus(function () {
-            $("#message").show();
+    function validatePassword() {
+        // Shows the required field when password is focused on
+        $('#password').focus(function () {
+            $('.required').show();
+        })
+        // Hides the required field for when password is not focused on
+        $('#password').blur(function () {
+            $('.required').hide();
         })
 
-        $("#password").blur(function () {
-            $("#message").hide();
-        })
-
-        $('#password').keyup(function(){
-            // Validates lowercase for password
+        // Requirement #1 - Starts with a capitalized letter
+        $('#password').keyup(function () {
             var value = this.value;
-            var lowerCaseletters = /[a-z]/g;
-            if(lowerCaseletters.test(value)){
-                $('#letter').removeClass('invalid');
-                $('#letter').addClass('valid');
-            } else {
-                $('#letter').removeClass('valid');
-                $('#letter').addClass('invalid');
-            }
-        })
-
-        $('#password').keyup(function(){
-            // Validates uppercase for password
-            var value = this.value;
-            var upperCaseLetters = /[A-Z]/g;
-            if(upperCaseLetters.test(value)){
+            var uppercase = /[A-Z]/g;
+            if (uppercase.test(value.charAt(0))) {
+                console.log('success1');
                 $('#capital').removeClass('invalid');
                 $('#capital').addClass('valid');
             } else {
                 $('#capital').removeClass('valid');
                 $('#capital').addClass('invalid');
             }
+
+
         })
 
-        $('#password').keyup(function(){
-            // Validates numbers for password
+        // Requirement #2 - At least 8 characters
+        $('#password').keyup(function () {
             var value = this.value;
-            var numbers = /[0-9]/g;
-            if(numbers.test(value)){
-                $('#number').removeClass('invalid');
-                $('#number').addClass('valid');
-            } else {
-                $('#number').removeClass('valid');
-                $('#number').addClass('invalid');
-            }
-        })
-
-        $('#password').keyup(function(){
-            // Validate length
-            var value = this.value;
-            if(value.length >= 8) {
+            if (value.length >= 8) {
+                console.log('success2');
                 $('#length').removeClass('invalid');
                 $('#length').addClass('valid');
             } else {
@@ -74,48 +53,59 @@
                 $('#length').addClass('invalid');
             }
         })
-    }
 
-    function confirmPassword(){
-        $('#submit').click(function(){
-            var password = $('#password').val();
-            var confirmPass = $('#confirmPassword').val();
+        // Requirement #3 - At least one letter, number, and special character is used
+        $("#password").keyup(function () {
+            var value = this.value;
+            var lowercase = /[a-z]/g;
+            var numbers = /[0-9]/g;
+            var specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
 
-            if(password != confirmPass){
-                generateAlert('fail');
-                alert('Passwords did not match.');
+            if (lowercase.test(value) && numbers.test(value) && specialChars.test(value)) {
+                console.log('success3');
+                $('#mixed').removeClass('invalid');
+                $('#mixed').addClass('valid');
             } else {
-                generateAlert('success');
-                alert('Password created successfully!');
+                $('#mixed').removeClass('valid');
+                $('#mixed').addClass('invalid');
             }
+
         })
     }
 
-    function generateAlert(classType){
-        $(".newUserAccount").prepend('You have successfully created an account!').addClass(classType);
+    function confirmPassword() {
+        $('#submit').click(function () {
+            var password = $('#password').val();
+            var confirmPass = $('#confirmPassword').val();
+
+            if (password != confirmPass) {
+                alert('Passwords did not match.');
+            } else {
+                alert('Password created successfully!');
+            }
+        })
     }
 </script>
 
 <body>
     <form method="POST" action="/">
         {% csrf_token %}
-        <div id="message" style="display: none;">
-            <h3>Password must contain the following:</h3>
-            <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
-            <p id="capital" class="invalid">First character is <b>capital (uppercase)</b> letter</p>
-            <p id="number" class="invalid">A <b>number</b></p>
-            <p id="length" class="invalid">Minimum <b>8 characters</b></p>
-        </div>
         <div class="newUserAccount">
             <h1>Create an Account</h1>
             <input type="fname" name="lname" id="fname" placeholder="First Name">
             <input type="lname" name="fname" id="lname" placeholder="Last Name">
             <input type="email" name="email" id="email" placeholder="Email">
             <input type="date" name="date" id="date" placeholder="Date of Birth">
-            <input type="password" id="password" name="password" placeholder="Password"
-                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required
-                title="Must be a minimum of 8 characters, first letter is capitalized, and has mixed letters/numbers">
-            <input type="password" id="confirmPassword" placeholder="Confirm Password">
+            <input type="password" name="password" id="password" placeholder="New Password">
+            <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password">
+            <div class="required" style="display:none">
+                <p>Passwords must contain the following:</p>
+                <ul>
+                    <li id='capital' class="invalid">Start with a letter</li>
+                    <li id='length' class="invalid">At least 8 characters</li>
+                    <li id='mixed' class="invalid">At least one letter, number, and special character each</li>
+                </ul>
+            </div>
             <input type="submit" id="submit" name="Submit" value="Create Account">
             <a href="/">Already have an account?</a><br>
         </div>

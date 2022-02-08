@@ -9,13 +9,14 @@ from django.db.models.query_utils import Q
 from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
+from django.contrib.auth.forms import UserCreationForm
 
-# Create your views here.
 def index(request):
     return render(request, 'login.html')
 
 def newUser(request):
-    return render(request, 'newUser.html')
+    form = UserCreationForm()
+    return render(request, 'newUser.html', {'form': form})
 
 def forgotPass(request):
     return render(request, 'forgotPass.html')
