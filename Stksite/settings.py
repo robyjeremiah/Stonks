@@ -30,7 +30,7 @@ ALLOWED_HOSTS = ['Stonks-env.eba-p7p3wuag.us-west-2.elasticbeanstalk.com',
 # Application definition
 
 INSTALLED_APPS = [
-    'Stonks',
+    'Stonks.apps.StonksConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -99,8 +99,8 @@ else:
         'default': {
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'Stonks',
-            'USER': 'ltaylor',
-            'PASSWORD': 'ltaylor555',
+            'USER': 'jsprin',
+            'PASSWORD': 'jsprin1234',
             'HOST': 'Stonks_mariadb',
             'PORT': 3306
         }
