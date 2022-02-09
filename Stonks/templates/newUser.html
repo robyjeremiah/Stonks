@@ -7,17 +7,20 @@
             <link rel="stylesheet" type="text/css" href="{% static 'newUser.css' %}">
     </head>
     <body>
-        <form>
-            <div class="newUserAccount">
+        <!-- <form method="POST"></form>> -->
+        <form action="" method="POST">
+        <div class="newUserAccount">
             <h1>Create an Account</h1>
-            <input type="text" name="" placeholder="Username">
+            <!-- <input type="text" name="" placeholder="Username">
             <input type="fname" name="" placeholder="First Name">
-            <input type="lname" name="" placeholder="Last Name">
+            <input type="lname" name="" placeholder="Last Name"> -->
             <!--input type="date" name="Date of Birth" placeholder="Date of Birth"-->
-            <input type="email" name="" placeholder="Email">
+            <!-- <input type="email" name="" placeholder="Email">
             <input type="password" name="" placeholder="Password">
-            <input type="password" name="" placeholder="Confirm Password">
-            <input type="submit" name="" value="Create Account">
+            <input type="password" name="" placeholder="Confirm Password"> -->
+            {% csrf_token %} 
+            {{form.as_table}}
+            <input type="submit" value="Create Account">  
             <a href="/">Already have an account?</a><br>
         </div>
     </form>
