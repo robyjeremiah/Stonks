@@ -8,7 +8,7 @@
     <div class="loginbox">
       <img src="{% static 'images/Avatar.png' %}" class="avatar">
       <h1>Login Here</h1>
-      <form>
+      <form method='POST' action='/generalHome/'>
         {% csrf_token %}
         <p>Username</p>
         <input type="text" name="" placeholder="Enter Username" />
