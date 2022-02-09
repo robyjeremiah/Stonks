@@ -2,24 +2,114 @@
 
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Create an Account</title>
-            <link rel="stylesheet" type="text/css" href="{% static 'newUser.css' %}">
-    </head>
-    <body>
-        <form>
-            <div class="newUserAccount">
+
+<head>
+    <title>Create an Account</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'newUser.css' %}">
+    <link rel="icon" type="image/png" href="{%static 'Stonks.png' %}">
+    <script type="text/javascript" src="{% static '/js/jquery-3.6.0.js' %}"></script>
+</head>
+<script>
+    $(document).ready(function () {
+        validatePassword();
+        confirmPassword();
+    })
+
+    function validatePassword() {
+        // Shows the required field when password is focused on
+        $('#password').focus(function () {
+            $('.required').show();
+        })
+        // Hides the required field for when password is not focused on
+        $('#password').blur(function () {
+            $('.required').hide();
+        })
+
+        // Requirement #1 - Starts with a capitalized letter
+        $('#password').keyup(function () {
+            var value = this.value;
+            var uppercase = /[A-Z]/g;
+            if (uppercase.test(value.charAt(0))) {
+                console.log('success1');
+                $('#capital').removeClass('invalid');
+                $('#capital').addClass('valid');
+            } else {
+                $('#capital').removeClass('valid');
+                $('#capital').addClass('invalid');
+            }
+
+
+        })
+
+        // Requirement #2 - At least 8 characters
+        $('#password').keyup(function () {
+            var value = this.value;
+            if (value.length >= 8) {
+                console.log('success2');
+                $('#length').removeClass('invalid');
+                $('#length').addClass('valid');
+            } else {
+                $('#length').removeClass('valid');
+                $('#length').addClass('invalid');
+            }
+        })
+
+        // Requirement #3 - At least one letter, number, and special character is used
+        $("#password").keyup(function () {
+            var value = this.value;
+            var lowercase = /[a-z]/g;
+            var numbers = /[0-9]/g;
+            var specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+
+            if (lowercase.test(value) && numbers.test(value) && specialChars.test(value)) {
+                console.log('success3');
+                $('#mixed').removeClass('invalid');
+                $('#mixed').addClass('valid');
+            } else {
+                $('#mixed').removeClass('valid');
+                $('#mixed').addClass('invalid');
+            }
+
+        })
+    }
+
+    function confirmPassword() {
+        $('#submit').click(function () {
+            var password = $('#password').val();
+            var confirmPass = $('#confirmPassword').val();
+
+            if (password != confirmPass) {
+                alert('Passwords did not match.');
+            } else {
+                alert('Password created successfully!');
+            }
+        })
+    }
+</script>
+
+<body>
+    <form method="POST" action="/">
+        {% csrf_token %}
+        <div class="newUserAccount">
             <h1>Create an Account</h1>
-            <input type="text" name="" placeholder="Username">
-            <input type="fname" name="" placeholder="First Name">
-            <input type="lname" name="" placeholder="Last Name">
-            <!--input type="date" name="Date of Birth" placeholder="Date of Birth"-->
-            <input type="email" name="" placeholder="Email">
-            <input type="password" name="" placeholder="Password">
-            <input type="password" name="" placeholder="Confirm Password">
-            <input type="submit" name="" value="Create Account">
-            <a href="/login">Already have an account?</a><br>
+            <input type="fname" name="lname" id="fname" placeholder="First Name">
+            <input type="lname" name="fname" id="lname" placeholder="Last Name">
+            <input type="email" name="email" id="email" placeholder="Email">
+            <input type="date" name="date" id="date" placeholder="Date of Birth">
+            <input type="password" name="password" id="password" placeholder="New Password">
+            <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password">
+            <div class="required" style="display:none">
+                <p>Passwords must contain the following:</p>
+                <ul>
+                    <li id='capital' class="invalid">Start with a letter</li>
+                    <li id='length' class="invalid">At least 8 characters</li>
+                    <li id='mixed' class="invalid">At least one letter, number, and special character each</li>
+                </ul>
+            </div>
+            <input type="submit" id="submit" name="Submit" value="Create Account">
+            <a href="/">Already have an account?</a><br>
         </div>
     </form>
-    </body>
+</body>
+
 </html>
