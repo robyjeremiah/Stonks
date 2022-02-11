@@ -50,8 +50,6 @@ h1 {
 }
 
 .newUserAccount input[type="text"],
-input[type="fname"],
-input[type="lname"],
 input[type="password"],
 input[type="date"],
 input[type="email"] {
