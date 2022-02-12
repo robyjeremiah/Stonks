@@ -72,7 +72,7 @@ Link to Sprint #1: [Sprint List](https://kennesawedu.sharepoint.com/:w:/r/sites/
 
   - Navigate to the directory for the project. To create a virtual environment in the current directory:
 
-    `virtual env <my_env_name>`
+    `virtualenv <my_env_name>`
 
   - Activate virtual env by navigating to the activation file:
 
