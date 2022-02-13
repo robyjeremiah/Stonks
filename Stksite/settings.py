@@ -88,11 +88,11 @@ if 'RDS_HOSTNAME' in os.environ:
     }
 elif(env('DB_ENV') == 'SQLite'):
     DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
 else:
     DATABASES = {
         'default': {

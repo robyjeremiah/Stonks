@@ -10,8 +10,6 @@ services:
       - MYSQL_USER=${MY_USER}
       - MYSQL_PASSWORD=${MY_PASSWORD}
       - MYSQL_ROOT_PASSWORD=${ROOT_PASSWORD}
-    volumes:
-      - .dbdata:/var/lib/mysql
     networks:
       - stonks-network
     ports:
