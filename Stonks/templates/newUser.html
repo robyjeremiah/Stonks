@@ -2,27 +2,37 @@
 
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Create an Account</title>
-            <link rel="stylesheet" type="text/css" href="{% static 'newUser.css' %}">
-    </head>
-    <body>
-        <!-- <form method="POST"></form>> -->
-        <form action="" method="POST">
+
+<head>
+    <title>Create an Account</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'newUser.css' %}">
+    <link rel="icon" type="image/png" href="{%static 'Stonks.png' %}">
+    <script type="text/javascript" src="{% static '/js/jquery-3.6.0.js' %}"></script>
+    <script type="text/javascript" src="{% static '/js/app.js' %}"></script>
+</head>
+<body>
+    <form method="POST" action="/">
+        {% csrf_token %}
         <div class="newUserAccount">
             <h1>Create an Account</h1>
-            <!-- <input type="text" name="" placeholder="Username">
-            <input type="fname" name="" placeholder="First Name">
-            <input type="lname" name="" placeholder="Last Name"> -->
-            <!--input type="date" name="Date of Birth" placeholder="Date of Birth"-->
-            <!-- <input type="email" name="" placeholder="Email">
-            <input type="password" name="" placeholder="Password">
-            <input type="password" name="" placeholder="Confirm Password"> -->
-            {% csrf_token %} 
-            {{form.as_table}}
-            <input type="submit" value="Create Account">  
+            <input type="text" name="fname" id="fname" placeholder="First Name">
+            <input type="text" name="lname" id="lname" placeholder="Last Name">
+            <input type="email" name="email" id="email" placeholder="Email">
+            <input type="date" name="date" id="date" placeholder="Date of Birth">
+            <input type="password" name="password" id="password" placeholder="New Password">
+            <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password">
+            <div class="required" style="display:none">
+                <p>Passwords must contain the following:</p>
+                <ul>
+                    <li id='capital' class="invalid">Start with a letter</li>
+                    <li id='length' class="invalid">At least 8 characters</li>
+                    <li id='mixed' class="invalid">At least one letter, number, and special character each</li>
+                </ul>
+            </div>
+            <input type="submit" id="submit" name="Submit" value="Create Account">
             <a href="/">Already have an account?</a><br>
         </div>
     </form>
-    </body>
+</body>
+
 </html>

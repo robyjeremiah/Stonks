@@ -26,6 +26,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - 9000:8000
+    restart: always
     volumes:
       - .:/Stonks
     networks:

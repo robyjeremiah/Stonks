@@ -1,14 +1,27 @@
 from django.contrib import admin
 from django.urls import path
+from django.contrib.auth import views as auth_views
 
 from . import views
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    # Login Views
+    path('', auth_views.LoginView.as_view(template_name='login.html'), name='index'),
+    path('generalHome/', views.generalHome, name='userHome'),
+    # Create User Views
     path('newUser/', views.newUser, name='newUser'),
-    path('forgotPass/', views.forgotPass, name='forgotPass'),
+
+    # Forgot Password View
     path('security/', views.security, name='security'),
-    path('emailSent/', views.emailSent, name='emailSent'),
-    path('passwordReset/', views.passwordReset, name='passwordReset'),
     path('passwordConfirm/', views.passwordConfirm, name='passwordConfirm'),
+ 
+    # Django Admin Forgot Password Functionalities
+    path('adminHome/', views.adminHome, name='adminHome'),
+    path ('forgotPass/', auth_views.PasswordResetView.as_view(template_name='forgotPass.html'), name="reset_password"),
+
+    path ('emailSent/', auth_views.PasswordResetDoneView.as_view(template_name='emailSent.html'), name="password_reset_done"),
+
+    path ('passwordReset/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(template_name='passwordReset.html'), name="password_reset_confirm"),
+
+    # path ('passwordConfirm/', auth_views.PasswordResetCompleteView.as_view(template_name='passwordConfirm.html'), name="password_reset_complete"),
 ]

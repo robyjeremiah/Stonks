@@ -61,9 +61,6 @@ coverage.xml
 .Stonks-env
 .dbdata
 data
-.venv
-.venv\Scripts
-
 
 
 # Visual Studio Code # 
@@ -78,5 +75,6 @@ data
 .DS_Store
 
 # Visual Studio #
-.vs/
-.vscode/
+.vs
+.vscode
+Todo.txt

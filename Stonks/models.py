@@ -61,6 +61,22 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name','dob']
 
-    # class Meta:
-    #     verbose_name = _('user')
-    #     verbose_name_plural = _('users')
+# Security Questions stored in database
+class SecurityQuestion(models.Model):
+    id = models.AutoField(primary_key=True)
+    question = models.CharField(max_length=250, null=False)
+
+    def __str__(self):
+        return self.question
+    class Meta:
+        db_table = 'security_questions'
+
+class SecurityAnswer(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    security_questions = models.ForeignKey(SecurityQuestion, on_delete=models.CASCADE)
+    answer = models.CharField(max_length=250, null=False)
+    
+    def __str__(self):
+        return self.answer
+    class Meta:
+        db_table = 'security_answers'
