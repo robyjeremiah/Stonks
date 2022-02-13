@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from Stonks.models import SecurityQuestion
 from .forms import CustomUserForm
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse
@@ -21,12 +21,12 @@ def index(request):
         password = request.POST.get("password")
         user = authenticate(request, username = username, password=password)
         if user is not None:
-            return render(request, 'security.html')
+            login(request, user)
+            return redirect('/adminHome/')
         else:
             return render(request, 'login.html')
     else:
         return render(request, 'login.html')
-    #return render(request, 'login.html')
 
 def newUser(request):
     if request.method == 'POST':
