@@ -27,13 +27,17 @@
         </div>
         <form method='POST' action='/'>
             {% csrf_token %}
+            {% if  security_question_list %}
             <p id="description">Please choose a question and fill out the answer in the security form below.</p>
             <label for="question">Select a question:</label>
-            <select id="question" name="">
-                <option value="Question 1">What is the name of your favorite pet?</option>
-                <option value="Question 2">Where did you attend middle-school?</option>
-                <option value="Question 3">What is your mother's maiden name?</option>
+            <select id="question" name="question">
+                {% for security_question in security_question_list %}
+                <option value="Question {{ security_question.id }}">{{ security_question.question }}</option>
+                {% endfor %}
             </select>
+            {% else %}
+                <p> No security questions are available.</p>
+            {% endif %}
             <input type="text" name="" placeholder="Answer">
             <input type="submit" name="submit" value="Send Email">
             <a href="/forgotPass">&#8592 Back</a>

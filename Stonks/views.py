@@ -1,9 +1,8 @@
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
-from django.template import loader
+from Stonks.models import SecurityQuestion
 from .forms import CustomUserForm
 from django.contrib.auth import authenticate
-from multiprocessing import context
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse
@@ -14,7 +13,7 @@ from django.db.models.query_utils import Q
 from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
-from django.contrib.auth.forms import UserCreationForm
+from django.template import loader
 
 def index(request):
     if request.method == 'POST':
@@ -48,7 +47,11 @@ def adminHome(request):
     return render(request, 'adminhome.html')
 
 def security(request):
-    return render(request, 'security.html')
+    security_question_list = SecurityQuestion.objects.all()
+    context = {
+        'security_question_list': security_question_list
+    }
+    return render(request, 'security.html', context)
 
 def emailSent(request):
     return render(request, 'emailSent.html')
