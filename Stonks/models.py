@@ -44,7 +44,7 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    username = models.CharField(_('username'), max_length=30, blank=True)
+    username = models.CharField(_('username'), max_length=30, unique=True, blank=True)
     email = models.EmailField(_('email address'), unique=True)
     first_name = models.CharField(_('first name'), max_length=30, blank=True)
     last_name = models.CharField(_('last name'), max_length=30, blank=True)
@@ -58,8 +58,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     objects = UserManager()
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name','dob']
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['email','first_name', 'last_name','dob']
 
 # Security Questions stored in database
 class SecurityQuestion(models.Model):
