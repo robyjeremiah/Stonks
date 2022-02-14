@@ -3,6 +3,7 @@
 <head>
     <title>Stonks Home Page</title>
     <link rel="stylesheet" type="text/css" href="{% static 'adminHome.css' %}" />
+    <link rel="stylesheet" href="{% static 'favicon.ico'%}">
     <script type="text/javascript" src="{% static '/js/jquery-3.6.0.js' %}"></script>
 </head>
 <script>
@@ -39,7 +40,7 @@ window.onclick = function(event) {
                             <a href="#">My Profile</a>
                             <a href="#">Accounts</a>
                             <a href="#">Ledgers</a>
-                            <a href="#">Log Out</a>
+                            <a href="/logout/">Log Out</a>
                         </div>
                     </div>
                 </li>
