@@ -50,11 +50,7 @@ def forgotPass(request):
     return render(request, 'forgotPass.html')
 
 def adminHome(request):
-    username = request.user.username
-    context = {
-        'username': username
-    }
-    return render(request, 'adminhome.html', context)
+    return render(request, 'adminhome.html')
 
 def security(request):
     security_question_list = SecurityQuestion.objects.all()
