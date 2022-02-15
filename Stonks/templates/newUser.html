@@ -11,16 +11,21 @@
     <script type="text/javascript" src="{% static '/js/app.js' %}"></script>
 </head>
 <body>
-    <form method="POST" action="/">
+    <form method="POST">
         {% csrf_token %}
         <div class="newUserAccount">
             <h1>Create an Account</h1>
+            {% if messages %}
+                {% for message in messages %}
+                <p{% if message.tags %} class=" message{{ message.tags }}"{% endif %}>{{ message }}</p>
+                {% endfor %}
+            {% endif %}
             {{ form.first_name }}
             {{ form.last_name }}
             {{ form.email }}
             {{ form.dob }}
-            {{ form.password }}
-            {{ form.confirmPassword }}
+            {{ form.password1 }}
+            {{ form.password2 }}
             <div class="required" style="display:none">
                 <p>Passwords must contain the following:</p>
                 <ul>

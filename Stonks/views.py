@@ -13,19 +13,24 @@ from django.db.models.query_utils import Q
 from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
+from django.contrib import messages
 
 def index(request):
     if request.method == 'POST':
         username = request.POST.get("username")
         password = request.POST.get("password")
         user = authenticate(request, username = username, password=password)
-        if user is not None:
+        if user is not None and user.is_superuser:
             login(request, user)
-            print('Logged In!')
+            print('Administrator Logged In!')
             return redirect('/adminHome/')
+        elif user is not None and user.is_staff:
+            login(request, user)
+            print('Accountant Logged In!')
+            return redirect('/generalHome/')
         else:
-            print('Not an authenticated user!')
-            return render(request, 'login.html')
+            messages.warning(request, 'Not an Authenticated User. Please Try Again.')
+            return redirect('/')
     else:
         return render(request, 'login.html')
 
@@ -39,12 +44,12 @@ def newUser(request):
         form = CustomUserForm(request.POST)
         if form.is_valid():
             form.save()
-            return render(request, 'login.html')
+            messages.success(request, 'Account created successfully!')
+            return redirect('newUser')
     else:
         form = CustomUserForm()
 
     return render(request, 'newUser.html', {'form': form})
-    #return render(request, 'newUser.html')
 
 def forgotPass(request):
     return render(request, 'forgotPass.html')
