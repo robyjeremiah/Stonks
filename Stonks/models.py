@@ -1,6 +1,5 @@
-from tokenize import group
 from django.contrib.auth.models import (
-    AbstractBaseUser, BaseUserManager, PermissionsMixin, Group
+    AbstractBaseUser, BaseUserManager, PermissionsMixin
 )
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -50,7 +49,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(_('date joined'), auto_now_add=True)
     address = models.CharField(_('address'), max_length=254, blank=True)
     dob = models.DateField(_('DateofBirth'),auto_now = False,blank = True, null = True)
-    group = Group.objects.get(name="Administrator")
     is_active = models.BooleanField(_('active'), default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
