@@ -1,13 +1,13 @@
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
-from Stonks.models import SecurityQuestion
+from Stonks.models import SecurityQuestion, User
 from .forms import CustomUserForm
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse
 from django.contrib.auth.forms import PasswordResetForm
-from django.contrib.auth.models import User
+from django.contrib.auth.models import Group
 from django.template.loader import render_to_string
 from django.db.models.query_utils import Q
 from django.utils.http import urlsafe_base64_encode
@@ -20,11 +20,11 @@ def index(request):
         username = request.POST.get("username")
         password = request.POST.get("password")
         user = authenticate(request, username = username, password=password)
-        if user is not None and user.is_superuser:
+        if user is not None and user.groups.filter(name='Administrator'):
             login(request, user)
             print('Administrator Logged In!')
             return redirect('/adminHome/')
-        elif user is not None and user.is_staff:
+        elif user is not None and user.groups.filter(name='Accountant'):
             login(request, user)
             print('Accountant Logged In!')
             return redirect('/generalHome/')
@@ -44,6 +44,9 @@ def newUser(request):
         form = CustomUserForm(request.POST)
         if form.is_valid():
             form.save()
+            new_user = User.objects.latest('id');
+            accountant = Group.objects.get(name='Accountant')
+            accountant.user_set.add(new_user)
             messages.success(request, 'Account created successfully!')
             return redirect('newUser')
     else:

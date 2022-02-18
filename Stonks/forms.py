@@ -2,6 +2,7 @@ from django import forms
 from .models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
+from django.contrib.auth.models import Group
 # https://dev.to/yahaya_hk/usercreation-form-with-multiple-fields-in-django-ek9
 
 
@@ -52,6 +53,5 @@ class CustomUserForm(UserCreationForm):
             user.username = str(user.first_name[0])+str(user.last_name)+str(user.dob.month)+tempyear
         else:
             user.username = str(user.first_name[0])+str(user.last_name)+"0"+str(user.dob.month)+tempyear
-        
         user.save()
 
