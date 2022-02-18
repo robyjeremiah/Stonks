@@ -1,7 +1,7 @@
+from .models import SecurityQuestion, User
+from .forms import CustomUserForm
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
-from Stonks.models import SecurityQuestion, User
-from .forms import CustomUserForm
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail, BadHeaderError
@@ -9,11 +9,12 @@ from django.http import HttpResponse
 from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.models import Group
 from django.template.loader import render_to_string
-from django.db.models.query_utils import Q
 from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+
 
 def index(request):
     if request.method == 'POST':
@@ -29,7 +30,7 @@ def index(request):
             print('Accountant Logged In!')
             return redirect('/generalHome/')
         else:
-            messages.warning(request, 'Not an Authenticated User. Please Try Again.')
+            messages.info(request, 'User OR Password is incorrect. Please Try Again.')
             return redirect('/')
     else:
         return render(request, 'login.html')
@@ -57,8 +58,13 @@ def newUser(request):
 def forgotPass(request):
     return render(request, 'forgotPass.html')
 
+@login_required(login_url='index')
 def adminHome(request):
     return render(request, 'adminhome.html')
+
+@login_required(login_url='login')
+def generalHome(request):
+    return render(request, 'generalHome.html')
 
 def security(request):
     security_question_list = SecurityQuestion.objects.all()
@@ -99,9 +105,3 @@ def passwordReset(request):
 
 def passwordConfirm(request):
     return render(request, 'passwordConfirm.html')
-
-def generalHome(request):
-    return render(request, 'generalHome.html')
-
-def adminHome(request):
-    return render(request, 'adminHome.html')
