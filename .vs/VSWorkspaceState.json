@@ -3,7 +3,11 @@
     "",
     "\\Stksite",
     "\\Stonks",
+    "\\Stonks\\static",
+    "\\Stonks\\static\\images",
+    "\\Stonks\\static\\js",
     "\\Stonks\\templates"
   ],
+  "SelectedNode": "\\Stonks\\static\\home.css",
   "PreviewInSolutionExplorer": false
 }
