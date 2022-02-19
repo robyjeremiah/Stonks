@@ -1,5 +1,6 @@
 from .models import SecurityQuestion, User
 from .forms import CustomUserForm
+from .decorators import allowed_users
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
@@ -14,7 +15,6 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-
 
 def index(request):
     if request.method == 'POST':
@@ -44,10 +44,9 @@ def newUser(request):
     if request.method == 'POST':
         form = CustomUserForm(request.POST)
         if form.is_valid():
-            form.save()
-            new_user = User.objects.latest('id');
+            user = form.save()
             accountant = Group.objects.get(name='Accountant')
-            accountant.user_set.add(new_user)
+            user.groups.add(accountant)
             messages.success(request, 'Account created successfully!')
             return redirect('newUser')
     else:
@@ -59,10 +58,12 @@ def forgotPass(request):
     return render(request, 'forgotPass.html')
 
 @login_required(login_url='index')
+@allowed_users(allowed_roles=['Administrator'])
 def adminHome(request):
     return render(request, 'adminhome.html')
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Accountant', 'Manager'])
 def generalHome(request):
     return render(request, 'generalHome.html')
 
