@@ -1,228 +1,126 @@
-*{
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
+.dropdown-content h3 {
+    text-align: center;
 }
 
-.banner{
-    width: 100%;
-    height: 100vh;
-    background-image: linear-gradient(#FFF8E3, #BCAB6F, #6F6236);
-    background-size: cover;
-    background-position: center;
-}
-
-.navbar{
-    width: 85%;
+.content {
+    width: 80%;
+    height: auto;
+    text-align: center;
     margin: auto;
-    padding: 35px 0;
-    display: flex;
-    align-items: center;
+}
+
+    .content h1 {
+        font-size: 70px;
+        color: #FFF8E3;
+        margin-top: 0px;
+        margin-bottom: 60px;
+    }
+
+.fields {
     justify-content: space-between;
+    height: auto;
+    column-gap: 50px;
 }
 
-.logo{
-    width: 120px;
-    cursor: pointer;
-}
-
-.navbar ul li{
-    list-style: none;
-    display: inline-block;
-    margin: 0 20px;
-    position: relative;
-}
-
-.navbar ul li a{
-    text-decoration: none;
-    color: #6F6236;
-    text-transform: uppercase;
-}
-
-.navbar ul li::after{
-    content:'';
-    height: 3px;
-    width: 0;
-    background: #FFF8E3;
-    position: absolute;
-    left: 0;
-    bottom: -10px;
-    transition: 0.5s;
-}
-
-.navbar ul li:hover::after{
-    width: 100%;
-}
-
-.content{
-    width: 100%;
-    position: absolute;
-    top: 35%;
-    transform: translateY(-50%);
-    text-align: center;
-    color: #FFF8E3;
-}
-
-.admincontent {
-    height: 200px;
-    width: 100%;
-    position: absolute;
-    top: 60%;
-}
-
-.adminone {
-    height: 100%;
-    width: 400px;
-    display: inline-block;
-    margin-left: 25%;
-    float: left;
-}
-
-.admintwo {
-    height: 100%;
-    width: 400px;
-    display: inline-block;
-    margin-right: 25%;
-    float: right;
-}
-
-.content h1{
-    font-size: 70px;
-    margin-top: 80px;
-}
-
-.content p{
-    margin: 20px auto;
-    font-weight: 100;
-    line-height: 25px;
-}
-
-#test {
-    width: 200px;
-    padding: 15px 0;
-    text-align: center;
-    margin: 20px 10px;
-    border-radius: 25px;
+.adduserbox {
+    padding: 30px;
+    background: #EEE3C5;
+    margin: auto;
+    margin-bottom: 50px;
+    padding-bottom: 20px;
+    width: 220px;
+    border-radius: 7px;
+    text-align: left;
     font-weight: bold;
-    border: 2px solid #6F6236;
-    background: transparent;
-    color: #fff;
+    box-shadow: 0px 10px 30px 5px rgba(0,0,0,0.15);
+    display: inline-block;
+}
+
+.adduserbox p {
+    margin: 0 0 5px 5px;
+    font-size: 14px;
+}
+
+#role, .adduserbox input[type=text],
+input[type=email],
+input[type=date],
+input[type=password] {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: solid 3px #AD9C64;
+    background: #EEE3C5;
+}
+
+.adduserbox input[type=submit] {
+    width: 70%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin: auto;
+    display: block;
+    border-radius: 50px;
     cursor: pointer;
-    position: relative;
-    overflow: hidden;
+    background: #AD9C64;
+    border: none;
+    margin-top: 5px;
+    color: #F7EDD2;
+    font-weight: bold;
 }
 
-span{
-    background: #BCAB6F;
-    height: 100%;
-    width: 0;
-    border-radius: 25px;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    z-index: -1;
-    transition: 0.5s;
+.adduserbox input[type=submit]:hover {
+    background: #7C6E41;
 }
 
-#test:hover span{
+.usertable {
+    display: inline-block;
+    border-collapse: collapse;
+    border-radius: 7px;
+    box-shadow: 0px 10px 30px 5px rgba(0,0,0,0.15);
+    background: #EEE3C5;
+    color: #6F6236;
+    margin: auto;
+    margin-bottom: 50px;
+    margin-left: 25px;
+    vertical-align: top;
+    height: 465px;
+    overflow: auto;
+}
+
+.usertable thead {
+    position: sticky;
+    top: 0;
+    background: #EEE3C5;
     width: 100%;
 }
 
-#test:hover{
-    border: none;
+.usertable thead::after {
+    content: '';
+    width: 90%;
+    height: 1px;
+    position: absolute;
+    bottom: 0;
+    left: 5%;
+    background: #6F6236;
 }
 
-.avatar {
-    vertical-align: middle;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-  }
-
-h2 {
+.usertable thead tr td {
+    padding: 15px;
+    color: #6F6236;
+    font-size: 20px;
+    font-weight: bold;
     text-align: center;
-    margin: 30px 0 30px 0;
-    background: yellow;
-    padding: 10px 0 10px 0;
-    font-weight: 500;
-    color: #FFF8E3;
-    background: linear-gradient(#BCAB6F, #6F6236);
-    border: #6F6236 solid 2px;
-    opacity: 0.9;
 }
 
-.fieldbox {
-    height: 50px;
-    padding-bottom: 15px;
-    border-bottom: 2px solid #6F6236;
+.usertable tbody {
+    overflow: auto;
 }
 
-.fieldbox a {
-    margin-left: 20px;
-    top: 62%;
-    position: absolute;
+.usertable tbody tr td {
+    text-align: center;
+    padding: 10px 30px 10px 30px;
 }
 
-#adminbutton {
-    width: 120px;
-    background: transparent;
-    color: #FFF8E3;
-    border-radius: 0;
-    float: right;
-    margin-right: 25px;
-    cursor: pointer;
-    border: 2px solid #6F6236;
-    padding: 10px 0 10px 0;
-    border-radius: 50px;
+.usertable a {
+    color: #47525E;
 }
-
-a {
-    text-decoration: none;
-    font-weight: bolder;
-    color: #FFF8E3;
-}
-
-/* Dropdown Button */
-.dropbtn {
-    background: url("images/Avatar.png");
-    cursor: pointer;
-    vertical-align: middle;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-  }
-  
-  /* Dropdown button on hover & focus */
-  .dropbtn:hover, .dropbtn:focus {
-    background-color: #2980B9;
-  }
-  
-  /* The container <div> - needed to position the dropdown content */
-  .dropdown {
-    position: relative;
-    display: inline-block;
-  }
-  
-  /* Dropdown Content (Hidden by Default) */
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-  }
-  
-  /* Links inside the dropdown */
-  .dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-  }
-  
-  /* Change color of dropdown links on hover */
-  .dropdown-content a:hover {background-color: #ddd}
-  
-  /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-  .show {display:block;}
