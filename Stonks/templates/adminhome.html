@@ -45,7 +45,7 @@
                     <td>
                         <select id="changerole" name="changerole">
                             {% for group in group_list %}
-                            <option value="group.id" {% if user.role == group.name %} select{% endif %}>{{ group.name }}</option>
+                            <option value="group.id">{{ group.name }}</option>
                             {% endfor %}
                         </select>
                     </td>

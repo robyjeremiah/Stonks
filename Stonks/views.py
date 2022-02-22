@@ -45,9 +45,10 @@ def newUser(request):
     if request.method == 'POST':
         form = CustomUserForm(request.POST)
         if form.is_valid():
-            user = form.save()
+            form.save()
+            new_user = User.objects.latest('id')
             accountant = Group.objects.get(name='Accountant')
-            user.groups.add(accountant)
+            accountant.user_set.add(new_user)
             messages.success(request, 'Account created successfully!')
             return redirect('newUser')
     else:
