@@ -42,7 +42,6 @@ class UserManager(BaseUserManager):
 
         return self._create_user(email, password, dob, first_name, last_name,**extra_fields)
 
-
 class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(_('username'), max_length=30, blank=True)
     email = models.EmailField(_('email address'), unique=True)
@@ -60,6 +59,79 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name','dob']
+
+class ChartOfAccounts(models.Manager):
+    def create_account(self, account_name, ):
+        
+        return
+    
+    userid =  models.IntegerField(_('User id'), max_length=30, blank=True)
+    
+    id = models.BigAutoField(primary_key=True)
+    account_name =  models.CharField(_('Account Name'), max_length=30, unique = True)
+    account_number =  models.IntegerField(_('Account Number'), max_length=30, blank=True)
+    account_description =  models.CharField(_('Account Description'), max_length=300, blank=True)
+    normal_side =  models.CharField(_('Normal Side'), max_length=30, blank=True)
+    account_category =  models.CharField(_('Account Category'), max_length=30, blank=True)
+    account_subcategory =  models.CharField(_('Account Subcategory'), max_length=30, blank=True)
+    Date_time_added =  models.DateTimeField(_('Date/Time Added'), max_length=30, blank=True,auto_now=True)
+    Comment =  models.CharField(_('username'), max_length=300, blank=True)
+    
+    initial_balance =  models.DecimalField(_('initial balance'), max_length=30, blank=True)
+    debit =  models.DecimalField(_('debit'), max_length=30, blank=True)
+    credit =  models.DecimalField(_('credit'), max_length=30, blank=True)
+    balance =  models.DecimalField(_('balance'), max_length=30, blank=True)
+    Order =  models.IntegerField(_('Order'), max_length=30, blank=True)
+    Statement =  models.CharField(_('Financial Statement'), max_length=30, blank=True)
+    
+    pass
+
+class Account(models.Model):
+    # ATP this point some of this is just notes for me
+    
+    # Statement = (
+    # ("Balance sheet", "Balance sheet"),
+    # ("Income statement", "Income statement"),
+    # ("Cash flow statement", "Cash flow statement"),)
+    
+    Account_Category= (
+    ("Assets", "Assets"),
+    ("Liabilities", "Liabilities"),
+    ("Equity Accounts", "Equity Accounts"),
+    ("Revenues", "Revenues"),
+    ("Expenses", "Expenses"),
+    ("Other", "Other"),)
+    
+    # Account_Number = (
+    # ("Assets", "100"),
+    # ("Liabilities", "200"),
+    # ("Equity Accounts", "300"),
+    # ("Revenues", "400"),
+    # ("Expenses", "500"),
+    # ("Other", "600"),
+    # )
+    
+    # Dont know what this iis
+    userid =  models.IntegerField(_('User id'), max_length=30, blank=True)
+    
+    id = models.BigAutoField(primary_key=True)
+    account_name =  models.CharField(_('Account Name'), max_length=30, unique = True)
+    account_number =  models.IntegerField(_('Account Number'), max_length=30, blank=True)
+    account_description =  models.CharField(_('Account Description'), max_length=300, blank=True)
+    normal_side =  models.CharField(_('Normal Side'), max_length=30, blank=True)
+    account_category =  models.CharField(_('Account Category'), max_length=30, blank=True)
+    account_subcategory =  models.CharField(_('Account Subcategory'), max_length=30, blank=True)
+    Date_time_added =  models.DateTimeField(_('Date/Time Added'), max_length=30, blank=True,auto_now=True)
+    Comment =  models.CharField(_('username'), max_length=300, blank=True)
+    
+    initial_balance =  models.DecimalField(_('initial balance'), max_length=30, blank=True)
+    debit =  models.DecimalField(_('debit'), max_length=30, blank=True)
+    credit =  models.DecimalField(_('credit'), max_length=30, blank=True)
+    balance =  models.DecimalField(_('balance'), max_length=30, blank=True)
+    Order =  models.IntegerField(_('Order'), max_length=30, blank=True)
+    Statement =  models.CharField(_('Financial Statement'), max_length=30, blank=True)
+    
+    
 
 # Security Questions stored in database
 class SecurityQuestion(models.Model):
