@@ -31,6 +31,10 @@ def index(request):
             login(request, user)
             print('Accountant Logged In!')
             return redirect('/generalHome/')
+        elif user is not None and user.groups.filter(name='Manager'):
+            login(request, user)
+            print('Manager Logged In!')
+            return redirect('/generalHome/')
         else:
             messages.info(request, 'User OR Password is incorrect. Please Try Again.')
             return redirect('/')
