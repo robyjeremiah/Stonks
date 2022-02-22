@@ -3,7 +3,7 @@
 {% load static %}
 {% block content %}
 
-<h1>Welcome Administrator</h1>
+<h1>Welcome {{user.first_name}} {{user.last_name}}!</h1>
 <div class="fields">
     <div class="adduserbox">
         <form method="POST">

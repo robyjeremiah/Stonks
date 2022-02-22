@@ -64,7 +64,7 @@ def newUser(request):
 def forgotPass(request):
     return render(request, 'forgotPass.html')
 
-@login_required(login_url='index')
+@login_required(login_url='login')
 @allowed_users(allowed_roles=['Administrator'])
 def adminHome(request):
     user_list = User.objects.all()
