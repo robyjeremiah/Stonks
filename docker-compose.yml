@@ -14,6 +14,8 @@ services:
       - stonks-network
     ports:
       - 3307:3306
+    volumes:
+      - .dbdata:/var/lib/mysql
     expose:
       - "3306"
 

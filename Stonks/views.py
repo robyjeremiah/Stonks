@@ -1,3 +1,4 @@
+from tokenize import group
 from .models import SecurityQuestion, User
 from .forms import CustomUserForm
 from .decorators import allowed_users
@@ -60,7 +61,13 @@ def forgotPass(request):
 @login_required(login_url='index')
 @allowed_users(allowed_roles=['Administrator'])
 def adminHome(request):
-    return render(request, 'adminhome.html')
+    user_list = User.objects.all()
+    group_list = Group.objects.all()
+    context = {
+        'user_list': user_list,
+        'group_list': group_list,
+    }
+    return render(request, 'adminhome.html', context)
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Accountant', 'Manager'])
@@ -70,7 +77,7 @@ def generalHome(request):
 def security(request):
     security_question_list = SecurityQuestion.objects.all()
     context = {
-        'security_question_list': security_question_list
+        'security_question_list': security_question_list,
     }
     return render(request, 'security.html', context)
 
