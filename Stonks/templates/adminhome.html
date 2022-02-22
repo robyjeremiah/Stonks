@@ -17,10 +17,10 @@
             <p>Date of Birth:</p>
             <input type="date" name="date" id="date">
             <p>Role:</p>
-            <select id="role" name="">
-                <option value="Administrator">Administrator</option>
-                <option value="Manager">Manager</option>
-                <option value="Accountant">Accountant</option>
+            <select id="role" name="role">
+                {% for group in group_list %}
+                <option value="group.id">{{ group.name }}</option>
+                {% endfor %}
             </select>
             <p>Password:</p>
             <input type="password" name="password" id="password">
@@ -51,7 +51,7 @@
                     </td>
                     <td><input type="checkbox" id="status" name="status" value="{{user.is_active}}" {% if user.is_active == 1 %}checked{% endif %}><label for="status"> Active</label></td>
                     <td><a href="#">edit</a></td>
-                    <td><a href="#">delete</a></td>
+                    <td><a href="{%url 'delete_user' pk=user.pk %}">delete</a></td>
                 </tr>
                 {% endfor %}
             {% endif %}

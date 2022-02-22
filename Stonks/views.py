@@ -70,6 +70,13 @@ def adminHome(request):
     }
     return render(request, 'adminhome.html', context)
 
+def delete_user(request, pk):
+    username = User.objects.get(pk=pk).username
+    b = User.objects.filter(username=username)
+    b.delete()
+
+    return redirect('adminHome')
+
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Accountant', 'Manager'])
 def generalHome(request):
