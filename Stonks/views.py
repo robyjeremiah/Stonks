@@ -1,7 +1,7 @@
 from tokenize import group
 from .models import SecurityQuestion, User
 from .forms import CustomUserForm
-from .decorators import allowed_users
+from .decorators import allowed_users, unauthenticated_user
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
@@ -17,6 +17,7 @@ from django.utils.encoding import force_bytes
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
+@unauthenticated_user
 def index(request):
     if request.method == 'POST':
         username = request.POST.get("username")
@@ -36,11 +37,13 @@ def index(request):
     else:
         return render(request, 'login.html')
 
+@unauthenticated_user
 def loggedOut(request):
     print('Logged Out!')
     logout(request)
     return redirect('index')
 
+@unauthenticated_user
 def newUser(request):
     if request.method == 'POST':
         form = CustomUserForm(request.POST)
@@ -56,6 +59,7 @@ def newUser(request):
 
     return render(request, 'newUser.html', {'form': form})
 
+@unauthenticated_user
 def forgotPass(request):
     return render(request, 'forgotPass.html')
 
@@ -70,6 +74,7 @@ def adminHome(request):
     }
     return render(request, 'adminhome.html', context)
 
+@unauthenticated_user
 def delete_user(request, pk):
     username = User.objects.get(pk=pk).username
     b = User.objects.filter(username=username)
@@ -82,6 +87,7 @@ def delete_user(request, pk):
 def generalHome(request):
     return render(request, 'generalHome.html')
 
+@unauthenticated_user
 def security(request):
     security_question_list = SecurityQuestion.objects.all()
     context = {
@@ -89,9 +95,11 @@ def security(request):
     }
     return render(request, 'security.html', context)
 
+@unauthenticated_user
 def emailSent(request):
     return render(request, 'emailSent.html')
 
+@unauthenticated_user
 def passwordReset(request):
     if request.method == 'POST':
         password_reset_form = PasswordResetForm(request.POST)
@@ -119,5 +127,6 @@ def passwordReset(request):
     password_reset_form = PasswordResetForm()
     return render(request=request, template_name='passwordReset.html', context={"password_reset_form":password_reset_form})
 
+@unauthenticated_user
 def passwordConfirm(request):
     return render(request, 'passwordConfirm.html')
