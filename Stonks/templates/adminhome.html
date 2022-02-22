@@ -54,7 +54,7 @@
                 <tr>
                     <td id='username' name='username'>{{ user.username }}</td>
                     <td>{{user.role}}</td>
-                    <td><input type="checkbox" id="status" name="status" value="{{user.is_active}}" {% if user.is_active == 1 %}checked{% endif %}><label for="status"> Active</label></td>
+                    <td><input type="checkbox" id="status" name="status" value="{{user.is_staff}}" {% if user.is_staff == 1 %}checked{% endif %}><label for="status"> Active</label></td>
                     <td><a href="{%url 'edit_user' pk=user.pk %}">edit</a></td>
                     <td><a href="{%url 'delete_user' pk=user.pk %}">delete</a></td>
                 </tr>
