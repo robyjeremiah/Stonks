@@ -72,13 +72,12 @@ def adminHome(request):
 
     if request.method == 'POST':
         form = CustomUserForm(request.POST)
-        print(request.POST['role'])
         if form.is_valid():
             form.save()
             new_user = User.objects.latest('id')
             accountant = Group.objects.get(name=request.POST['role'])
             accountant.user_set.add(new_user)
-            messages.success(request, 'Account created successfully!')
+            User.objects.filter(username=new_user).update(role=request.POST['role'])
             return redirect('adminHome')
     else:
         form = CustomUserForm()
@@ -97,6 +96,11 @@ def delete_user(request, pk):
     b.delete()
 
     return redirect('adminHome')
+
+def edit_user(request, pk):
+    username = User.objects.get(pk=pk).username
+
+    return render(request, 'updateProfileAdmin.html')
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Accountant', 'Manager'])
