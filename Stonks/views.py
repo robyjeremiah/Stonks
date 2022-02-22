@@ -65,10 +65,26 @@ def forgotPass(request):
 def adminHome(request):
     user_list = User.objects.all()
     group_list = Group.objects.all()
+
+    if request.method == 'POST':
+        form = CustomUserForm(request.POST)
+        print(request.POST['role'])
+        if form.is_valid():
+            form.save()
+            new_user = User.objects.latest('id')
+            accountant = Group.objects.get(name=request.POST['role'])
+            accountant.user_set.add(new_user)
+            messages.success(request, 'Account created successfully!')
+            return redirect('adminHome')
+    else:
+        form = CustomUserForm()
+    
     context = {
         'user_list': user_list,
         'group_list': group_list,
+        'form': form,
     }
+
     return render(request, 'adminhome.html', context)
 
 def delete_user(request, pk):
