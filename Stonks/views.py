@@ -1,6 +1,7 @@
+from tokenize import group
 from .models import SecurityQuestion, User
 from .forms import CustomUserForm
-from .decorators import allowed_users
+from .decorators import allowed_users, unauthenticated_user
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
@@ -16,6 +17,7 @@ from django.utils.encoding import force_bytes
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
+
 def index(request):
     if request.method == 'POST':
         username = request.POST.get("username")
@@ -28,6 +30,10 @@ def index(request):
         elif user is not None and user.groups.filter(name='Accountant'):
             login(request, user)
             print('Accountant Logged In!')
+            return redirect('/generalHome/')
+        elif user is not None and user.groups.filter(name='Manager'):
+            login(request, user)
+            print('Manager Logged In!')
             return redirect('/generalHome/')
         else:
             messages.info(request, 'User OR Password is incorrect. Please Try Again.')
@@ -44,9 +50,10 @@ def newUser(request):
     if request.method == 'POST':
         form = CustomUserForm(request.POST)
         if form.is_valid():
-            user = form.save()
+            form.save()
+            new_user = User.objects.latest('id')
             accountant = Group.objects.get(name='Accountant')
-            user.groups.add(accountant)
+            accountant.user_set.add(new_user)
             messages.success(request, 'Account created successfully!')
             return redirect('newUser')
     else:
@@ -57,10 +64,43 @@ def newUser(request):
 def forgotPass(request):
     return render(request, 'forgotPass.html')
 
-@login_required(login_url='index')
+@login_required(login_url='login')
 @allowed_users(allowed_roles=['Administrator'])
 def adminHome(request):
-    return render(request, 'adminhome.html')
+    user_list = User.objects.all()
+    group_list = Group.objects.all()
+
+    if request.method == 'POST':
+        form = CustomUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            new_user = User.objects.latest('id')
+            accountant = Group.objects.get(name=request.POST['role'])
+            accountant.user_set.add(new_user)
+            User.objects.filter(username=new_user).update(role=request.POST['role'])
+            return redirect('adminHome')
+    else:
+        form = CustomUserForm()
+    
+    context = {
+        'user_list': user_list,
+        'group_list': group_list,
+        'form': form,
+    }
+
+    return render(request, 'adminhome.html', context)
+
+def delete_user(request, pk):
+    username = User.objects.get(pk=pk).username
+    b = User.objects.filter(username=username)
+    b.delete()
+
+    return redirect('adminHome')
+
+def edit_user(request, pk):
+    username = User.objects.get(pk=pk).username
+
+    return render(request, 'updateProfileAdmin.html')
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Accountant', 'Manager'])
@@ -70,7 +110,7 @@ def generalHome(request):
 def security(request):
     security_question_list = SecurityQuestion.objects.all()
     context = {
-        'security_question_list': security_question_list
+        'security_question_list': security_question_list,
     }
     return render(request, 'security.html', context)
 

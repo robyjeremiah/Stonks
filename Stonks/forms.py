@@ -1,7 +1,6 @@
 from django import forms
 from .models import User
 from django.contrib.auth.forms import UserCreationForm
-from django.core.exceptions import ValidationError
 from django.contrib.auth.models import Group
 # https://dev.to/yahaya_hk/usercreation-form-with-multiple-fields-in-django-ek9
 
@@ -28,7 +27,7 @@ class CustomUserForm(UserCreationForm):
         email = self.cleaned_data['email'].lower()
         r = User.objects.filter(email=email)
         if r.count():
-            raise  ValidationError("Email already exists")
+            raise  forms.ValidationError("Email already exists")
         return email
 
     def clean_password2(self):
@@ -36,7 +35,7 @@ class CustomUserForm(UserCreationForm):
         password2 = self.cleaned_data.get('password2')
 
         if password1 and password2 and password1 != password2:
-            raise ValidationError("Password don't match")
+            raise forms.ValidationError('Password do not match!')
 
         return password2
 
