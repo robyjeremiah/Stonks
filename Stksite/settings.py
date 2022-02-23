@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'uwmk6z*q74@e&y&ahmt2^4%9mvqj%_-sb#uyj2!g+d+8he7zs@'
+SECRET_KEY='uwmk6z*q74@e&y&ahmt2^4%9mvqj%_-sb#uyj2!g+d+8he7zs@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -75,35 +75,42 @@ WSGI_APPLICATION = 'Stksite.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-if 'RDS_HOSTNAME' in os.environ:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': os.environ['RDS_DB_NAME'],
-            'USER': os.environ['RDS_USERNAME'],
-            'PASSWORD': os.environ['RDS_PASSWORD'],
-            'HOST': os.environ['RDS_HOSTNAME'],
-            'PORT': os.environ['RDS_PORT'],
-        }
-    }
-elif(env('DB_ENV') == 'SQLite'):
-    DATABASES = {
+DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': env('DB_NAME'),
-            'USER': env('MY_USER'),
-            'PASSWORD': env('MY_PASSWORD'),
-            'HOST': env('DB_ENV'),
-            'PORT': 3306
-        }
-    }
+
+# if 'RDS_HOSTNAME' in os.environ:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.mysql',
+#             'NAME': os.environ['RDS_DB_NAME'],
+#             'USER': os.environ['RDS_USERNAME'],
+#             'PASSWORD': os.environ['RDS_PASSWORD'],
+#             'HOST': os.environ['RDS_HOSTNAME'],
+#             'PORT': os.environ['RDS_PORT'],
+#         }
+#     }
+# elif(env('DB_ENV') == 'SQLite'):
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.sqlite3',
+#             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#         }
+#     }
+# else:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.mysql',
+#             'NAME': env('DB_NAME'),
+#             'USER': env('MY_USER'),
+#             'PASSWORD': env('MY_PASSWORD'),
+#             'HOST': env('DB_ENV'),
+#             'PORT': 3306
+#         }
+#     }
 
 AUTH_USER_MODEL = 'Stonks.User'
 

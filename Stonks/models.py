@@ -60,47 +60,100 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name','dob']
 
+class AccountQuerySet(models.QuerySet):
+    def Assets(self):
+        return self.filter(role='A')
+
+    def Liabilities(self):
+        return self.filter(role='L')
+    
+    def EquityAccounts(self):
+        return self.filter(role='EA')
+    def Revenues(self):
+        return self.filter(role='R')
+    def Expenses(self):
+        return self.filter(role='E')
+    def Other(self):
+        return self.filter(role='O')
+
 class ChartOfAccounts(models.Manager):
-    def create_account(self, account_name, ):
-        
-        return
     
-    userid =  models.IntegerField(_('User id'), max_length=30, blank=True)
+    def create_account(self, account_name, account_category,account_description,**extra_fields):
+        account = self.model(account_name = account_name, 
+                          account_category = account_category,
+                          account_description = account_description,
+                          **extra_fields)
+        if account_category == 'Assets':
+            count = Account.objects.filter(account_category='Assets').count()
+            count = count + 1
+            temp = str(100) + str(count)
+            temp = int(temp)
+            account.account_number = temp
+            account.statement = "Balance sheet"
+            account.normal_side = "Left"
+            
+            account.statement.Statement.BS
+        elif account_category == 'Liabilities':
+            count = Account.objects.filter(account_category='Liabilities').count()
+            count = count + 1
+            temp = str(100) + str(count)
+            temp = int(temp)
+            account.account_number = temp
+            account.statement = "Balance sheet"
+            account.normal_side = "Right"
+        elif account_category == 'Equity Accounts':
+            count = Account.objects.filter(account_category='Equity Accounts').count()
+            count = count + 1
+            temp = str(100) + str(count)
+            temp = int(temp)
+            account.account_number = temp
+            account.statementc
+            account.statement = "Balance sheet"
+            account.normal_side = "Right"
+        elif account_category == 'Revenues':
+            count = Account.objects.filter(account_category='Revenues').count()
+            count = count + 1
+            temp = str(100) + str(count)
+            temp = int(temp)
+            account.account_number = temp
+            account.statement = "Income statement"
+            account.normal_side = "Right"
+        elif account_category == 'Expenses':
+            count = Account.objects.filter(account_category='Expenses').count()
+            count = count + 1
+            temp = str(100) + str(count)
+            temp = int(temp)
+            account.account_number = temp
+            account.statement = "Income statement"
+            account.normal_side = "Left"
+        elif account_category == 'Other':
+            count = Account.objects.filter(account_category='Other').count()
+            count = count + 1
+            temp = str(100) + str(count)
+            temp = int(temp)
+            account.account_number = temp
+            account.statement = "Cash flow statement"
+        account.save(using=self._db)
+        return account
     
-    id = models.BigAutoField(primary_key=True)
-    account_name =  models.CharField(_('Account Name'), max_length=30, unique = True)
-    account_number =  models.IntegerField(_('Account Number'), max_length=30, blank=True)
-    account_description =  models.CharField(_('Account Description'), max_length=300, blank=True)
-    normal_side =  models.CharField(_('Normal Side'), max_length=30, blank=True)
-    account_category =  models.CharField(_('Account Category'), max_length=30, blank=True)
-    account_subcategory =  models.CharField(_('Account Subcategory'), max_length=30, blank=True)
-    Date_time_added =  models.DateTimeField(_('Date/Time Added'), max_length=30, blank=True,auto_now=True)
-    Comment =  models.CharField(_('username'), max_length=300, blank=True)
-    
-    initial_balance =  models.DecimalField(_('initial balance'), max_length=30, blank=True)
-    debit =  models.DecimalField(_('debit'), max_length=30, blank=True)
-    credit =  models.DecimalField(_('credit'), max_length=30, blank=True)
-    balance =  models.DecimalField(_('balance'), max_length=30, blank=True)
-    Order =  models.IntegerField(_('Order'), max_length=30, blank=True)
-    Statement =  models.CharField(_('Financial Statement'), max_length=30, blank=True)
     
     pass
 
 class Account(models.Model):
     # ATP this point some of this is just notes for me
     
-    # Statement = (
-    # ("Balance sheet", "Balance sheet"),
-    # ("Income statement", "Income statement"),
-    # ("Cash flow statement", "Cash flow statement"),)
+    StatementChoices = (
+    ("BS", "Balance sheet"),
+    ("IS", "Income statement"),
+    ("CFS", "Cash flow statement"),)
     
     Account_Category= (
-    ("Assets", "Assets"),
-    ("Liabilities", "Liabilities"),
-    ("Equity Accounts", "Equity Accounts"),
-    ("Revenues", "Revenues"),
-    ("Expenses", "Expenses"),
-    ("Other", "Other"),)
+    ("A", "Assets"),
+    ("L", "Liabilities"),
+    ("EQ", "Equity Accounts"),
+    ("R", "Revenues"),
+    ("EX", "Expenses"),
+    ("O", "Other"),)
     
     # Account_Number = (
     # ("Assets", "100"),
@@ -112,24 +165,27 @@ class Account(models.Model):
     # )
     
     # Dont know what this iis
-    userid =  models.IntegerField(_('User id'), max_length=30, blank=True)
+    userid =  models.IntegerField(_('User id'), blank=True)
     
     id = models.BigAutoField(primary_key=True)
     account_name =  models.CharField(_('Account Name'), max_length=30, unique = True)
-    account_number =  models.IntegerField(_('Account Number'), max_length=30, blank=True)
+    account_number =  models.IntegerField(_('Account Number'), blank=True)
     account_description =  models.CharField(_('Account Description'), max_length=300, blank=True)
-    normal_side =  models.CharField(_('Normal Side'), max_length=30, blank=True)
-    account_category =  models.CharField(_('Account Category'), max_length=30, blank=True)
+    account_category =  models.CharField(_('Account Category'), max_length=30, choices = Account_Category, blank = False)
     account_subcategory =  models.CharField(_('Account Subcategory'), max_length=30, blank=True)
+    
+    normal_side =  models.CharField(_('Normal Side'), max_length=5, blank=True)
     Date_time_added =  models.DateTimeField(_('Date/Time Added'), max_length=30, blank=True,auto_now=True)
     Comment =  models.CharField(_('username'), max_length=300, blank=True)
     
-    initial_balance =  models.DecimalField(_('initial balance'), max_length=30, blank=True)
-    debit =  models.DecimalField(_('debit'), max_length=30, blank=True)
-    credit =  models.DecimalField(_('credit'), max_length=30, blank=True)
-    balance =  models.DecimalField(_('balance'), max_length=30, blank=True)
-    Order =  models.IntegerField(_('Order'), max_length=30, blank=True)
-    Statement =  models.CharField(_('Financial Statement'), max_length=30, blank=True)
+    initial_balance =  models.DecimalField(_('initial balance'), max_length=30, blank=True, decimal_places = 2, max_digits=17)
+    debit =  models.DecimalField(_('debit'), max_length=30, blank=True, decimal_places = 2, max_digits=17)
+    credit =  models.DecimalField(_('credit'), max_length=30, blank=True, decimal_places = 2, max_digits=17)
+    balance =  models.DecimalField(_('balance'), max_length=30, blank=True, decimal_places = 2, max_digits=17)
+    order =  models.IntegerField(_('Order'), blank=True)
+    statement =  models.CharField(_('Financial Statement'), max_length=30, choices = StatementChoices, blank=True)
+    
+    objects = ChartOfAccounts()
     
     
 
