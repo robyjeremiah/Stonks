@@ -9,7 +9,7 @@ body{
 
 .loginbox{
     width: 320px;
-    height: 420px;
+    height: auto;
     background: #000;
     opacity: 0.85;
     color: #fff;
@@ -18,7 +18,7 @@ body{
     position: absolute;
     transform: translate(-50%,-50%);
     box-sizing: border-box;
-    padding: 70px 30px;
+    padding: 70px 30px 30px 30px;
 }
 
 .avatar{

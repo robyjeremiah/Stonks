@@ -115,6 +115,9 @@
                 <p{% if message.tags %} class=" message{{ message.tags }}"{% endif %}>{{ message }}</p>
                 {% endfor %}
             {% endif %}
+            {% for error in form.password2.errors %}
+                <p class="message">{{ error }}</p>
+            {% endfor %}
             {{ form.first_name }}
             {{ form.last_name }}
             {{ form.email }}
