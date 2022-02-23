@@ -1,0 +1,308 @@
+{% extends 'base.html' %}
+{% block stylesheet %}<link rel="stylesheet" type="text/css" href="/static/adminHome.css" />{% endblock %}
+{% load static %}
+{% block content %}
+
+<h1>Welcome Administrator</h1>
+<div class="fields">
+    <div class="adduserbox">
+        <form method="POST" action="/">
+            {% csrf_token %}
+            <p>First Name:</p>
+            <input type="text" name="fname" id="fname">
+            <p>Last Name:</p>
+            <input type="text" name="lname" id="lname">
+            <p>Email:</p>
+            <input type="email" name="email" id="email">
+            <p>Date of Birth:</p>
+            <input type="date" name="date" id="date">
+            <p>Role:</p>
+            <select id="role" name="">
+                <option value="Administrator">Administrator</option>
+                <option value="Manager">Manager</option>
+                <option value="Accountant">Accountant</option>
+            </select>
+            <p>Password:</p>
+            <input type="password" name="password" id="password">
+            <input type="submit" id="submit" name="Submit" value="ADD USER">
+        </form>
+    </div>
+    <table class="usertable">
+        <thead>
+            <tr>
+                <td>User</td>
+                <td>Role</td>
+                <td>Status</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>KSmith0794</td>
+                <td>
+                    <select id="changerole" name="">
+                        <option value="Administrator">Administrator</option>
+                        <option value="Manager">Manager</option>
+                        <option value="Accountant">Accountant</option>
+                    </select>
+                </td>
+                <td><input type="checkbox" id="status" name="status" value=""><label for="status"> Active</label></td>
+                <td><a href="#">edit</a></td>
+                <td><a href="#">delete</a></td>
+            </tr>
+            <tr>
+                <td>JJones0198</td>
+                <td>
+                    <select id="changerole" name="">
+                        <option value="Administrator">Administrator</option>
+                        <option value="Manager">Manager</option>
+                        <option value="Accountant">Accountant</option>
+                    </select>
+                </td>
+                <td><input type="checkbox" id="status" name="status" value=""><label for="status"> Active</label></td>
+                <td><a href="#">edit</a></td>
+                <td><a href="#">delete</a></td>
+            </tr>
+
+            <!-- Test for Scroll Start -->
+            <tr>
+                <td>JJones0198</td>
+                <td>
+                    <select id="changerole" name="">
+                        <option value="Administrator">Administrator</option>
+                        <option value="Manager">Manager</option>
+                        <option value="Accountant">Accountant</option>
+                    </select>
+                </td>
+                <td><input type="checkbox" id="status" name="status" value=""><label for="status"> Active</label></td>
+                <td><a href="#">edit</a></td>
+                <td><a href="#">delete</a></td>
+            </tr>
+            <tr>
+                <td>JJones0198</td>
+                <td>
+                    <select id="changerole" name="">
+                        <option value="Administrator">Administrator</option>
+                        <option value="Manager">Manager</option>
+                        <option value="Accountant">Accountant</option>
+                    </select>
+                </td>
+                <td><input type="checkbox" id="status" name="status" value=""><label for="status"> Active</label></td>
+                <td><a href="#">edit</a></td>
+                <td><a href="#">delete</a></td>
+            </tr>
+            <tr>
+                <td>JJones0198</td>
+                <td>
+                    <select id="changerole" name="">
+                        <option value="Administrator">Administrator</option>
+                        <option value="Manager">Manager</option>
+                        <option value="Accountant">Accountant</option>
+                    </select>
+                </td>
+                <td><input type="checkbox" id="status" name="status" value=""><label for="status"> Active</label></td>
+                <td><a href="#">edit</a></td>
+                <td><a href="#">delete</a></td>
+            </tr>
+            <tr>
+                <td>JJones0198</td>
+                <td>
+                    <select id="changerole" name="">
+                        <option value="Administrator">Administrator</option>
+                        <option value="Manager">Manager</option>
+                        <option value="Accountant">Accountant</option>
+                    </select>
+                </td>
+                <td><input type="checkbox" id="status" name="status" value=""><label for="status"> Active</label></td>
+                <td><a href="#">edit</a></td>
+                <td><a href="#">delete</a></td>
+            </tr>
+            <tr>
+                <td>JJones0198</td>
+                <td>
+                    <select id="changerole" name="">
+                        <option value="Administrator">Administrator</option>
+                        <option value="Manager">Manager</option>
+                        <option value="Accountant">Accountant</option>
+                    </select>
+                </td>
+                <td><input type="checkbox" id="status" name="status" value=""><label for="status"> Active</label></td>
+                <td><a href="#">edit</a></td>
+                <td><a href="#">delete</a></td>
+            </tr>
+            <tr>
+                <td>JJones0198</td>
+                <td>
+                    <select id="changerole" name="">
+                        <option value="Administrator">Administrator</option>
+                        <option value="Manager">Manager</option>
+                        <option value="Accountant">Accountant</option>
+                    </select>
+                </td>
+                <td><input type="checkbox" id="status" name="status" value=""><label for="status"> Active</label></td>
+                <td><a href="#">edit</a></td>
+                <td><a href="#">delete</a></td>
+            </tr>
+            <tr>
+                <td>JJones0198</td>
+                <td>
+                    <select id="changerole" name="">
+                        <option value="Administrator">Administrator</option>
+                        <option value="Manager">Manager</option>
+                        <option value="Accountant">Accountant</option>
+                    </select>
+                </td>
+                <td><input type="checkbox" id="status" name="status" value=""><label for="status"> Active</label></td>
+                <td><a href="#">edit</a></td>
+                <td><a href="#">delete</a></td>
+            </tr>
+            <tr>
+                <td>JJones0198</td>
+                <td>
+                    <select id="changerole" name="">
+                        <option value="Administrator">Administrator</option>
+                        <option value="Manager">Manager</option>
+                        <option value="Accountant">Accountant</option>
+                    </select>
+                </td>
+                <td><input type="checkbox" id="status" name="status" value=""><label for="status"> Active</label></td>
+                <td><a href="#">edit</a></td>
+                <td><a href="#">delete</a></td>
+            </tr>
+            <tr>
+                <td>JJones0198</td>
+                <td>
+                    <select id="changerole" name="">
+                        <option value="Administrator">Administrator</option>
+                        <option value="Manager">Manager</option>
+                        <option value="Accountant">Accountant</option>
+                    </select>
+                </td>
+                <td><input type="checkbox" id="status" name="status" value=""><label for="status"> Active</label></td>
+                <td><a href="#">edit</a></td>
+                <td><a href="#">delete</a></td>
+            </tr>
+            <tr>
+                <td>JJones0198</td>
+                <td>
+                    <select id="changerole" name="">
+                        <option value="Administrator">Administrator</option>
+                        <option value="Manager">Manager</option>
+                        <option value="Accountant">Accountant</option>
+                    </select>
+                </td>
+                <td><input type="checkbox" id="status" name="status" value=""><label for="status"> Active</label></td>
+                <td><a href="#">edit</a></td>
+                <td><a href="#">delete</a></td>
+            </tr>
+            <tr>
+                <td>JJones0198</td>
+                <td>
+                    <select id="changerole" name="">
+                        <option value="Administrator">Administrator</option>
+                        <option value="Manager">Manager</option>
+                        <option value="Accountant">Accountant</option>
+                    </select>
+                </td>
+                <td><input type="checkbox" id="status" name="status" value=""><label for="status"> Active</label></td>
+                <td><a href="#">edit</a></td>
+                <td><a href="#">delete</a></td>
+            </tr>
+            <tr>
+                <td>JJones0198</td>
+                <td>
+                    <select id="changerole" name="">
+                        <option value="Administrator">Administrator</option>
+                        <option value="Manager">Manager</option>
+                        <option value="Accountant">Accountant</option>
+                    </select>
+                </td>
+                <td><input type="checkbox" id="status" name="status" value=""><label for="status"> Active</label></td>
+                <td><a href="#">edit</a></td>
+                <td><a href="#">delete</a></td>
+            </tr>
+            <tr>
+                <td>JJones0198</td>
+                <td>
+                    <select id="changerole" name="">
+                        <option value="Administrator">Administrator</option>
+                        <option value="Manager">Manager</option>
+                        <option value="Accountant">Accountant</option>
+                    </select>
+                </td>
+                <td><input type="checkbox" id="status" name="status" value=""><label for="status"> Active</label></td>
+                <td><a href="#">edit</a></td>
+                <td><a href="#">delete</a></td>
+            </tr>
+            <tr>
+                <td>JJones0198</td>
+                <td>
+                    <select id="changerole" name="">
+                        <option value="Administrator">Administrator</option>
+                        <option value="Manager">Manager</option>
+                        <option value="Accountant">Accountant</option>
+                    </select>
+                </td>
+                <td><input type="checkbox" id="status" name="status" value=""><label for="status"> Active</label></td>
+                <td><a href="#">edit</a></td>
+                <td><a href="#">delete</a></td>
+            </tr>
+            <tr>
+                <td>JJones0198</td>
+                <td>
+                    <select id="changerole" name="">
+                        <option value="Administrator">Administrator</option>
+                        <option value="Manager">Manager</option>
+                        <option value="Accountant">Accountant</option>
+                    </select>
+                </td>
+                <td><input type="checkbox" id="status" name="status" value=""><label for="status"> Active</label></td>
+                <td><a href="#">edit</a></td>
+                <td><a href="#">delete</a></td>
+            </tr>
+            <tr>
+                <td>JJones0198</td>
+                <td>
+                    <select id="changerole" name="">
+                        <option value="Administrator">Administrator</option>
+                        <option value="Manager">Manager</option>
+                        <option value="Accountant">Accountant</option>
+                    </select>
+                </td>
+                <td><input type="checkbox" id="status" name="status" value=""><label for="status"> Active</label></td>
+                <td><a href="#">edit</a></td>
+                <td><a href="#">delete</a></td>
+            </tr>
+            <tr>
+                <td>JJones0198</td>
+                <td>
+                    <select id="changerole" name="">
+                        <option value="Administrator">Administrator</option>
+                        <option value="Manager">Manager</option>
+                        <option value="Accountant">Accountant</option>
+                    </select>
+                </td>
+                <td><input type="checkbox" id="status" name="status" value=""><label for="status"> Active</label></td>
+                <td><a href="#">edit</a></td>
+                <td><a href="#">delete</a></td>
+            </tr>
+            <tr>
+                <td>JJones0198</td>
+                <td>
+                    <select id="changerole" name="">
+                        <option value="Administrator">Administrator</option>
+                        <option value="Manager">Manager</option>
+                        <option value="Accountant">Accountant</option>
+                    </select>
+                </td>
+                <td><input type="checkbox" id="status" name="status" value=""><label for="status"> Active</label></td>
+                <td><a href="#">edit</a></td>
+                <td><a href="#">delete</a></td>
+            </tr>
+            <!-- Test for Scroll End -->
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

@@ -9,7 +9,7 @@ body {
 
 .newUserAccount {
     width: 475px;
-    height: 585px;
+    height: auto;
     background: #000;
     opacity: 0.80;
     color: #fff;
@@ -28,6 +28,16 @@ h1 {
     font-size: 22px;
 }
 
+.avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    position: absolute;
+    top: -50px;
+    left: calc(50% - 50px);
+    opacity: 1;
+}
+
 .newUserAccount p {
     margin: 0;
     padding: 0;
@@ -39,19 +49,7 @@ h1 {
     margin-bottom: 20px;
 }
 
-.avatar {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    position: absolute;
-    top: -50px;
-    left: calc(50% - 50px);
-    opacity: 1;
-}
-
 .newUserAccount input[type="text"],
-input[type="fname"],
-input[type="lname"],
 input[type="password"],
 input[type="date"],
 input[type="email"] {
@@ -91,55 +89,32 @@ input[type="email"] {
     color: #BCAB6F;
 }
 
-#message {
-    display: none;
-    background: #fff;
-    color: #6F6236;
-    opacity: 0.95;
-    position: relative;
-    padding: 20px;
-    border-radius: 5px;
-    box-sizing: border-box; /* Sit on top of the page content */
-    width: 300px; /* Full width (cover the whole page) */
-    height: 350px; /* Full height (cover the whole page) */
-    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
-    cursor: pointer; /* Add a pointer on hover */
-    margin: 0 auto;
-    float: right;
+.required p,
+ul {
+    font-weight: normal;
+    font-size: 14px;
 }
 
-#message p {
-    padding: 10px 35px;
-    font-size: 12px;
+.required ul {
+    margin: 5px 0 20px 0;
 }
 
 /* Add a green text color and a checkmark when the requirements are right */
 .valid {
     color: green;
-    content: \2713;
-  }
-  
-  .valid:before {
-    position: relative;
-    left: -35px;
-    content: "\2713";
-  }
-  
-  /* Add a red text color and an "x" icon when the requirements are wrong */
-  .invalid {
-    color: red;
-    content: "\2713";
-  }
-  
-  .invalid:before {
-    position: relative;
-    left: -35px;
-    content: "\2713";
-  }
+}
 
-  .alert {
-    padding: 20px;
-    background-color: #f44336; /* Red */
-    color: white;
-    margin-bottom: 15px;
-  }
+.valid:before {
+    position: relative;
+    left: -35px;
+}
+
+/* Add a red text color and an "x" icon when the requirements are wrong */
+.invalid {
+    color: red;
+}
+
+.invalid:before {
+    position: relative;
+    left: -35px;
+}
