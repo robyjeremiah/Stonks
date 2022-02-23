@@ -1,27 +1,79 @@
-from multiprocessing import context
+from .models import SecurityQuestion, User
+from .forms import CustomUserForm
+from .decorators import allowed_users
+from django.shortcuts import redirect, render
+from django.http import HttpResponse
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse
 from django.contrib.auth.forms import PasswordResetForm
-from django.contrib.auth.models import User
+from django.contrib.auth.models import Group
 from django.template.loader import render_to_string
-from django.db.models.query_utils import Q
 from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index(request):
-    return render(request, 'login.html')
+    if request.method == 'POST':
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        user = authenticate(request, username = username, password=password)
+        if user is not None and user.groups.filter(name='Administrator'):
+            login(request, user)
+            print('Administrator Logged In!')
+            return redirect('/adminHome/')
+        elif user is not None and user.groups.filter(name='Accountant'):
+            login(request, user)
+            print('Accountant Logged In!')
+            return redirect('/generalHome/')
+        else:
+            messages.info(request, 'User OR Password is incorrect. Please Try Again.')
+            return redirect('/')
+    else:
+        return render(request, 'login.html')
+
+def loggedOut(request):
+    print('Logged Out!')
+    logout(request)
+    return redirect('index')
 
 def newUser(request):
-    return render(request, 'newUser.html')
+    if request.method == 'POST':
+        form = CustomUserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            accountant = Group.objects.get(name='Accountant')
+            user.groups.add(accountant)
+            messages.success(request, 'Account created successfully!')
+            return redirect('newUser')
+    else:
+        form = CustomUserForm()
+
+    return render(request, 'newUser.html', {'form': form})
 
 def forgotPass(request):
     return render(request, 'forgotPass.html')
 
+@login_required(login_url='index')
+@allowed_users(allowed_roles=['Administrator'])
+def adminHome(request):
+    return render(request, 'adminhome.html')
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['Accountant', 'Manager'])
+def generalHome(request):
+    return render(request, 'generalHome.html')
+
 def security(request):
-    return render(request, 'security.html')
+    security_question_list = SecurityQuestion.objects.all()
+    context = {
+        'security_question_list': security_question_list
+    }
+    return render(request, 'security.html', context)
 
 def emailSent(request):
     return render(request, 'emailSent.html')
@@ -55,6 +107,3 @@ def passwordReset(request):
 
 def passwordConfirm(request):
     return render(request, 'passwordConfirm.html')
-
-def generalHome(request):
-    return render(request, 'generalHome.html')

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block stylesheet %}
+<link rel="stylesheet" type="text/css" href="/static/updateProfile.css" />{% endblock %}
+{% load static %}
+
+{% block content %}
+
+<div class="maincontainer">
+    <div class="accountbox">
+        <img src="{% static 'images/Avatar.png' %}" class="userimage">
+        <h2>username</h2>
+    </div>
+    <div class="line"></div>
+    <form class="info">
+        <h2>Profile Information</h2>
+        <p>First Name:</p>
+        <input type="fname" name="" placeholder="django fname">
+        <p>Last Name:</p>
+        <input type="lname" name="" placeholder="django lname">
+        <p>Email:</p>
+        <input type="email" name="" placeholder="django fname">
+        <p>Password:</p>
+        <input type="password" name="" placeholder="django password">
+        <p>Role:</p>
+        <select id="roles" name="">
+            <option value="Role 1">Administrator</option>
+            <option value="Role 2">Manager</option>
+            <option value="Role 3">User</option>
+        </select>
+        <p>Image:</p>
+        <input type="file" name=""><br>
+        <input type="submit" name="" value="Update">
+    </form>
+</div>
+
+{% endblock %}

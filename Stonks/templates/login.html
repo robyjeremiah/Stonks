@@ -9,13 +9,20 @@
     <div class="loginbox">
       <img src="{% static 'images/Avatar.png' %}" class="avatar">
       <h1>Login Here</h1>
-      <form>
+      {% if messages %}
+        {% for message in messages %}
+        <p{% if message.tags %} class=" message{{ message.tags }}"{% endif %}>{{ message }}</p>
+        {% endfor %}
+        <br>
+      {% endif %} 
+      <form method="POST">
         {% csrf_token %}
         <p>Username</p>
         <input type="text" name="" placeholder="Enter Username" />
         <p>Password</p>
-        <input type="password" name="" placeholder="Enter Password" />
-        <input type="submit" name="" value="Login" />
+        <input type="password" class="form-control" name="password" placeholder="Enter Password" />
+        <input type="submit" value="login"/>
+        <input type="hidden" name="next" value="{{ next }}"/>
         <a href="/forgotPass">Forgot password?</a><br />
         <a href="/newUser">Don't have an account?</a>
       </form>
