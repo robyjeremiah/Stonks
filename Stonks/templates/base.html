@@ -10,6 +10,14 @@
     <script src="https://kit.fontawesome.com/fe8b803c14.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="{% static '/bootstrap_js/bootstrap.bundle.js' %}"></script>
     <link rel="stylesheet" type="text/css" href="{% static '/bootstrap_css/bootstrap.css' %}" />
+
+    <!-- Test Scripts -->
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.4/b-2.2.2/date-1.1.2/datatables.min.css" />
+
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.4/b-2.2.2/date-1.1.2/datatables.min.js"></script>
+
+    <!-- Test Scripts End-->
     {% block stylesheet %}{% endblock %}
 </head>
 
@@ -42,8 +50,9 @@ window.onclick = function(event) {
             <img src="{% static 'images/TransparentStonksFinLogo.png' %}" class="logo">
             <ul>
                 <li><a href="#">Home</a></li>
-                <li><a href="#">Portfolio</a></li>
-                <li><a href="#">Reports</a></li>
+                <li><a href="#">Chart of Accounts</a></li>
+                <li><a href="#">Journal</a></li>
+                <li><a href="#">Logs</a></li>
                 <li>
                     <div class="dropdown">
                         <button onclick="myFunction()" class="dropbtn"><i class="fas fa-user"></i></button>

@@ -24,4 +24,6 @@ urlpatterns = [
     path ('passwordReset/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(template_name='passwordReset.html'), name="password_reset_confirm"),
 
     # path ('passwordConfirm/', auth_views.PasswordResetCompleteView.as_view(template_name='passwordConfirm.html'), name="password_reset_complete"),
+
+    path ('chartOfAccounts/', views.chartOfAccounts, name='chartOfAccounts'),
 ]

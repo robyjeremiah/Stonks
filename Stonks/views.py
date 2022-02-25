@@ -65,3 +65,6 @@ def generalHome(request):
 
 def adminHome(request):
     return render(request, 'adminHome.html')
+
+def chartOfAccounts(request):
+    return render(request, 'chartOfAccounts.html')
