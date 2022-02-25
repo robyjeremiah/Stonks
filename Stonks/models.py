@@ -184,7 +184,7 @@ class Account(models.Model):
                     break        
                 elif (judge == True):
                     count = count + 1
-                    temp = str(100) + str(count)
+                    temp = str(200) + str(count)
                     temp = int(temp)
                     copycheck = True
             self.account_number = temp
@@ -204,7 +204,7 @@ class Account(models.Model):
                     break        
                 elif (judge == True):
                     count = count + 1
-                    temp = str(100) + str(count)
+                    temp = str(300) + str(count)
                     temp = int(temp)
                     copycheck = True
             self.account_number = temp
@@ -224,7 +224,7 @@ class Account(models.Model):
                     break        
                 elif (judge == True):
                     count = count + 1
-                    temp = str(100) + str(count)
+                    temp = str(400) + str(count)
                     temp = int(temp)
                     copycheck = True
             self.account_number = temp
@@ -244,7 +244,7 @@ class Account(models.Model):
                     break        
                 elif (judge == True):
                     count = count + 1
-                    temp = str(100) + str(count)
+                    temp = str(500) + str(count)
                     temp = int(temp)
                     copycheck = True
             self.account_number = temp
@@ -264,7 +264,7 @@ class Account(models.Model):
                     break        
                 elif (judge == True):
                     count = count + 1
-                    temp = str(100) + str(count)
+                    temp = str(600) + str(count)
                     temp = int(temp)
                     copycheck = True
             self.account_number = temp
