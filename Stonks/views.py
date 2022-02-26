@@ -145,3 +145,6 @@ def passwordReset(request):
 
 def passwordConfirm(request):
     return render(request, 'passwordConfirm.html')
+
+def chartOfAccounts(request):
+    return render(request, 'chartOfAccounts.html')
