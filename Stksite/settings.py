@@ -8,8 +8,11 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-#database operating system variable
-OS = False
+import environ
+
+# Setting up environment variables for the project
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -30,13 +33,13 @@ ALLOWED_HOSTS = ['Stonks-env.eba-p7p3wuag.us-west-2.elasticbeanstalk.com',
 # Application definition
 
 INSTALLED_APPS = [
-    'Stonks',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'Stonks',
 ]
 
 MIDDLEWARE = [
@@ -83,25 +86,21 @@ if 'RDS_HOSTNAME' in os.environ:
             'PORT': os.environ['RDS_PORT'],
         }
     }
-elif (OS == True):
+elif(env('DB_ENV') == 'SQLite'):
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'Stonks',
-            'USER': 'jsprin',
-            'PASSWORD': 'jsprin1234',
-            'HOST': 'Stonks_mysql',
-            'PORT': 3306
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     }
 else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'Stonks',
-            'USER': 'ltaylor',
-            'PASSWORD': 'ltaylor555',
-            'HOST': 'Stonks_mariadb',
+            'NAME': env('DB_NAME'),
+            'USER': env('MY_USER'),
+            'PASSWORD': env('MY_PASSWORD'),
+            'HOST': env('DB_ENV'),
             'PORT': 3306
         }
     }
@@ -149,3 +148,5 @@ STATICFILES_DIRS = [
 ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+AUTH_USER_MODEL = 'Stonks.User'
