@@ -1,12 +1,13 @@
-from tokenize import group
+from dataclasses import fields
 from .models import SecurityQuestion, User
 from .forms import CustomUserForm
 from .decorators import allowed_users, unauthenticated_user
 from django.shortcuts import redirect, render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail, BadHeaderError
+from django.core import serializers
 from django.http import HttpResponse
 from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.models import Group
@@ -88,6 +89,26 @@ def adminHome(request):
     }
 
     return render(request, 'adminhome.html', context)
+
+def getUserInfo(request):
+    if request.is_ajax and request.method == "GET":
+        user_id = request.GET.get("user_id", None)
+        if User.objects.filter(id = user_id).exists():
+            user = User.objects.all().filter(id = user_id)
+            userInfo = serializers.serialize('json', user, fields=(
+                'first_name',
+                'last_name',
+                'email',
+                'role',
+                'dob',
+                'is_staff',
+                'username'
+            ))
+            return JsonResponse({"valid":True, "user": userInfo}, status = 200)
+        else:
+            return JsonResponse({"valid": False}, status = 200)
+    return JsonResponse({}, status = 400)
+
 
 def delete_user(request, pk):
     username = User.objects.get(pk=pk).username
