@@ -17,7 +17,6 @@ from django.utils.encoding import force_bytes
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-
 def index(request):
     if request.method == 'POST':
         username = request.POST.get("username")
@@ -146,3 +145,6 @@ def passwordReset(request):
 
 def passwordConfirm(request):
     return render(request, 'passwordConfirm.html')
+
+def chartOfAccounts(request):
+    return render(request, 'chartOfAccounts.html')
