@@ -46,8 +46,12 @@
           class="logo"
         />
         <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Portfolio</a></li>
+          {% if user.role == 'Administrator' %}
+          <li><a href="/adminHome/">Home</a></li>
+          {% else %}
+          <li><a href="/generalHome/">Home</a></li>
+          {% endif %}
+          <li><a href="/chartOfAccounts/">Chart of Accounts</a></li>
           <li><a href="#">Reports</a></li>
           <li>
             <div class="dropdown">
@@ -56,7 +60,7 @@
               </button>
               <div id="myDropdown" class="dropdown-content">
                 <a href="#"><i class="fas fa-user"></i> My Profile</a>
-                <a href="#"><i class="fas fa-file-invoice"></i> Accounts</a>
+                <a href="/chartOfAccounts/"><i class="fas fa-file-invoice"></i> Accounts</a>
                 <a href="#"><i class="fas fa-book"></i> Ledgers</a>
                 <a href="/"><i class="fas fa-sign-out-alt"></i> Logout</a>
               </div>
