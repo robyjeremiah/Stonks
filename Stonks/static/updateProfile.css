@@ -1,28 +1,37 @@
-.banner {
-    margin-bottom: 0;
-    overflow: hidden;
-}
-
 .maincontainer {
-    width: 500px;
-    height: 600px;
-    margin: auto;
-    vertical-align: middle;
+    /* width: 500px;
+    height: 740px;
+    margin: auto; */
+    /* vertical-align: middle;
     background: #FFF8E3;
     border-top: solid 4px #6F6236;
-    border-bottom: solid 3px #BCAB6F;
-    margin-bottom: 50px;
+    border-bottom: solid 3px #BCAB6F; */
+}
+
+.modal-header{
+    background-color: #BCAB6F;    
+}
+
+.modal-footer{
+    background-color: #FFF8E3;
+}
+
+.btn-close {
+    position: absolute;
+    left: 20px;
+    top: 20px;
 }
 
 .accountbox {
-    height: 150px;
-    width: 150px;
+    /* height: 150px;
+    width: 150px; */
     text-align: center;
     vertical-align: middle;
     display: inline-block;
-    margin: 30% 5% 0 5%;
-    float: left;
+    /* margin: 30% 10px 0 10px; */
+    /* float: left; */
 }
+
 
 .userimage {
     height: 100px;
@@ -31,9 +40,14 @@
     margin-bottom: 10px;
 }
 
+hr{
+    height: 3px;
+    background: #BCAB6F;
+}
+
 .line {
-    display: inline-block;
-    height: 80%;
+    /* display: inline-block; */
+    /* height: 3px; */
     width: 1px;
     background: #BCAB6F;
     margin-top: 10%;
@@ -43,11 +57,11 @@
 
 .info {
     display: inline-block;
-    float: right;
-    margin: 10% 2% 0 0;
+    /* float: right;
+    margin: 7% 2% 0 0; */
 }
 
-    .info h2 {
+    .info h3 {
         margin-bottom: 30px;
         text-align: center;
     }
@@ -60,10 +74,11 @@
     }
 
     .info input[type="fname"], 
-    input[type="lname"], 
-    input[type="email"], 
-    input[type="password"],
-    select {
+    .info input[type="lname"], 
+    .info input[type="email"],
+    .info input[type="date"],
+    .info input[type="password"],
+    .info select {
         margin-left: 20px;
         margin-bottom: 15px;
         width: 80%;
@@ -80,7 +95,7 @@
         margin-left: 15px;
     }
 
-    input[type="submit"] {
+    .info input[type="submit"] {
         margin-top: 30px;
         margin-left: 20px;
         padding: 10px 25px 10px 25px;
@@ -92,16 +107,16 @@
         transition: 0.4s;
     }
 
-        input[type="submit"]:hover {
+        .info input[type="submit"]:hover {
             cursor: pointer;
             background: #564e33;
             color: #FFF8E3;
         }
 
-    option {
+    .info option {
         padding: 5px;
     }
 
-        ::placeholder {
+        .info ::placeholder {
             color: black;
         }

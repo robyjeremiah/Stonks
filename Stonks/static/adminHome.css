@@ -124,3 +124,54 @@ input[type=password] {
 .usertable a {
     color: #47525E;
 }
+
+/* Add a green text color and a checkmark when the requirements are right */
+.valid {
+    color: green;
+}
+
+.valid:before {
+    position: relative;
+    left: -35px;
+}
+
+/* Add a red text color and an "x" icon when the requirements are wrong */
+.invalid {
+    color: red;
+}
+
+.invalid:before {
+    position: relative;
+    left: -35px;
+}
+
+#editButton{
+    width: 100px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin: auto;
+    display: block;
+    border-radius: 50px;
+    cursor: pointer;
+    background: #AD9C64;
+    border: none;
+    margin-top: 5px;
+    color: #F7EDD2;
+    font-weight: bold;
+}
+
+#deleteButton{
+    width: 100px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin: auto;
+    display: block;
+    border-radius: 50px;
+    cursor: pointer;
+    background: #AD9C64;
+    border: none;
+    margin-top: 5px;
+    color: #F7EDD2;
+    font-weight: bold;
+    text-decoration: none;
+}

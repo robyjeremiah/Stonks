@@ -10,10 +10,14 @@ services:
       - MYSQL_USER=${MY_USER}
       - MYSQL_PASSWORD=${MY_PASSWORD}
       - MYSQL_ROOT_PASSWORD=${ROOT_PASSWORD}
+    volumes:
+      - .dbdata:/var/lib/mysql
     networks:
       - stonks-network
     ports:
       - 3307:3306
+    volumes:
+      - .dbdata:/var/lib/mysql
     expose:
       - "3306"
 
@@ -24,7 +28,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - 9000:8000
-    restart: always
     volumes:
       - .:/Stonks
     networks:
