@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
-{% block stylesheet %}<link rel="stylesheet" type="text/css" href="/static/adminHome.css" />{% endblock %}
+{% block stylesheet %}
+<link rel="stylesheet" type="text/css" href="/static/adminHome.css" />
+<link rel="stylesheet" type="text/css" href="/static/updateProfile.css" />
+{% endblock %}
 {% load static %}
 {% block content %}
 
@@ -50,18 +53,80 @@
         </thead>
         <tbody>
             {% if user_list and group_list %}
-                {% for user in user_list %}
+                {% for person in user_list %}
                 <tr>
-                    <td id='username' name='username'>{{ user.username }}</td>
-                    <td>{{user.role}}</td>
-                    <td><input type="checkbox" id="status" name="status" value="{{user.is_staff}}" {% if user.is_staff == 1 %}checked{% endif %}><label for="status"> Active</label></td>
-                    <td><a href="{%url 'edit_user' pk=user.pk %}">edit</a></td>
-                    <td><a href="{%url 'delete_user' pk=user.pk %}">delete</a></td>
+                    <td id='username' name='username'>{{ person.username }}</td>
+                    <td>{{person.role}}</td>
+                    <td id="status" name="status" value="{{person.is_staff}}">{% if person.is_staff == 1 %} Active {% else %} Inactive {% endif %}</td>
+                    <td><button type="button" id="editButton" value="{{person.id}}" data-bs-toggle="modal" data-bs-target="#updateProfile">edit</button></td>
+                    <td><a id="deleteButton" href="{%url 'delete_user' pk=person.pk %}">delete</a></td>
                 </tr>
                 {% endfor %}
             {% endif %}
         </tbody>
     </table>
+    <div class="maincontainer modal fade" id="updateProfile">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">User Info</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="accountbox">
+                        <img src="{% static 'images/Avatar.png' %}" class="userimage">
+                        <h2 id="edit-username">Username</h2>
+                    </div>
+                    <hr>
+                    <form class="info">
+                        {% csrf_token %}
+                        <h5>Profile Information</h5>
+                        <p>First Name:</p>
+                        <input type="fname" id="edit-fname" name="edit-firstname">
+                        <p>Last Name:</p>
+                        <input type="lname" id="edit-lname"name="edit-lastname">
+                        <p>Email:</p>
+                        <input type="email" id="edit-email"name="edit-email">
+                        <p>Password:</p>
+                        <input type="password" id="edit-password" name="edit-password" placeholder="New Password">
+                        <p>Image:</p>
+                        <input type="file" id='edit-file' name="edit-file"><br>
+                    </form>
+                </div>
+                <div class="modal-footer info">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <input type="submit" name="" value="Update">
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+{% block javascript %}
+<script>
+    $("#editButton").click(function(e){
+        var user_id = $(this).val(); // Get user id
+        $.ajax({
+            type: 'GET',
+            url: "{% url 'getUserInfo' %}",
+            data: {"user_id": user_id},
+            success: function(response){
+                if(response['valid']){
+                    const data = JSON.parse(response['user']);
+                    preloadModal(data[0]['fields']);
+                }
+            },
+            error: function(response){
+                console.log(response);
+            }
+        })
+    })
 
+    function preloadModal(userInfo){
+        $('#edit-fname').val(userInfo['first_name'])
+        $('#edit-lname').val(userInfo['last_name'])
+        $('#edit-email').val(userInfo['email'])
+        $('#edit-username').text(userInfo['username'])
+    }
+</script>
+{% endblock javascript %}
 {% endblock %}
