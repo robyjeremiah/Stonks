@@ -1,6 +1,5 @@
 $(document).ready(function () {
     validatePassword();
-    confirmPassword();
 })
 
 function validatePassword() {
@@ -58,18 +57,5 @@ function validatePassword() {
             $('#mixed').addClass('invalid');
         }
 
-    })
-}
-
-function confirmPassword() {
-    $('#submit').click(function () {
-        var password = $('#password').val();
-        var confirmPass = $('#confirmPassword').val();
-
-        if (password != confirmPass) {
-            alert('Passwords did not match.');
-        } else {
-            alert('Password created successfully!');
-        }
     })
 }

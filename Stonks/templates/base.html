@@ -1,80 +1,81 @@
 {% load static %}
 <html>
-<head>
+  <head>
     <!--Title-->
     <title>{% block title %}Stonks Home Page{% endblock %}</title>
     <!--Title End-->
-
     <link rel="stylesheet" type="text/css" href="{% static 'base.css' %}" />
     <script type="text/javascript" src="{% static '/js/jquery-3.6.0.js' %}"></script>
     <script src="https://kit.fontawesome.com/fe8b803c14.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="{% static '/bootstrap_js/bootstrap.bundle.js' %}"></script>
     <link rel="stylesheet" type="text/css" href="{% static '/bootstrap_css/bootstrap.css' %}" />
-
-    <!-- Test Scripts -->
-
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.4/b-2.2.2/date-1.1.2/datatables.min.css" />
-
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.4/b-2.2.2/date-1.1.2/datatables.min.js"></script>
-
-    <!-- Test Scripts End-->
+    <script
+      type="text/javascript"
+      src="{% static '/js/jquery-3.6.0.js' %}"
+    ></script>
+    <script type="text/javascript" src="{% static '/js/app.js' %}"></script>
+    <script
+      src="https://kit.fontawesome.com/fe8b803c14.js"
+      crossorigin="anonymous"
+    ></script>
     {% block stylesheet %}{% endblock %}
-</head>
+  </head>
 
-    <!--Script For Dropdown-->
-<script>
-        function myFunction() {
-  document.getElementById("myDropdown").classList.toggle("show");
-}
-
-// Close the dropdown menu if the user clicks outside of it
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
+  <!--Script For Dropdown-->
+  <script>
+    function myFunction() {
+      document.getElementById("myDropdown").classList.toggle("show");
     }
-  }
-}
-</script>
-    <!--Script For Dropdown End-->
 
-<body>
+    // Close the dropdown menu if the user clicks outside of it
+    window.onclick = function (event) {
+      if (!event.target.matches(".dropbtn")) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains("show")) {
+            openDropdown.classList.remove("show");
+          }
+        }
+      }
+    };
+  </script>
+  <!--Script For Dropdown End-->
+
+  <body>
     <div class="banner">
-        <!--Nav Bar-->
-        <div class="navbar">
-            <img src="{% static 'images/TransparentStonksFinLogo.png' %}" class="logo">
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Chart of Accounts</a></li>
-                <li><a href="#">Journal</a></li>
-                <li><a href="#">Logs</a></li>
-                <li>
-                    <div class="dropdown">
-                        <button onclick="myFunction()" class="dropbtn"><i class="fas fa-user"></i></button>
-                        <div id="myDropdown" class="dropdown-content">
-                            <a href="#"><i class="fas fa-user"></i> My Profile</a>
-                            <a href="#"><i class="fas fa-file-invoice"></i> Accounts</a>
-                            <a href="#"><i class="fas fa-book"></i> Ledgers</a>
-                            <a href="/"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <!--Nav Bar End-->
-
-        <!--Page Content-->
-        <div class="content">
-            {% block content %}
-
-            {% endblock %}
-        </div>
-        <!--Page Content End-->
+      <!--Nav Bar-->
+      <div class="navbar">
+        <img
+          src="{% static 'images/TransparentStonksFinLogo.png' %}"
+          class="logo"
+        />
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Portfolio</a></li>
+          <li><a href="#">Reports</a></li>
+          <li>
+            <div class="dropdown">
+              <button onclick="myFunction()" class="dropbtn">
+                <i class="fas fa-user"></i>
+              </button>
+              <div id="myDropdown" class="dropdown-content">
+                <a href="#"><i class="fas fa-user"></i> My Profile</a>
+                <a href="#"><i class="fas fa-file-invoice"></i> Accounts</a>
+                <a href="#"><i class="fas fa-book"></i> Ledgers</a>
+                <a href="/"><i class="fas fa-sign-out-alt"></i> Logout</a>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <!--Nav Bar End-->
+      <!--Page Content-->
+      <div class="content">{% block content %} {% endblock %}</div>
+      <!--Page Content End-->
     </div>
-</body>
+  </body>
 </html>

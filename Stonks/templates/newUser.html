@@ -9,18 +9,121 @@
     <link rel="icon" type="image/png" href="{%static 'Stonks.png' %}">
     <script type="text/javascript" src="{% static '/js/jquery-3.6.0.js' %}"></script>
     <script type="text/javascript" src="{% static '/js/app.js' %}"></script>
+    <link rel="icon" type="image/x-icon" href="{% static 'images/Stonks.png' %}">
 </head>
+<script>
+    $(document).ready(function () {
+        validatePassword();
+        confirmPassword();
+    })
+
+    function validatePassword(){
+        $("#password").focus(function () {
+            $("#message").show();
+        })
+
+        $("#password").blur(function () {
+            $("#message").hide();
+        })
+
+        $('#password').keyup(function(){
+            // Validates lowercase for password
+            var value = this.value;
+            var lowerCaseletters = /[a-z]/g;
+            if(lowerCaseletters.test(value)){
+                $('#letter').removeClass('invalid');
+                $('#letter').addClass('valid');
+            } else {
+                $('#letter').removeClass('valid');
+                $('#letter').addClass('invalid');
+            }
+        })
+
+        $('#password').keyup(function(){
+            // Validates uppercase for password
+            var value = this.value;
+            var upperCaseLetters = /[A-Z]/g;
+            if(upperCaseLetters.test(value)){
+                $('#capital').removeClass('invalid');
+                $('#capital').addClass('valid');
+            } else {
+                $('#capital').removeClass('valid');
+                $('#capital').addClass('invalid');
+            }
+        })
+
+        $('#password').keyup(function(){
+            // Validates numbers for password
+            var value = this.value;
+            var numbers = /[0-9]/g;
+            if(numbers.test(value)){
+                $('#number').removeClass('invalid');
+                $('#number').addClass('valid');
+            } else {
+                $('#number').removeClass('valid');
+                $('#number').addClass('invalid');
+            }
+        })
+
+        $('#password').keyup(function(){
+            // Validate length
+            var value = this.value;
+            if(value.length >= 8) {
+                $('#length').removeClass('invalid');
+                $('#length').addClass('valid');
+            } else {
+                $('#length').removeClass('valid');
+                $('#length').addClass('invalid');
+            }
+        })
+    }
+
+    function confirmPassword(){
+        $('#submit').click(function(){
+            var password = $('#password').val();
+            var confirmPass = $('#confirmPassword').val();
+
+            if(password != confirmPass){
+                generateAlert('fail');
+                alert('Passwords did not match.');
+            } else {
+                generateAlert('success');
+                alert('Password created successfully!');
+            }
+        })
+    }
+
+    function generateAlert(classType){
+        $(".newUserAccount").prepend('You have successfully created an account!').addClass(classType);
+    }
+</script>
+
 <body>
-    <form method="POST" action="/">
+    <form method="POST">
         {% csrf_token %}
+        <div id="message" style="display: none;">
+            <h3>Password must contain the following:</h3>
+            <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+            <p id="capital" class="invalid">First character is <b>capital (uppercase)</b> letter</p>
+            <p id="number" class="invalid">A <b>number</b></p>
+            <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+        </div>
         <div class="newUserAccount">
             <h1>Create an Account</h1>
-            <input type="text" name="fname" id="fname" placeholder="First Name">
-            <input type="text" name="lname" id="lname" placeholder="Last Name">
-            <input type="email" name="email" id="email" placeholder="Email">
-            <input type="date" name="date" id="date" placeholder="Date of Birth">
-            <input type="password" name="password" id="password" placeholder="New Password">
-            <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password">
+            {% if messages %}
+                {% for message in messages %}
+                <p{% if message.tags %} class=" message{{ message.tags }}"{% endif %}>{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+            {% for error in form.password2.errors %}
+                <p class="message">{{ error }}</p>
+            {% endfor %}
+            {{ form.first_name }}
+            {{ form.last_name }}
+            {{ form.email }}
+            {{ form.dob }}
+            {{ form.password1 }}
+            {{ form.password2 }}
             <div class="required" style="display:none">
                 <p>Passwords must contain the following:</p>
                 <ul>

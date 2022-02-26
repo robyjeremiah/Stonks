@@ -16,6 +16,8 @@ services:
       - stonks-network
     ports:
       - 3307:3306
+    volumes:
+      - .dbdata:/var/lib/mysql
     expose:
       - "3306"
 
@@ -26,7 +28,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - 9000:8000
-    restart: always
     volumes:
       - .:/Stonks
     networks:
