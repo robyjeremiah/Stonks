@@ -57,7 +57,7 @@
                 <tr>
                     <td id='username' name='username'>{{ user.username }}</td>
                     <td>{{user.role}}</td>
-                    <td><input type="checkbox" id="status" name="status" value="{{user.is_staff}}" {% if user.is_staff == 1 %}checked{% endif %}><label for="status"> Active</label></td>
+                    <td id="status" name="status" value="{{user.is_staff}}">{% if user.is_staff == 1 %} Active {% else %} Inactive {% endif %}</td>
                     <td><button type="button" id="editButton" data-bs-toggle="modal" data-bs-target="#updateProfile">edit</button></td>
                     <td><a id="deleteButton" href="{%url 'delete_user' pk=user.pk %}">delete</a></td>
                 </tr>
@@ -81,15 +81,15 @@
                     <form class="info">
                         <h5>Profile Information</h5>
                         <p>First Name:</p>
-                        <input type="fname" name="" placeholder="django fname">
+                        <input type="fname" name="edit-firstname" placeholder="django fname">
                         <p>Last Name:</p>
-                        <input type="lname" name="" placeholder="django lname">
+                        <input type="lname" name="edit-lastname" placeholder="django lname">
                         <p>Email:</p>
-                        <input type="email" name="" placeholder="django fname">
+                        <input type="email" name="edit-email" placeholder="django fname">
                         <p>Password:</p>
-                        <input type="password" name="" placeholder="django password">
+                        <input type="password" name="edit-password" placeholder="django password">
                         <p>Image:</p>
-                        <input type="file" name=""><br>
+                        <input type="file" name="edit-file"><br>
                     </form>
                 </div>
                 <div class="modal-footer info">
