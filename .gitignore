@@ -75,6 +75,5 @@ data
 .DS_Store
 
 # Visual Studio #
-.vs
-.vscode
-Todo.txt
+.vs/
+.vscode/

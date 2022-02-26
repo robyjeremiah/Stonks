@@ -41,4 +41,3 @@ django-mysql==3.9
 django-cors-headers==3.5.0
 Pillow
 fontawesome-free
-django-environ
