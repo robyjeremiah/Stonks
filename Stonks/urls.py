@@ -17,7 +17,6 @@ urlpatterns = [
     # Administrator Home
     path('adminHome/', views.adminHome, name='adminHome'),
     path('adminHome/delete/<pk>', views.delete_user, name='delete_user'),
-    path('adminHome/edit/<pk>', views.edit_user, name='edit_user'),
     path('chartOfAccounts/', views.chartOfAccounts, name='chartOfAccounts'),
     # Django Admin Forgot Password Functionalities
     path ('forgotPass/', auth_views.PasswordResetView.as_view(template_name='forgotPass.html'), name="reset_password"),

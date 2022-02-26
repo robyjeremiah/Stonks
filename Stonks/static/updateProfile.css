@@ -1,11 +1,19 @@
 .maincontainer {
-    width: 500px;
+    /* width: 500px;
     height: 740px;
-    margin: auto;
-    vertical-align: middle;
+    margin: auto; */
+    /* vertical-align: middle;
     background: #FFF8E3;
     border-top: solid 4px #6F6236;
-    border-bottom: solid 3px #BCAB6F;
+    border-bottom: solid 3px #BCAB6F; */
+}
+
+.modal-header{
+    background-color: #BCAB6F;    
+}
+
+.modal-footer{
+    background-color: #FFF8E3;
 }
 
 .btn-close {
@@ -15,13 +23,13 @@
 }
 
 .accountbox {
-    height: 150px;
-    width: 150px;
+    /* height: 150px;
+    width: 150px; */
     text-align: center;
     vertical-align: middle;
     display: inline-block;
-    margin: 30% 10px 0 10px;
-    float: left;
+    /* margin: 30% 10px 0 10px; */
+    /* float: left; */
 }
 
 
@@ -32,9 +40,14 @@
     margin-bottom: 10px;
 }
 
+hr{
+    height: 3px;
+    background: #BCAB6F;
+}
+
 .line {
-    display: inline-block;
-    height: 80%;
+    /* display: inline-block; */
+    /* height: 3px; */
     width: 1px;
     background: #BCAB6F;
     margin-top: 10%;
@@ -44,8 +57,8 @@
 
 .info {
     display: inline-block;
-    float: right;
-    margin: 7% 2% 0 0;
+    /* float: right;
+    margin: 7% 2% 0 0; */
 }
 
     .info h3 {
