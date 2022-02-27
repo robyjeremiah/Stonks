@@ -35,7 +35,7 @@
     });
 
     $("div.addbtn").html(
-      '<button class="add" data-bs-toggle="modal" data-bs-target="#addaccountmodal">+ Add New Account</button>'
+      "<button class='add {%if user.role == 'Manager' or user.role == 'Accountant' %} hide {% endif %}' data-bs-toggle='modal' data-bs-target='#addaccountmodal'>+ Add New Account</button>"
     );
     $("div.calendarbtn").html(
       '<a class="calendar"><i class="fas fa-calendar-alt"></i></a>'
@@ -132,80 +132,87 @@
     </thead>
     <tbody>
       <tr class="details-control" data-child-value="Nope">
-        <td>101</td>
-        <td>Cash</td>
+        <td>100</td>
+        <td>J.Springer Account</td>
         <td>Assets</td>
         <td>$5,000</td>
         <td>2011/04/25</td>
       </tr>
       <tr class="details-control" data-child-value="Nope">
         <td>101</td>
-        <td>Cash</td>
-        <td>Assets</td>
-        <td>$5,000</td>
+        <td>S.Spraggins Account</td>
+        <td>Liabilities</td>
+        <td>$3,116</td>
         <td>2011/04/25</td>
       </tr>
       <tr class="details-control" data-child-value="Nope">
-        <td>101</td>
-        <td>Cash</td>
-        <td>Assets</td>
-        <td>$5,000</td>
+        <td>102</td>
+        <td>L.Taylor Account</td>
+        <td>Equity Accounts</td>
+        <td>$2,552</td>
         <td>2011/04/25</td>
       </tr>
       <tr class="details-control" data-child-value="Nope">
-        <td>101</td>
-        <td>Cash</td>
-        <td>Assets</td>
-        <td>$5,000</td>
+        <td>103</td>
+        <td>J.Puplampa Account</td>
+        <td>Revenues</td>
+        <td>$1,166</td>
         <td>2011/04/25</td>
       </tr>
       <tr class="details-control" data-child-value="Nope">
-        <td>101</td>
-        <td>Cash</td>
-        <td>Assets</td>
-        <td>$5,000</td>
+        <td>104</td>
+        <td>J.Roby Account</td>
+        <td>Expenses</td>
+        <td>$3,039</td>
         <td>2011/04/25</td>
       </tr>
       <tr class="details-control" data-child-value="Nope">
-        <td>101</td>
-        <td>Cash</td>
-        <td>Assets</td>
-        <td>$5,000</td>
+        <td>105</td>
+        <td>W.Beckman Account</td>
+        <td>Other</td>
+        <td>$3,037</td>
         <td>2011/04/25</td>
       </tr>
       <tr class="details-control" data-child-value="Nope">
-        <td>101</td>
-        <td>Cash</td>
+        <td>106</td>
+        <td>B.Hall Account</td>
         <td>Assets</td>
-        <td>$5,000</td>
+        <td>$2,884</td>
         <td>2011/04/25</td>
       </tr>
       <tr class="details-control" data-child-value="Nope">
-        <td>101</td>
-        <td>Cash</td>
-        <td>Assets</td>
-        <td>$5,000</td>
+        <td>107</td>
+        <td>A.Franklin Account</td>
+        <td>Equity Accounts</td>
+        <td>$5,605</td>
         <td>2011/04/25</td>
       </tr>
       <tr class="details-control" data-child-value="Nope">
-        <td>101</td>
-        <td>Cash</td>
+        <td>108</td>
+        <td>O.Rodrigo Account</td>
         <td>Assets</td>
-        <td>$5,000</td>
+        <td>$4,553</td>
         <td>2011/04/25</td>
       </tr>
       <tr class="details-control" data-child-value="Nope">
-        <td>101</td>
-        <td>Cash</td>
-        <td>Assets</td>
-        <td>$5,000</td>
+        <td>109</td>
+        <td>L.Pricilla Account</td>
+        <td>Liabilities</td>
+        <td>$4,519</td>
         <td>2011/04/25</td>
       </tr>
       <tr class="details-control" data-child-value="Nope">
-        <td>101</td>
-        <td>Cash</td>
-        <td>Assets</td>
-        <td>$5,000</td>
+        <td>110</td>
+        <td>B.Dawit Account</td>
+        <td>Revenues</td>
+        <td>$2,271</td>
+        <td>2011/04/25</td>
+      </tr>
+      <tr class="details-control" data-child-value="Nope">
+        <td>111</td>
+        <td>R.Roberts Account</td>
+        <td>Other</td>
+        <td>$1,632</td>
         <td>2011/04/25</td>
       </tr>
     </tbody>
