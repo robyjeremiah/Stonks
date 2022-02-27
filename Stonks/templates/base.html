@@ -37,6 +37,13 @@
   </script>
   <!--Script For Dropdown End-->
 
+  <!--Script For  Tooltips-->
+  <script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+})
+  </script>
   <body>
     <div class="banner">
       <!--Nav Bar-->
@@ -47,12 +54,13 @@
         />
         <ul>
           {% if user.role == 'Administrator' %}
-          <li><a href="/adminHome/">Home</a></li>
+          <li><a href="/adminHome/" class="btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Home Page">Home</a></li> 
           {% else %}
-          <li><a href="/generalHome/">Home</a></li>
+          <li><a href="/generalHome/" class="btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Home Page">Home</a></li>
           {% endif %}
-          <li><a href="/chartOfAccounts/">Chart of Accounts</a></li>
-          <li><a href="#">Reports</a></li>
+          <li><a href="#" class="btn" data-bs-toggle="tooltip" data-bs-placement="top" title="View Account Journal">Journals</a></li>
+          <li><a href="/chartOfAccounts/" class="btn" data-bs-toggle="tooltip" data-bs-placement="top" title="View Chart of Accounts">Chart of Accounts</a></li>
+          <li><a href="#" class="btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Generate New Reports">Reports</a></li>
           <li>
             <div class="dropdown">
               <button onclick="myFunction()" class="dropbtn">
@@ -73,5 +81,9 @@
       <div class="content">{% block content %} {% endblock %}</div>
       <!--Page Content End-->
     </div>
+    <footer>
+      <p>Stonks Accounting for all your Financial Solutions</p>
+      <p><a href="#">Need Help?</a></p>
+    </footer>
   </body>
 </html>

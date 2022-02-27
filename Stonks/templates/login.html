@@ -5,6 +5,14 @@
     <link rel="stylesheet" type="text/css" href="{% static 'login.css' %}" />
     <link rel="icon" type="image/x-icon" href="{% static 'images/Stonks.png' %}">
   </head>
+
+  <!--Script For  Tooltips-->
+  <script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+})
+  </script>
   <body>
     <div class="loginbox">
       <img src="{% static 'images/Avatar.png' %}" class="avatar">
@@ -23,8 +31,8 @@
         <input type="password" class="form-control" name="password" placeholder="Enter Password" />
         <input type="submit" value="login"/>
         <input type="hidden" name="next" value="{{ next }}"/>
-        <a href="/forgotPass">Forgot password?</a><br />
-        <a href="/newUser">Don't have an account?</a>
+        <a href="/forgotPass" class="btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Reset your password here">Forgot password?</a><br />
+        <a href="/newUser" class="btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Create a new account here">Don't have an account?</a>
       </form>
     </div>
   </body>
