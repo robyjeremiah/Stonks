@@ -1,177 +1,179 @@
 .dropdown-content h3 {
-    text-align: center;
+  text-align: center;
 }
 
 .content {
-    width: 80%;
-    height: auto;
-    text-align: center;
-    margin: auto;
+  width: 80%;
+  height: auto;
+  text-align: center;
+  margin: auto;
 }
 
-    .content h1 {
-        font-size: 70px;
-        color: #FFF8E3;
-        margin-top: 0px;
-        margin-bottom: 60px;
-    }
+.content h1 {
+  font-size: 70px;
+  color: #fff8e3;
+  margin-top: 0px;
+  margin-bottom: 60px;
+}
 
 .fields {
-    justify-content: space-between;
-    height: auto;
-    column-gap: 50px;
+  justify-content: space-between;
+  height: auto;
+  column-gap: 50px;
 }
 
 .adduserbox {
-    padding: 30px;
-    background: #EEE3C5;
-    margin: auto;
-    margin-bottom: 50px;
-    padding-bottom: 20px;
-    width: 220px;
-    border-radius: 7px;
-    text-align: left;
-    font-weight: bold;
-    box-shadow: 0px 10px 30px 5px rgba(0,0,0,0.15);
-    display: inline-block;
+  padding: 30px;
+  background: #eee3c5;
+  margin: auto;
+  margin-bottom: 50px;
+  padding-bottom: 20px;
+  width: 220px;
+  border-radius: 7px;
+  text-align: left;
+  font-weight: bold;
+  box-shadow: 0px 10px 30px 5px rgba(0, 0, 0, 0.15);
+  display: inline-block;
 }
 
 .adduserbox p {
-    margin: 0 0 5px 5px;
-    font-size: 14px;
+  margin: 0 0 5px 5px;
+  font-size: 14px;
 }
 
-#role, .adduserbox input[type=text],
-input[type=email],
-input[type=date],
-input[type=password] {
-    width: 100%;
-    padding: 5px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    border: solid 3px #AD9C64;
-    background: #EEE3C5;
+#role,
+.adduserbox input[type="text"],
+input[type="email"],
+input[type="date"],
+input[type="password"] {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: solid 3px #ad9c64;
+  background: #eee3c5;
 }
 
-.adduserbox input[type=submit] {
-    width: 70%;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    margin: auto;
-    display: block;
-    border-radius: 50px;
-    cursor: pointer;
-    background: #AD9C64;
-    border: none;
-    margin-top: 5px;
-    color: #F7EDD2;
-    font-weight: bold;
+.adduserbox input[type="submit"] {
+  width: 70%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin: auto;
+  display: block;
+  border-radius: 50px;
+  cursor: pointer;
+  background: #ad9c64;
+  border: none;
+  margin-top: 5px;
+  color: #f7edd2;
+  font-weight: bold;
 }
 
-.adduserbox input[type=submit]:hover {
-    background: #7C6E41;
+.adduserbox input[type="submit"]:hover {
+  background: #7c6e41;
 }
 
 .usertable {
-    display: inline-block;
-    border-collapse: collapse;
-    border-radius: 7px;
-    box-shadow: 0px 10px 30px 5px rgba(0,0,0,0.15);
-    background: #EEE3C5;
-    color: #6F6236;
-    margin: auto;
-    margin-bottom: 50px;
-    margin-left: 25px;
-    vertical-align: top;
-    height: 465px;
-    overflow: auto;
+  display: inline-block;
+  border-collapse: collapse;
+  border-radius: 7px;
+  box-shadow: 0px 10px 30px 5px rgba(0, 0, 0, 0.15);
+  background: #eee3c5;
+  color: #6f6236;
+  margin: auto;
+  margin-bottom: 50px;
+  margin-left: 25px;
+  vertical-align: top;
+  height: 465px;
+  overflow: auto;
 }
 
 .usertable thead {
-    position: sticky;
-    top: 0;
-    background: #EEE3C5;
-    width: 100%;
+  position: sticky;
+  top: 0;
+  background: #eee3c5;
+  width: 100%;
 }
 
 .usertable thead::after {
-    content: '';
-    width: 90%;
-    height: 1px;
-    position: absolute;
-    bottom: 0;
-    left: 5%;
-    background: #6F6236;
+  content: "";
+  width: 90%;
+  height: 1px;
+  position: absolute;
+  bottom: 0;
+  left: 5%;
+  background: #6f6236;
 }
 
 .usertable thead tr td {
-    padding: 15px;
-    color: #6F6236;
-    font-size: 20px;
-    font-weight: bold;
-    text-align: center;
+  padding: 15px;
+  color: #6f6236;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
 }
 
 .usertable tbody {
-    overflow: auto;
+  overflow: auto;
 }
 
 .usertable tbody tr td {
-    text-align: center;
-    padding: 10px 30px 10px 30px;
+  text-align: center;
+  padding: 10px 30px 10px 30px;
 }
 
 .usertable a {
-    color: #47525E;
+  color: #47525e;
 }
 
 /* Add a green text color and a checkmark when the requirements are right */
 .valid {
-    color: green;
+  color: green;
 }
 
 .valid:before {
-    position: relative;
-    left: -35px;
+  position: relative;
+  left: -35px;
 }
 
 /* Add a red text color and an "x" icon when the requirements are wrong */
 .invalid {
-    color: red;
+  color: red;
 }
 
 .invalid:before {
-    position: relative;
-    left: -35px;
+  position: relative;
+  left: -35px;
 }
 
-#editButton{
-    width: 100px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    margin: auto;
-    display: block;
-    border-radius: 50px;
-    cursor: pointer;
-    background: #AD9C64;
-    border: none;
-    margin-top: 5px;
-    color: #F7EDD2;
-    font-weight: bold;
+#editButton {
+  width: 100px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin: auto;
+  display: block;
+  border-radius: 50px;
+  cursor: pointer;
+  background: #ad9c64;
+  border: none;
+  margin-top: 5px;
+  color: #f7edd2;
+  font-weight: bold;
+  text-decoration: none;
 }
 
-#deleteButton{
-    width: 100px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    margin: auto;
-    display: block;
-    border-radius: 50px;
-    cursor: pointer;
-    background: #AD9C64;
-    border: none;
-    margin-top: 5px;
-    color: #F7EDD2;
-    font-weight: bold;
-    text-decoration: none;
+#deleteButton {
+  width: 100px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin: auto;
+  display: block;
+  border-radius: 50px;
+  cursor: pointer;
+  background: #ad9c64;
+  border: none;
+  margin-top: 5px;
+  color: #f7edd2;
+  font-weight: bold;
+  text-decoration: none;
 }
