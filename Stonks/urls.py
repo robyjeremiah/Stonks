@@ -20,9 +20,13 @@ urlpatterns = [
     path('adminHome/edit/ajax/user', views.getUserInfo, name='getUserInfo'),
     path('chartOfAccounts/', views.chartOfAccounts, name='chartOfAccounts'),
     # Django Admin Forgot Password Functionalities
-    path ('forgotPass/', auth_views.PasswordResetView.as_view(template_name='forgotPass.html'), name="reset_password"),
-    path ('emailSent/', auth_views.PasswordResetDoneView.as_view(template_name='emailSent.html'), name="password_reset_done"),
-    path ('passwordReset/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(template_name='passwordReset.html'), name="password_reset_confirm"),
+    path('forgotPass/', auth_views.PasswordResetView.as_view(
+        template_name='forgotPass.html'), name="reset_password"),
+    path('emailSent/', auth_views.PasswordResetDoneView.as_view(
+        template_name='emailSent.html'), name="password_reset_done"),
+    path('passwordReset/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(
+        template_name='passwordReset.html'), name="password_reset_confirm"),
     # path ('passwordConfirm/', auth_views.PasswordResetCompleteView.as_view(template_name='passwordConfirm.html'), name="password_reset_complete"),
-    path('viewAccountInfo/', views.useraccount, name='viewAccount')
+    path('chartOfAccounts/viewAccountInfo/',
+         views.useraccount, name='viewAccount')
 ]

@@ -1,67 +1,56 @@
-{% extends 'base.html' %}
-{% block stylesheet %}
-{% endblock %}
-
-{% load static %}
-
-{% block content %}
-<html>
-    <head>
-        <title>Account Details</title>
-        <link rel="stylesheet" type="text/css" href="/static/useraccount.css"/>
-    </head>
-    <body>
-        <div class="container">
-            <div class="main">
-                <div class="col-md-4 mt-1">
-                    <div class="card text-center sidebar">
-                        <div class="card-body">
-                            <img src="{% static 'images/Avatar.png' %}" class="rounded-circle" width="150">
-                            <div class="mt-3">
-                                <h3>{{user.first_name}} {{user.last_name}}</h3>
-                                <a href="#">Account Ledger</a>
-                                <a href="#">Account Journal</a>
-                                <a href="#">Support</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-8 mt-1">
-                    <div class="card mb-3 content">
-                        <h1 class="m-3 pt-3">General Information</h1>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <h5>Company Name</h5>
-                                </div>
-                                <div class="col-md-9 text secondary">
-                                    Stonks Financial Solutions
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <h5>Email</h5>
-                                </div>
-                                <div class="col-md-9 text secondary">
-                                    stonksinfo@stksite.com
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <h5>Current Balance:</h5>
-                                </div>
-                                <div class="col-md-9 text secondary">
-                                    $5,000
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+{% extends 'base.html' %} {% block stylesheet %}
+<link rel="stylesheet" type="text/css" href="/static/useraccount.css" />
+{% endblock %} {% load static %} {% block content %}
+<div class="container">
+  <div class="main">
+    <div class="row justify-content-start">
+      <div class="col-4">
+        <div class="card text-center sidebar">
+          <div class="card-body">
+            <img
+              src="{% static 'images/Avatar.png' %}"
+              class="rounded-circle"
+              width="150"
+            />
+            <div class="mt-3">
+              <h3>{{user.first_name}} {{user.last_name}}</h3>
+              <a href="#">Account Ledger</a>
+              <a href="#">Account Journal</a>
+              <a href="#">Support</a>
             </div>
+          </div>
         </div>
-    </body>
-</html>
-
+      </div>
+      <div class="col-8">
+        <div class="card mb-3 content">
+          <h1 class="m-3 pt-3">General Information</h1>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-3">
+                <h5>Company Name</h5>
+              </div>
+              <div class="col-md-9 text secondary">
+                Stonks Financial Solutions
+              </div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-md-3">
+                <h5>Email</h5>
+              </div>
+              <div class="col-md-9 text secondary">stonksinfo@stksite.com</div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-md-3">
+                <h5>Current Balance:</h5>
+              </div>
+              <div class="col-md-9 text secondary">$5,000</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
