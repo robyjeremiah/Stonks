@@ -10,6 +10,13 @@
     <link rel="stylesheet" type="text/css" href="{% static 'emailsent.css' %}">
     <link rel="icon" type="image/x-icon" href="{% static 'images/Stonks.png' %}">
 </head>
+<!--Script For  Tooltips-->
+<script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+})
+  </script>
 <body>
     <div class="resetbox">
         <h1>Email Has Been Sent!</h1>
@@ -18,7 +25,7 @@
             If you have not recieved an email, please make sure you've entered the email address you registered with.
         </p>
         <div class="return">
-            <a href="/">Back to login</a>
+            <a href="/" class="btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Return to Login">Back to login</a>
         </div>
     </div>
 </body>

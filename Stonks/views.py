@@ -169,3 +169,6 @@ def passwordConfirm(request):
 
 def chartOfAccounts(request):
     return render(request, 'chartOfAccounts.html')
+
+def useraccount(request):
+    return render(request, 'useraccount.html')
