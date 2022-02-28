@@ -90,13 +90,17 @@
             {% csrf_token %}
             <h5>Profile Information</h5>
             <p>First Name:</p>
-            <input type="fname" class="record" name="edit-firstname" placeholder="Jalen" />
+            <input type="text" class="record" name="edit-firstname" placeholder="Jalen" />
             <p>Last Name:</p>
-            <input type="lname" class="record" name="edit-lastname" placeholder="Springer" />
+            <input type="text" class="record" name="edit-lastname" placeholder="Springer" />
             <p>Email:</p>
             <input type="email" class="record" name="edit-email" placeholder="jsprin18@students.kennesaw.edu"/>
             <p>Role:</p>
-            <input type="fname" class="record"name="edit-role" placeholder="Administrator"/>
+            <select class="record" name="edit-status">
+              <option value="Administrator">Administrator</option>
+              <option value="Manager">Manager</option>
+              <option value="Accountant">Accountant</option>
+            </select>
             <p>Status:</p>
             <select class="record" name="edit-status">
               <option value="Active">Active</option>
