@@ -59,12 +59,10 @@
           {% if person.is_staff == 1 %} Active {% else %} Inactive {% endif %}
         </td>
         <td>
-          <a id="editButton" href="{%url 'edit_user' pk=person.pk %}">edit</a>
+          <a class="editButton" href="{%url 'edit_user' pk=person.pk %}">edit</a>
         </td>
         <td>
-          <a id="deleteButton" href="{%url 'delete_user' pk=person.pk %}"
-            >delete</a
-          >
+          <a class="deleteButton" href="{%url 'delete_user' pk=person.pk %}">delete</a>
         </td>
       </tr>
       {% endfor %} {% endif %}
@@ -85,27 +83,28 @@
         <div class="modal-body">
           <div class="accountbox">
             <img src="{% static 'images/Avatar.png' %}" class="userimage" />
-            <h2 id="edit-username">Username</h2>
+            <h2 class="record">Username</h2>
           </div>
           <hr />
           <form class="info">
             {% csrf_token %}
             <h5>Profile Information</h5>
             <p>First Name:</p>
-            <input type="fname" id="edit-fname" name="edit-firstname" />
+            <input type="fname" class="record" name="edit-firstname" />
             <p>Last Name:</p>
-            <input type="lname" id="edit-lname" name="edit-lastname" />
+            <input type="lname" class="record" name="edit-lastname" />
             <p>Email:</p>
-            <input type="email" id="edit-email" name="edit-email" />
-            <p>Password:</p>
-            <input
-              type="password"
-              id="edit-password"
-              name="edit-password"
-              placeholder="New Password"
-            />
+            <input type="email" class="record" name="edit-email" />
+            <p>Role:</p>
+            <input type="password" class="record"name="edit-password"/>
+            <p>Status:</p>
+            <input type="lname" class="record"name="edit-status"/>
+            <p>New Password:</p>
+            <input type="password" class="record"name="edit-new-password" placeholder="New Password"/>
+            <p>Confirm Password:</p>
+            <input type="password" class="record"name="edit-confirm-password" placeholder="Confirm Password"/>
             <p>Image:</p>
-            <input type="file" id="edit-file" name="edit-file" /><br />
+            <input type="file" class="record" name="edit-file" /><br />
           </form>
         </div>
         <div class="modal-footer info">
@@ -124,17 +123,16 @@
 </div>
 {% block javascript %}
 <script>
-  $("#usertable tbody").on("click", "#editButton", function (e) {
+  $(".editButton").click(function (e) {
     e.preventDefault();
-    console.log("hello");
+    user_id = $(this).val();
+    // var $this = $(this);
+    // let username = $this.parents("")
+    // let first_name = $this.parents 
+    // let last_name
+    // let email
     $("#updateProfile").modal("show");
+    return false;
   });
-
-  function preloadModal(userInfo) {
-    $("#edit-fname").val(userInfo["first_name"]);
-    $("#edit-lname").val(userInfo["last_name"]);
-    $("#edit-email").val(userInfo["email"]);
-    $("#edit-username").text(userInfo["username"]);
-  }
 </script>
 {% endblock javascript %} {% endblock %}
