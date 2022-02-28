@@ -11,18 +11,15 @@
       "<li>Account Description: </li><p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.Donec eu libero sit amet quam egestas semper.Aenean ultricies mi vitae est.Mauris placerat eleifend leo.Quisque sit amet est et sapien ullamcorper pharetra.Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui.Donec non enim in turpis pulvinar facilisis.Ut felis.Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat.Aliquam erat volutpat.Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>" +
       "<li>Account Subcategory: </li><p>Current Assets</p>" +
       "<li>Normal Side: </li><p>Debit</p>" +
-      "<li>Debit: </li><p>5,000</p>" +
-      "<li>Credit: </li><p>-8,000</p>" +
+      "<li>Debit: </li><p>8000</p>" +
+      "<li>Credit: </li><p>-8000</p>" +
       "<li>Initial Balance: </li><p>5,000</p>" +
-      "<li>User ID: </li><p>JSpringer0500</p>" +
+      "<li>User ID: </li><p>sspragg2</p>" +
       "<li>Statement: </li><p>Balance Sheet</p>" +
       "<li>Comment: </li><p>No comment</p>" +
       "</ul>" +
       "</div>" +
       '<div class="col-3 text-center mx-auto" id="actions">' +
-      '<a href="viewAccountInfo/"><i class="fas fa-file-user"></i> View Account</a><br>' +
-      "<a class='{%if user.role == 'Manager' or user.role == 'Accountant' %} hide {% endif %}' data-bs-toggle='modal' href='#editaccountmodal'><i class='fas fa-edit'></i> Edit</a><br>" +
-      "<a class='{%if user.role == 'Manager' or user.role == 'Accountant' %} hide {% endif %}' href='#'><i class='fas fa-exclamation-triangle'></i> Deactivate</a>" +
       "</div>" +
       "</div>" +
       "</div>"
@@ -33,14 +30,6 @@
     var table = $("#example").DataTable({
       dom: '<"addbtn"><"calendarbtn">frt<"logbtn">p',
     });
-
-    $("div.addbtn").html(
-      "<button class='add {%if user.role == 'Manager' or user.role == 'Accountant' %} hide {% endif %}' data-bs-toggle='modal' data-bs-target='#addaccountmodal'>+ Add New Account</button>"
-    );
-    $("div.calendarbtn").html(
-      '<a class="calendar"><i class="fas fa-calendar-alt"></i></a>'
-    );
-    $("div.logbtn").html('<a class="log" href="/chartOfAccounts/viewEventLog/">View Change Logs</a>');
 
     // Add event listener for opening and closing details
     $("#example tbody").on("click", "tr.details-control", function () {
@@ -159,9 +148,9 @@
                 <div class="form-row justify-content-center">
                     <div class="form-group col-5" id="modalblockone">
                         <label for="accountname">Account Name:</label>
-                        <input type="text" class="form-control form-control-sm" id="accountname" placeholder="100">
+                        <input type="text" class="form-control form-control-sm" id="accountname" placeholder="django name">
                         <label for="accountnumber">Account Number:</label>
-                        <input type="text" class="form-control form-control-sm" id="accountnumber" placeholder="J.Springer Account">
+                        <input type="text" class="form-control form-control-sm" id="accountnumber" placeholder="django number">
                         <label for="accountcategory">Account Category:</label>
                         <select multiple-class="form-control" id="accountcategory">
                             <option>Assets</option>
@@ -172,9 +161,9 @@
                             <option>Other</option>
                         </select>
                         <label for="accountsubcategory">Account Subcategory:</label>
-                        <input type="text" class="form-control form-control-sm" id="accountsubcategory" placeholder="Current Assets">
+                        <input type="text" class="form-control form-control-sm" id="accountsubcategory" placeholder="django subcategory">
                         <label for="accountdescription">Account Description</label>
-                        <textarea class="form-control form-control-sm" id="accountdescription" rows="4" placeholder="Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.Donec eu libero sit amet quam egestas semper.Aenean ultricies mi vitae est.Mauris placerat eleifend leo.Quisque sit amet est et sapien ullamcorper pharetra.Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui.Donec non enim in turpis pulvinar facilisis.Ut felis.Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat.Aliquam erat volutpat.Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus"></textarea>
+                        <textarea class="form-control form-control-sm" id="accountdescription" rows="4" placeholder="django description"></textarea>
                     </div>
                     <div class="form-group col-5" id="modalblocktwo">
                         <label for="normalside">Normal Side:</label>
@@ -183,11 +172,11 @@
                             <option>Credit</option>
                         </select>
                         <label for="balance">Balance:</label>
-                        <input type="number" class="form-control form-control-sm" id="balance" placeholder="5,000">
+                        <input type="number" class="form-control form-control-sm" id="balance" placeholder="5000">
                         <label for="debit">Debit:</label>
-                        <input type="number" class="form-control form-control-sm" id="debit" placeholder="5,000">
+                        <input type="number" class="form-control form-control-sm" id="debit" placeholder="5000">
                         <label for="credit">Credit:</label>
-                        <input type="number" class="form-control form-control-sm" id="credit" placeholder="-5,000">
+                        <input type="number" class="form-control form-control-sm" id="credit" placeholder="-5000">
                         <label for="statement">Statement:</label>
                         <select multiple-class="form-control" id="statement">
                             <option id="short">Income statement</option>
@@ -195,7 +184,7 @@
                             <option id="short">Retained earnings statement</option>
                         </select>
                         <label for="comment">Comment:</label>
-                        <input type="text" class="form-control form-control-sm" id="comment" placeholder="No Comment">
+                        <input type="text" class="form-control form-control-sm" id="comment" placeholder="django comment">
                     </div>
                 </div>
             </div>
@@ -213,7 +202,7 @@
 <div class="container-lg" id="mainbox">
   <div class="row">
     <div class="col-lg" id="pagehead">
-      <h1 class="title">Chart of Accounts</h1>
+      <h1 class="title">Event Logs</h1>
       <a><i class="fas fa-info-circle"></i></a>
     </div>
   </div>
@@ -224,7 +213,8 @@
         <th>Account Name</th>
         <th>Category</th>
         <th>Balance</th>
-        <th>Date Created</th>
+        <th>Journal Description</th>
+        <th>Date Posted</th>
       </tr>
     </thead>
     <tbody>
@@ -233,27 +223,31 @@
         <td>J.Springer Account</td>
         <td>Assets</td>
         <td>$5,000</td>
-        <td>2015/04/25</td>
+        <td>The book in which all financial transactions of a business are recorded</td>
+        <td>2011/04/25</td>
       </tr>
       <tr class="details-control" data-child-value="Nope">
         <td>200</td>
         <td>S.Spraggins Account</td>
         <td>Liabilities</td>
         <td>$3,116</td>
-        <td>2010/04/23</td>
+        <td>The ledger holds financial information needed to make the financial statements</td>
+        <td>2011/04/25</td>
       </tr>
       <tr class="details-control" data-child-value="Nope">
         <td>300</td>
         <td>L.Taylor Account</td>
         <td>Equity Accounts</td>
         <td>$2,552</td>
-        <td>2016/04/14</td>
+        <td>The book in which all financial transactions of a business are recorded</td>
+        <td>2011/04/25</td>
       </tr>
       <tr class="details-control" data-child-value="Nope">
         <td>600</td>
         <td>J.Puplampa Account</td>
         <td>Revenues</td>
         <td>$1,166</td>
+        <td>Journal entries are made in chronological order</td>
         <td>2011/04/25</td>
       </tr>
       <tr class="details-control" data-child-value="Nope">
@@ -261,13 +255,15 @@
         <td>J.Roby Account</td>
         <td>Expenses</td>
         <td>$3,039</td>
-        <td>2020/03/25</td>
+        <td>Journal entries are made in chronological order</td>
+        <td>2011/04/25</td>
       </tr>
       <tr class="details-control" data-child-value="Nope">
         <td>400</td>
         <td>W.Beckman Account</td>
         <td>Other</td>
         <td>$3,037</td>
+        <td>The ledger holds financial information needed to make the financial statements</td>
         <td>2011/04/25</td>
       </tr>
       <tr class="details-control" data-child-value="Nope">
@@ -275,6 +271,7 @@
         <td>B.Hall Account</td>
         <td>Assets</td>
         <td>$2,884</td>
+        <td>The book in which all financial transactions of a business are recorded</td>
         <td>2011/04/25</td>
       </tr>
       <tr class="details-control" data-child-value="Nope">
@@ -282,6 +279,7 @@
         <td>A.Franklin Account</td>
         <td>Equity Accounts</td>
         <td>$5,605</td>
+        <td>The ledger holds financial information needed to make the financial statements</td>
         <td>2011/04/25</td>
       </tr>
       <tr class="details-control" data-child-value="Nope">
@@ -289,6 +287,7 @@
         <td>O.Rodrigo Account</td>
         <td>Assets</td>
         <td>$4,553</td>
+        <td>Journal entries are made in chronological order</td>
         <td>2011/04/25</td>
       </tr>
       <tr class="details-control" data-child-value="Nope">
@@ -296,6 +295,7 @@
         <td>L.Pricilla Account</td>
         <td>Liabilities</td>
         <td>$4,519</td>
+        <td>The ledger holds financial information needed to make the financial statements</td>
         <td>2011/04/25</td>
       </tr>
       <tr class="details-control" data-child-value="Nope">
@@ -303,6 +303,7 @@
         <td>B.Dawit Account</td>
         <td>Revenues</td>
         <td>$2,271</td>
+        <td>It is used for making the trial balance and final accounts</td>
         <td>2011/04/25</td>
       </tr>
       <tr class="details-control" data-child-value="Nope">
@@ -310,6 +311,7 @@
         <td>R.Roberts Account</td>
         <td>Other</td>
         <td>$1,632</td>
+        <td>The book in which all financial transactions of a business are recorded</td>
         <td>2011/04/25</td>
       </tr>
     </tbody>

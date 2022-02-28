@@ -83,22 +83,25 @@
         <div class="modal-body">
           <div class="accountbox">
             <img src="{% static 'images/Avatar.png' %}" class="userimage" />
-            <h2 class="record">Username</h2>
+            <h2 class="record">{{ user.username }}</h2>
           </div>
           <hr />
           <form class="info">
             {% csrf_token %}
             <h5>Profile Information</h5>
             <p>First Name:</p>
-            <input type="fname" class="record" name="edit-firstname" />
+            <input type="fname" class="record" name="edit-firstname" placeholder="Jalen" />
             <p>Last Name:</p>
-            <input type="lname" class="record" name="edit-lastname" />
+            <input type="lname" class="record" name="edit-lastname" placeholder="Springer" />
             <p>Email:</p>
-            <input type="email" class="record" name="edit-email" />
+            <input type="email" class="record" name="edit-email" placeholder="jsprin18@students.kennesaw.edu"/>
             <p>Role:</p>
-            <input type="password" class="record"name="edit-password"/>
+            <input type="fname" class="record"name="edit-role" placeholder="Administrator"/>
             <p>Status:</p>
-            <input type="lname" class="record"name="edit-status"/>
+            <select class="record" name="edit-status">
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
+            </select>
             <p>New Password:</p>
             <input type="password" class="record"name="edit-new-password" placeholder="New Password"/>
             <p>Confirm Password:</p>
