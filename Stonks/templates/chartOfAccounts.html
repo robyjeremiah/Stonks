@@ -102,7 +102,7 @@
     </div>
     <table id="example" class="table table-striped" style="width:100%">
         <thead>
-            <tr>
+            <tr class="details-control" data-child-value="Nope">>
                 <th>Account No.</th>
                 <th>Account Name</th>
                 <th>Category</th>
@@ -111,6 +111,17 @@
             </tr>
         </thead>
         <tbody>
+            {% if Account_list %}
+                {% for account in Account_list %}
+                <tr class="details-control" data-child-value="account">
+                    <td>{{account.account_number }}</td>
+                    <td>{{account.account_name}}</td>
+                    <td>{{account.get_account_category_display}} </td>
+                    <td>${{account.balance}}</td>
+                    <td>{{account.Date_time_added}}</td>
+                </tr>
+                {% endfor %}
+            {% endif %}
             <tr class="details-control" data-child-value="Nope">
                 <td>101</td>
                 <td>Cash</td>
