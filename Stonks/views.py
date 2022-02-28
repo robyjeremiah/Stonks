@@ -183,3 +183,6 @@ def chartOfAccounts(request):
 
 def useraccount(request):
     return render(request, 'useraccount.html')
+
+def eventlog(request):
+    return render(request, 'eventlog.html')

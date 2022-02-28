@@ -73,8 +73,7 @@ hr{
         font-size: 18px;
     }
 
-    .info input[type="fname"], 
-    .info input[type="lname"], 
+    .info input[type="text"], 
     .info input[type="email"],
     .info input[type="date"],
     .info input[type="password"],
