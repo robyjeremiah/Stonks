@@ -11,17 +11,17 @@
       "<li>Account Description: </li><p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.Donec eu libero sit amet quam egestas semper.Aenean ultricies mi vitae est.Mauris placerat eleifend leo.Quisque sit amet est et sapien ullamcorper pharetra.Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui.Donec non enim in turpis pulvinar facilisis.Ut felis.Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat.Aliquam erat volutpat.Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>" +
       "<li>Account Subcategory: </li><p>Current Assets</p>" +
       "<li>Normal Side: </li><p>Debit</p>" +
-      "<li>Debit: </li><p>8000</p>" +
-      "<li>Credit: </li><p>-8000</p>" +
+      "<li>Debit: </li><p>5,000</p>" +
+      "<li>Credit: </li><p>-8,000</p>" +
       "<li>Initial Balance: </li><p>5,000</p>" +
-      "<li>User ID: </li><p>sspragg2</p>" +
+      "<li>User ID: </li><p>JSpringer0500</p>" +
       "<li>Statement: </li><p>Balance Sheet</p>" +
       "<li>Comment: </li><p>No comment</p>" +
       "</ul>" +
       "</div>" +
       '<div class="col-3 text-center mx-auto" id="actions">' +
       '<a href="viewAccountInfo/"><i class="fas fa-file-user"></i> View Account</a><br>' +
-      "<a class='{%if user.role == 'Manager' or user.role == 'Accountant' %} hide {% endif %}' href='#'><i class='fas fa-edit'></i> Edit</a><br>" +
+      "<a class='{%if user.role == 'Manager' or user.role == 'Accountant' %} hide {% endif %}' data-bs-toggle='modal' href='#editaccountmodal'><i class='fas fa-edit'></i> Edit</a><br>" +
       "<a class='{%if user.role == 'Manager' or user.role == 'Accountant' %} hide {% endif %}' href='#'><i class='fas fa-trash'></i> Delete</a>" +
       "</div>" +
       "</div>" +
@@ -159,9 +159,9 @@
                 <div class="form-row justify-content-center">
                     <div class="form-group col-5" id="modalblockone">
                         <label for="accountname">Account Name:</label>
-                        <input type="text" class="form-control form-control-sm" id="accountname" placeholder="django name">
+                        <input type="text" class="form-control form-control-sm" id="accountname" placeholder="100">
                         <label for="accountnumber">Account Number:</label>
-                        <input type="text" class="form-control form-control-sm" id="accountnumber" placeholder="django number">
+                        <input type="text" class="form-control form-control-sm" id="accountnumber" placeholder="J.Springer Account">
                         <label for="accountcategory">Account Category:</label>
                         <select multiple-class="form-control" id="accountcategory">
                             <option>Assets</option>
@@ -172,9 +172,9 @@
                             <option>Other</option>
                         </select>
                         <label for="accountsubcategory">Account Subcategory:</label>
-                        <input type="text" class="form-control form-control-sm" id="accountsubcategory" placeholder="django subcategory">
+                        <input type="text" class="form-control form-control-sm" id="accountsubcategory" placeholder="Current Assets">
                         <label for="accountdescription">Account Description</label>
-                        <textarea class="form-control form-control-sm" id="accountdescription" rows="4" placeholder="django description"></textarea>
+                        <textarea class="form-control form-control-sm" id="accountdescription" rows="4" placeholder="Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.Donec eu libero sit amet quam egestas semper.Aenean ultricies mi vitae est.Mauris placerat eleifend leo.Quisque sit amet est et sapien ullamcorper pharetra.Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui.Donec non enim in turpis pulvinar facilisis.Ut felis.Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat.Aliquam erat volutpat.Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus"></textarea>
                     </div>
                     <div class="form-group col-5" id="modalblocktwo">
                         <label for="normalside">Normal Side:</label>
@@ -183,11 +183,11 @@
                             <option>Credit</option>
                         </select>
                         <label for="balance">Balance:</label>
-                        <input type="number" class="form-control form-control-sm" id="balance" placeholder="5000">
+                        <input type="number" class="form-control form-control-sm" id="balance" placeholder="5,000">
                         <label for="debit">Debit:</label>
-                        <input type="number" class="form-control form-control-sm" id="debit" placeholder="5000">
+                        <input type="number" class="form-control form-control-sm" id="debit" placeholder="5,000">
                         <label for="credit">Credit:</label>
-                        <input type="number" class="form-control form-control-sm" id="credit" placeholder="-5000">
+                        <input type="number" class="form-control form-control-sm" id="credit" placeholder="-5,000">
                         <label for="statement">Statement:</label>
                         <select multiple-class="form-control" id="statement">
                             <option id="short">Income statement</option>
@@ -195,7 +195,7 @@
                             <option id="short">Retained earnings statement</option>
                         </select>
                         <label for="comment">Comment:</label>
-                        <input type="text" class="form-control form-control-sm" id="comment" placeholder="django comment">
+                        <input type="text" class="form-control form-control-sm" id="comment" placeholder="No Comment">
                     </div>
                 </div>
             </div>
