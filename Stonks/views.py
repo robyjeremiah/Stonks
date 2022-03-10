@@ -106,24 +106,43 @@ def delete_user(request, pk):
     return redirect('adminHome')
 
 
-def edit_user(request, pk):
-    if request.is_ajax and request.method == "GET":
-        username = User.objects.get(pk=pk).username
-    if User.objects.filter(username=username).exists():
-        user = User.objects.all().filter(username=username)
-        userInfo = serializers.serialize('json', user, fields=(
-            'first_name',
-            'last_name',
-            'email',
-            'role',
-            'dob',
-            'is_staff',
-            'username'
-        ))
-        return JsonResponse({"valid": True, "user": userInfo}, status=200)
-    else:
-        return JsonResponse({"valid": False}, status=200)
+def edit_user(request):
+    if request.method == "GET":
+        user_id = request.GET.get("user_id", None)
+        if User.objects.filter(id=user_id).exists():
+            user = User.objects.all().filter(id=user_id)
+            userInfo = serializers.serialize('json', user, fields=(
+                'first_name',
+                'last_name',
+                'email',
+                'role',
+                'dob',
+                'is_staff',
+                'username'
+            ))
+            return JsonResponse({"valid": True, "user": userInfo}, status=200)
+        else:
+            return JsonResponse({"valid": False}, status=200)
     return JsonResponse({}, status=400)
+
+
+def update_user(request):
+    if request.method == "POST":
+        try:
+            username = request.POST.get("username", None)
+            user = User.objects.get(username=username)
+            user.first_name = request.POST['first_name']
+            user.last_name = request.POST['last_name']
+            user.email = request.POST['email']
+            user.role = request.POST['role']
+            is_staff = bool(request.POST['is_staff'])
+            user.is_staff = is_staff
+            user.save()
+            return JsonResponse({'status': 'Success', 'msg': 'Saved successfully!'})
+        except User.DoesNotExist:
+            return JsonResponse({'status': 'Fail', 'msg': 'Object does not exist'})
+    else:
+        return JsonResponse({'status': 'Fail', 'msg': 'Not a valid request'})
 
 
 @login_required(login_url='login')
@@ -183,6 +202,7 @@ def chartOfAccounts(request):
 
 def useraccount(request):
     return render(request, 'useraccount.html')
+
 
 def eventlog(request):
     return render(request, 'eventlog.html')

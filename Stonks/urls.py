@@ -1,5 +1,4 @@
 from django.urls import path
-from django.conf.urls import url
 from django.contrib.auth import views as auth_views
 
 from . import views
@@ -17,7 +16,8 @@ urlpatterns = [
     # Administrator Home
     path('adminHome/', views.adminHome, name='adminHome'),
     path('adminHome/delete/<pk>', views.delete_user, name='delete_user'),
-    path('adminHome/edit/<pk>', views.edit_user, name='edit_user'),
+    path('adminHome/edit/', views.edit_user, name='edit_user'),
+    path('adminHome/update/', views.update_user, name='update_user'),
     path('chartOfAccounts/', views.chartOfAccounts, name='chartOfAccounts'),
     # Django Admin Forgot Password Functionalities
     path('forgotPass/', auth_views.PasswordResetView.as_view(
