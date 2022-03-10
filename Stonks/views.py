@@ -58,7 +58,21 @@ def newUser(request):
             new_user = User.objects.latest('id')
             accountant = Group.objects.get(name='Accountant')
             accountant.user_set.add(new_user)
-            messages.success(request, 'Account created successfully!')
+            messages.success(
+                request, 'Account created successfully! Check your email for more information.')
+            email = request.POST.get("email", None)
+            try:
+                subject = 'Complete Account Creation'
+                message = 'Click on the following link in order to complete your account information:'
+                send_mail(
+                    subject,
+                    message,
+                    'automatedEmail@example.com',
+                    [email],
+                    fail_silently=False,
+                )
+            except BadHeaderError:
+                return HttpResponse("Invalid header found.")
             return redirect('newUser')
     else:
         form = CustomUserForm()
