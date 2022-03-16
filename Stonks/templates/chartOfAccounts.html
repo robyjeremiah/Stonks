@@ -3,20 +3,20 @@
 
 <link rel="stylesheet" type="text/css" href="/static/chartOfAccounts.css" />
 <script>
-    function format(d) {
+    function format(description,subcategory,normal,debit,credit,initial,UserID,statement,comment) {
         return '<div class="slider">' +
             '<div class="row">' +
             '<div class="col-9 text-start">' +
             '<ul>' +
-            '<li>Account Description: </li><p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.Donec eu libero sit amet quam egestas semper.Aenean ultricies mi vitae est.Mauris placerat eleifend leo.Quisque sit amet est et sapien ullamcorper pharetra.Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui.Donec non enim in turpis pulvinar facilisis.Ut felis.Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat.Aliquam erat volutpat.Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>' +
-            '<li>Account Subcategory: </li><p>Current Assets</p>' +
-            '<li>Normal Side: </li><p>Debit</p>' +
-            '<li>Debit: </li><p>8000</p>' +
-            '<li>Credit: </li><p>-8000</p>' +
-            '<li>Initial Balance: </li><p>5,000</p>' +
-            '<li>User ID: </li><p>sspragg2</p>' +
-            '<li>Statement: </li><p>Balance Sheet</p>' +
-            '<li>Comment: </li><p>No comment</p>' +
+            '<li>Account Description: </li>' + '<p>' + formatValue(description ) + '</p>' +
+            '<li>Account Subcategory: </li>' + '<p>' + formatValue(subcategory) + '</p>' +
+            '<li>Normal Side: </li>' + '<p>' + formatValue(normal) + '</p>' +
+            '<li>Debit: </li>' + '<p>' + formatValue(debit) + '</p>' +
+            '<li>Credit: </li>' + '<p>' + formatValue(credit) + '</p>' +
+            '<li>Initial Balance: </li>' + '<p>' + formatValue(initial) + '</p>' +
+            '<li>User ID: </li>' + '<p>' + formatValue(UserID) + '</p>' +
+            '<li>Statement: </li>' + '<p>' + formatValue(statement) + '</p>' +
+            '<li>Comment: </li>' + '<p>' + formatValue(comment) + '</p>' +
             '</ul>' +
             '</div>' +
             '<div class="col-3 text-center mx-auto" id="actions">' +
@@ -28,11 +28,21 @@
             '</div>';
     }
 
+    function formatValue(value){
+        if(!value || value == 'undefined' || value == "null" || value == '[object Object]'){
+            return "<i>Not set "+ value + "</i>";
+        } else {
+            return value;
+        }
+    }
+
     $(document).ready(function () {
+
         var table = $('#example').DataTable({
             dom: '<"addbtn"><"calendarbtn">frt<"logbtn">p'
-        });
 
+        });
+       
         $("div.addbtn").html('<button class="add" data-bs-toggle="modal" data-bs-target="#addaccountmodal">+ Add New Account</button>');
         $("div.calendarbtn").html('<a class="calendar"><i class="fas fa-calendar-alt"></i></a>');
         $("div.logbtn").html('<a class="log">View Change Logs</a>');
@@ -41,7 +51,7 @@
         $('#example tbody').on('click', 'tr.details-control', function () {
             var tr = $(this).closest('tr');
             var row = table.row(tr);
-
+            
             if (row.child.isShown()) {
                 // This row is already open - close it
                 $('div.slider', row.child()).slideUp(function () {
@@ -54,7 +64,10 @@
                 if (table.row('.shown').length) {
                     $('.details-control', table.row('.shown').node()).click();
                 }
-                row.child(format(row.data())).show();
+                row.child(format( tr.data('description'),tr.data('subcategory'), tr.data('normal'),
+                tr.data('debit'),tr.data('credit'),tr.data('initial'),
+                tr.data('UserID'),tr.data('comment'),
+                    )).show();
                 tr.addClass('shown');
                 $('div.slider', row.child()).slideDown();
             }
@@ -64,7 +77,6 @@
 {% endblock %}
 
 {% load static %}
-
 
 {% block content %}
 
@@ -113,7 +125,11 @@
         <tbody>
             {% if Account_list %}
                 {% for account in Account_list %}
-                <tr class="details-control" data-child-value="account">
+                <tr class="details-control" data-description= "{{account.account_description}}" 
+                data-subcategory="{{account.account_subcategory}}"  data-normal="{{account.normal_side}}" 
+                data-debit="{{account.debit}}"  data-credit="{{account.credit}}" 
+                data-initial="{{account.initial_balance}}" data-UserID="{{account.userid}}" 
+                data-statement="{{account.get_statement_display}}" data-comment="{{account.credit}}">
                     <td>{{account.account_number }}</td>
                     <td>{{account.account_name}}</td>
                     <td>{{account.get_account_category_display}} </td>
@@ -129,75 +145,6 @@
                 <td>$5,000</td>
                 <td>2011/04/25</td>
             </tr>
-            <tr class="details-control" data-child-value="Nope">
-                <td>101</td>
-                <td>Cash</td>
-                <td>Assets</td>
-                <td>$5,000</td>
-                <td>2011/04/25</td>
-            </tr>
-            <tr class="details-control" data-child-value="Nope">
-                <td>101</td>
-                <td>Cash</td>
-                <td>Assets</td>
-                <td>$5,000</td>
-                <td>2011/04/25</td>
-            </tr>
-            <tr class="details-control" data-child-value="Nope">
-                <td>101</td>
-                <td>Cash</td>
-                <td>Assets</td>
-                <td>$5,000</td>
-                <td>2011/04/25</td>
-            </tr>
-            <tr class="details-control" data-child-value="Nope">
-                <td>101</td>
-                <td>Cash</td>
-                <td>Assets</td>
-                <td>$5,000</td>
-                <td>2011/04/25</td>
-            </tr>
-            <tr class="details-control" data-child-value="Nope">
-                <td>101</td>
-                <td>Cash</td>
-                <td>Assets</td>
-                <td>$5,000</td>
-                <td>2011/04/25</td>
-            </tr>
-            <tr class="details-control" data-child-value="Nope">
-                <td>101</td>
-                <td>Cash</td>
-                <td>Assets</td>
-                <td>$5,000</td>
-                <td>2011/04/25</td>
-            </tr>
-            <tr class="details-control" data-child-value="Nope">
-                <td>101</td>
-                <td>Cash</td>
-                <td>Assets</td>
-                <td>$5,000</td>
-                <td>2011/04/25</td>
-            </tr>
-            <tr class="details-control" data-child-value="Nope">
-                <td>101</td>
-                <td>Cash</td>
-                <td>Assets</td>
-                <td>$5,000</td>
-                <td>2011/04/25</td>
-            </tr>
-            <tr class="details-control" data-child-value="Nope">
-                <td>101</td>
-                <td>Cash</td>
-                <td>Assets</td>
-                <td>$5,000</td>
-                <td>2011/04/25</td>
-            </tr>
-            <tr class="details-control" data-child-value="Nope">
-                <td>101</td>
-                <td>Cash</td>
-                <td>Assets</td>
-                <td>$5,000</td>
-                <td>2011/04/25</td>
             </tr>
         </tbody>
     </table>
