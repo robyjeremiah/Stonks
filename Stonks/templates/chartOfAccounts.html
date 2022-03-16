@@ -66,7 +66,7 @@
                 }
                 row.child(format( tr.data('description'),tr.data('subcategory'), tr.data('normal'),
                 tr.data('debit'),tr.data('credit'),tr.data('initial'),
-                tr.data('UserID'),tr.data('comment'),
+                tr.data('userid'),tr.data('statement'),tr.data('comment'),
                     )).show();
                 tr.addClass('shown');
                 $('div.slider', row.child()).slideDown();
@@ -128,13 +128,13 @@
                 <tr class="details-control" data-description= "{{account.account_description}}" 
                 data-subcategory="{{account.account_subcategory}}"  data-normal="{{account.normal_side}}" 
                 data-debit="{{account.debit}}"  data-credit="{{account.credit}}" 
-                data-initial="{{account.initial_balance}}" data-UserID="{{account.userid}}" 
-                data-statement="{{account.get_statement_display}}" data-comment="{{account.credit}}">
+                data-initial="{{account.initial_balance}}" data-userid="{{account.userid}}" 
+                data-statement="{{account.get_statement_display}}" data-comment="{{account.comment}}">
                     <td>{{account.account_number }}</td>
                     <td>{{account.account_name}}</td>
                     <td>{{account.get_account_category_display}} </td>
                     <td>${{account.balance}}</td>
-                    <td>{{account.Date_time_added}}</td>
+                    <td>{{account.sate_time_added}}</td>
                 </tr>
                 {% endfor %}
             {% endif %}

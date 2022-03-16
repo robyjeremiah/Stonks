@@ -138,8 +138,8 @@ class Account(models.Model):
     # Dont know what this iis
     userid =  models.CharField(_('User id'), max_length=30, blank=True, null=True)
     normal_side =  models.CharField(_('Normal Side'), max_length=8, blank=True)
-    Date_time_added =  models.DateField(_('Date/Time Added'), max_length=30, blank=True,auto_now=True)
-    Comment =  models.CharField(_('Comment'), max_length=300, blank=True)
+    date_time_added =  models.DateField(_('Date/Time Added'), max_length=30, blank=True,auto_now=True)
+    comment =  models.CharField(_('Comment'), max_length=300, blank=True)
     
     objects = AccountManager()
     
