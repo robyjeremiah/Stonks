@@ -105,7 +105,13 @@
             <input type="password" name="edit-new-password" placeholder="New Password" style="display:none" />
             <p id="confim_passwordlabel" style="display:none">Confirm Password:</p>
             <input type="password" name="edit-confirm-password" placeholder="Confirm Password" style="display:none" />
+            <p id="start-date" style="display:none">Start Suspension:</p>
+            <input type="date" name="start-date" placeholder="yyyy-mm-dd" style="display:none" />
+            <p id="end-date" style="display:none">End Suspension:</p>
+            <input type="date" name="end-date" placeholder="yyyy-mm-dd" style="display:none" />
             <button type="button" class="btn btn-secondary" id="changePassword">Change Password</button>
+            <br><br>
+            <button type="button" class="btn btn-secondary" id="suspendUser">Suspend User</button>
           </form>
         </div>
         <div class="modal-footer info">
@@ -125,6 +131,13 @@
     $('#confim_passwordlabel').toggle(0, 'show')
     $('input[name="edit-new-password"]').toggle(0, 'show');
     $('input[name="edit-confirm-password"]').toggle(0, 'show');
+  });
+
+  $('#suspendUser').click(function () {
+    $('#start-date').toggle(0, 'show');
+    $('#end-date').toggle(0, 'show');
+    $('input[name="start-date"]').toggle(0, 'show');
+    $('input[name="end-date"]').toggle(0, 'show');
   })
 
   $(".editButton").click(function (e) {
