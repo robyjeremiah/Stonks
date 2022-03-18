@@ -101,12 +101,11 @@
               <option value="1">Active</option>
               <option value="0">Inactive</option>
             </select>
-            <p>New Password:</p>
-            <input type="password" name="edit-new-password" placeholder="New Password" />
-            <p>Confirm Password:</p>
-            <input type="password" name="edit-confirm-password" placeholder="Confirm Password" />
-            <p>Image:</p>
-            <input type="file" name="edit-file" /><br />
+            <p id="new_passwordlabel" style="display:none">New Password:</p>
+            <input type="password" name="edit-new-password" placeholder="New Password" style="display:none" />
+            <p id="confim_passwordlabel" style="display:none">Confirm Password:</p>
+            <input type="password" name="edit-confirm-password" placeholder="Confirm Password" style="display:none" />
+            <button type="button" class="btn btn-secondary" id="changePassword">Change Password</button>
           </form>
         </div>
         <div class="modal-footer info">
@@ -121,6 +120,13 @@
 </div>
 {% block javascript %}
 <script>
+  $('#changePassword').click(function () {
+    $('#new_passwordlabel').toggle(0, 'show');
+    $('#confim_passwordlabel').toggle(0, 'show')
+    $('input[name="edit-new-password"]').toggle(0, 'show');
+    $('input[name="edit-confirm-password"]').toggle(0, 'show');
+  })
+
   $(".editButton").click(function (e) {
     e.preventDefault();
     user_id = $(this).val();
