@@ -18,6 +18,8 @@ from django.utils.encoding import force_bytes
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
+# index -- Function used to handle logging in user and rendering login page
+
 
 def index(request):
     if request.method == 'POST':
@@ -43,11 +45,15 @@ def index(request):
     else:
         return render(request, 'login.html')
 
+# loggedOut -- Function used to sign out a user
+
 
 def loggedOut(request):
     print('Logged Out!')
     logout(request)
     return redirect('index')
+
+# newUser -- Can be called to create a user specifically through the newUser template
 
 
 def newUser(request):
@@ -79,9 +85,13 @@ def newUser(request):
 
     return render(request, 'newUser.html', {'form': form})
 
+# forgotPass -- Function used to current render the forgot password page
+
 
 def forgotPass(request):
     return render(request, 'forgotPass.html')
+
+# adminHome -- Function used to only allow Administrators (using decorators) to sign into this rendered template
 
 
 @login_required(login_url='login')
@@ -111,6 +121,8 @@ def adminHome(request):
 
     return render(request, 'adminhome.html', context)
 
+# delete_user -- Function that can be called to delete a user with providing the primary key of the users table
+
 
 def delete_user(request, pk):
     username = User.objects.get(pk=pk).username
@@ -118,6 +130,8 @@ def delete_user(request, pk):
     b.delete()
 
     return redirect('adminHome')
+
+# edit_user -- Function that can be used to get the information about an individual user
 
 
 def edit_user(request):
@@ -138,6 +152,8 @@ def edit_user(request):
         else:
             return JsonResponse({"valid": False}, status=200)
     return JsonResponse({}, status=400)
+
+# update_user -- Function that can be used to edit the information about the user
 
 
 def update_user(request):
