@@ -59,7 +59,7 @@
           {% if person.is_staff == 1 %} Active {% else %} Inactive {% endif %}
         </td>
         <td>
-          <a class="editButton" href="{%url 'edit_user' pk=person.pk %}">edit</a>
+          <button class="editButton" value="{{person.pk}}">edit</button>
         </td>
         <td>
           <a class="deleteButton" href="{%url 'delete_user' pk=person.pk %}">delete</a>
@@ -73,56 +73,52 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">User Info</h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <div class="accountbox">
             <img src="{% static 'images/Avatar.png' %}" class="userimage" />
-            <h2 class="record">{{ user.username }}</h2>
+            <h2 id="edit-username"></h2>
           </div>
           <hr />
           <form class="info">
             {% csrf_token %}
             <h5>Profile Information</h5>
             <p>First Name:</p>
-            <input type="text" class="record" name="edit-firstname" placeholder="Jalen" />
+            <input type="text" id="edit-fname" name="edit-firstname" />
             <p>Last Name:</p>
-            <input type="text" class="record" name="edit-lastname" placeholder="Springer" />
+            <input type="text" id="edit-lname" name="edit-lastname" />
             <p>Email:</p>
-            <input type="email" class="record" name="edit-email" placeholder="jsprin18@students.kennesaw.edu"/>
+            <input type="email" id="edit-email" name="edit-email" />
             <p>Role:</p>
-            <select class="record" name="edit-status">
+            <select id="edit-role" name="edit-role">
               <option value="Administrator">Administrator</option>
               <option value="Manager">Manager</option>
               <option value="Accountant">Accountant</option>
             </select>
             <p>Status:</p>
-            <select class="record" name="edit-status">
-              <option value="Active">Active</option>
-              <option value="Inactive">Inactive</option>
+            <select id="edit-status" name="edit-status">
+              <option value="1">Active</option>
+              <option value="0">Inactive</option>
             </select>
-            <p>New Password:</p>
-            <input type="password" class="record"name="edit-new-password" placeholder="New Password"/>
-            <p>Confirm Password:</p>
-            <input type="password" class="record"name="edit-confirm-password" placeholder="Confirm Password"/>
-            <p>Image:</p>
-            <input type="file" class="record" name="edit-file" /><br />
+            <p id="new_passwordlabel" style="display:none">New Password:</p>
+            <input type="password" name="edit-new-password" placeholder="New Password" style="display:none" />
+            <p id="confim_passwordlabel" style="display:none">Confirm Password:</p>
+            <input type="password" name="edit-confirm-password" placeholder="Confirm Password" style="display:none" />
+            <p id="start-date" style="display:none">Start Suspension:</p>
+            <input type="date" name="start-date" placeholder="yyyy-mm-dd" style="display:none" />
+            <p id="end-date" style="display:none">End Suspension:</p>
+            <input type="date" name="end-date" placeholder="yyyy-mm-dd" style="display:none" />
+            <button type="button" class="btn btn-secondary" id="changePassword">Change Password</button>
+            <br><br>
+            <button type="button" class="btn btn-secondary" id="suspendUser">Suspend User</button>
           </form>
         </div>
         <div class="modal-footer info">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-          >
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
             Close
           </button>
-          <input type="submit" name="" value="Update" />
+          <input type="submit" name="submit" value="Update" />
         </div>
       </div>
     </div>
@@ -130,16 +126,90 @@
 </div>
 {% block javascript %}
 <script>
+  $('#changePassword').click(function () {
+    $('#new_passwordlabel').toggle(0, 'show');
+    $('#confim_passwordlabel').toggle(0, 'show')
+    $('input[name="edit-new-password"]').toggle(0, 'show');
+    $('input[name="edit-confirm-password"]').toggle(0, 'show');
+  });
+
+  $('#suspendUser').click(function () {
+    $('#start-date').toggle(0, 'show');
+    $('#end-date').toggle(0, 'show');
+    $('input[name="start-date"]').toggle(0, 'show');
+    $('input[name="end-date"]').toggle(0, 'show');
+  })
+
   $(".editButton").click(function (e) {
     e.preventDefault();
     user_id = $(this).val();
-    // var $this = $(this);
-    // let username = $this.parents("")
-    // let first_name = $this.parents 
-    // let last_name
-    // let email
     $("#updateProfile").modal("show");
+    $.ajax({
+      type: "GET",
+      url: "{%url 'edit_user' %}",
+      data: { user_id: user_id },
+      success: function (response) {
+        const data = JSON.parse(response['user']);
+        preloadModal(data[0]['fields']);
+      },
+      error: function (response) {
+        console.log(response);
+      }
+    })
     return false;
   });
+
+  $("input[name='submit']").click(function (e) {
+    e.preventDefault();
+    token = '{{csrf_token}}';
+    username = $("#edit-username").text();
+    first_name = $("input[name='edit-firstname']").val();
+    last_name = $("input[name='edit-lastname']").val();
+    email = $("input[name='edit-email']").val();
+    role = $("select[name='edit-role']").val();
+    status = $("select[name='edit-status']").val();
+    password = $("input[name='edit-new-password']").val();
+    confirmPassword = $("input[name='edit-confirm-password']").val();
+    var is_staff = false;
+    if (status == 1) {
+      var is_staff = true;
+    }
+
+    $.ajax({
+      headers: { "X-CSRFToken": token },
+      type: "POST",
+      url: "{%url 'update_user' %}",
+      data: {
+        username: username,
+        first_name: first_name,
+        last_name: last_name,
+        email: email,
+        role: role,
+        is_staff: is_staff,
+        password: password,
+        confirmPassword: confirmPassword,
+      },
+      dataType: 'json',
+      success: function (response) {
+        location.reload();
+      },
+      error: function (response) {
+        console.log(response);
+      }
+    });
+  })
+
+  function preloadModal(userInfo) {
+    $('#edit-fname').val(userInfo['first_name'])
+    $('#edit-lname').val(userInfo['last_name'])
+    $('#edit-email').val(userInfo['email'])
+    $('#edit-username').text(userInfo['username'])
+    $('#edit-role').val(userInfo['role'])
+    if (userInfo['is_staff'] == true) {
+      $('#edit-status').val(1);
+    } else {
+      $('#edit-status').val(0);
+    }
+  }
 </script>
 {% endblock javascript %} {% endblock %}

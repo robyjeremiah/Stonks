@@ -3,12 +3,12 @@
 
 <link rel="stylesheet" type="text/css" href="/static/chartOfAccounts.css" />
 <script>
-    function format(description,subcategory,normal,debit,credit,initial,UserID,statement,comment) {
+    function format(description, subcategory, normal, debit, credit, initial, UserID, statement, comment) {
         return '<div class="slider">' +
             '<div class="row">' +
             '<div class="col-9 text-start">' +
             '<ul>' +
-            '<li>Account Description: </li>' + '<p>' + formatValue(description ) + '</p>' +
+            '<li>Account Description: </li>' + '<p>' + formatValue(description) + '</p>' +
             '<li>Account Subcategory: </li>' + '<p>' + formatValue(subcategory) + '</p>' +
             '<li>Normal Side: </li>' + '<p>' + formatValue(normal) + '</p>' +
             '<li>Debit: </li>' + '<p>' + formatValue(debit) + '</p>' +
@@ -28,9 +28,9 @@
             '</div>';
     }
 
-    function formatValue(value){
-        if(!value || value == 'undefined' || value == "null" || value == '[object Object]'){
-            return "<i>Not set "+ value + "</i>";
+    function formatValue(value) {
+        if (!value || value == 'undefined' || value == "null" || value == '[object Object]') {
+            return "<i>Not set " + value + "</i>";
         } else {
             return value;
         }
@@ -42,16 +42,24 @@
             dom: '<"addbtn"><"calendarbtn">frt<"logbtn">p'
 
         });
-       
+
         $("div.addbtn").html('<button class="add" data-bs-toggle="modal" data-bs-target="#addaccountmodal">+ Add New Account</button>');
         $("div.calendarbtn").html('<a class="calendar"><i class="fas fa-calendar-alt"></i></a>');
         $("div.logbtn").html('<a class="log">View Change Logs</a>');
+
+        $('div.calendarbtn').click(function () {
+            var date = new DateTime($("div.calendarbtn"), {
+                format: "YYYY-MM-DD"
+            });
+            $('input[type="search"]').val(date.val());
+        })
+
 
         // Add event listener for opening and closing details
         $('#example tbody').on('click', 'tr.details-control', function () {
             var tr = $(this).closest('tr');
             var row = table.row(tr);
-            
+
             if (row.child.isShown()) {
                 // This row is already open - close it
                 $('div.slider', row.child()).slideUp(function () {
@@ -64,10 +72,10 @@
                 if (table.row('.shown').length) {
                     $('.details-control', table.row('.shown').node()).click();
                 }
-                row.child(format( tr.data('description'),tr.data('subcategory'), tr.data('normal'),
-                tr.data('debit'),tr.data('credit'),tr.data('initial'),
-                tr.data('userid'),tr.data('statement'),tr.data('comment'),
-                    )).show();
+                row.child(format(tr.data('description'), tr.data('subcategory'), tr.data('normal'),
+                    tr.data('debit'), tr.data('credit'), tr.data('initial'),
+                    tr.data('userid'), tr.data('statement'), tr.data('comment'),
+                )).show();
                 tr.addClass('shown');
                 $('div.slider', row.child()).slideDown();
             }
@@ -81,7 +89,8 @@
 {% block content %}
 
 <!--NEW ACCOUNT MODAL START-->
-<div class="modal fade" id="addaccountmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="addaccountmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -223,7 +232,7 @@
     </div>
     <table id="example" class="table table-striped" style="width:100%">
         <thead>
-            <tr class="details-control" data-child-value="Nope">>
+            <tr class="details-control" data-child-value="Nope">
                 <th>Account No.</th>
                 <th>Account Name</th>
                 <th>Category</th>
@@ -233,19 +242,19 @@
         </thead>
         <tbody>
             {% if Account_list %}
-                {% for account in Account_list %}
-                <tr class="details-control" data-description= "{{account.account_description}}" 
-                data-subcategory="{{account.account_subcategory}}"  data-normal="{{account.normal_side}}" 
-                data-debit="{{account.debit}}"  data-credit="{{account.credit}}" 
-                data-initial="{{account.initial_balance}}" data-userid="{{account.userid}}" 
+            {% for account in Account_list %}
+            <tr class="details-control" data-description="{{account.account_description}}"
+                data-subcategory="{{account.account_subcategory}}" data-normal="{{account.normal_side}}"
+                data-debit="{{account.debit}}" data-credit="{{account.credit}}"
+                data-initial="{{account.initial_balance}}" data-userid="{{account.userid}}"
                 data-statement="{{account.get_statement_display}}" data-comment="{{account.comment}}">
-                    <td>{{account.account_number }}</td>
-                    <td>{{account.account_name}}</td>
-                    <td>{{account.get_account_category_display}} </td>
-                    <td>${{account.balance}}</td>
-                    <td>{{account.date_time_added}}</td>
-                </tr>
-                {% endfor %}
+                <td>{{account.account_number }}</td>
+                <td>{{account.account_name}}</td>
+                <td>{{account.get_account_category_display}} </td>
+                <td>${{account.balance}}</td>
+                <td>{{account.date_time_added}}</td>
+            </tr>
+            {% endfor %}
             {% endif %}
             <tr class="details-control" data-child-value="Nope">
                 <td>101</td>
