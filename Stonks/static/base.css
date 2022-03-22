@@ -141,3 +141,10 @@ button {
 button > i {
     pointer-events: none;
 }
+
+footer {
+    text-align: center;
+  padding: 3px;
+  background-color: #BCAB6F;
+  color: white;
+}

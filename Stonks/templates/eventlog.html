@@ -1,84 +1,69 @@
-{% extends 'base.html' %}
-{% block stylesheet %}
+{% extends 'base.html' %} {% block stylesheet %}
 
 <link rel="stylesheet" type="text/css" href="/static/chartOfAccounts.css" />
 <script>
-    function format(description,subcategory,normal,debit,credit,initial,UserID,statement,comment) {
-        return '<div class="slider">' +
-            '<div class="row">' +
-            '<div class="col-9 text-start">' +
-            '<ul>' +
-            '<li>Account Description: </li>' + '<p>' + formatValue(description ) + '</p>' +
-            '<li>Account Subcategory: </li>' + '<p>' + formatValue(subcategory) + '</p>' +
-            '<li>Normal Side: </li>' + '<p>' + formatValue(normal) + '</p>' +
-            '<li>Debit: </li>' + '<p>' + formatValue(debit) + '</p>' +
-            '<li>Credit: </li>' + '<p>' + formatValue(credit) + '</p>' +
-            '<li>Initial Balance: </li>' + '<p>' + formatValue(initial) + '</p>' +
-            '<li>User ID: </li>' + '<p>' + formatValue(UserID) + '</p>' +
-            '<li>Statement: </li>' + '<p>' + formatValue(statement) + '</p>' +
-            '<li>Comment: </li>' + '<p>' + formatValue(comment) + '</p>' +
-            '</ul>' +
-            '</div>' +
-            '<div class="col-3 text-center mx-auto" id="actions">' +
-            '<a href="#"><i class="fas fa-book"></i> View Ledger</a><br>' +
-            '<a data-bs-toggle="modal" href="#editaccountmodal"><i class="fas fa-edit"></i>Edit</a><br>' +
-            '<a href="#"><i class="fas fa-trash"></i> Delete</a>' +
-            '</div>' +
-            '</div>' +
-            '</div>';
-    }
+  function format(d) {
+    return (
+      '<div class="slider">' +
+      '<div class="row">' +
+      '<div class="col-9 text-start">' +
+      "<ul>" +
+      "<li>Account Description: </li><p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.Donec eu libero sit amet quam egestas semper.Aenean ultricies mi vitae est.Mauris placerat eleifend leo.Quisque sit amet est et sapien ullamcorper pharetra.Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui.Donec non enim in turpis pulvinar facilisis.Ut felis.Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat.Aliquam erat volutpat.Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>" +
+      "<li>Account Subcategory: </li><p>Current Assets</p>" +
+      "<li>Normal Side: </li><p>Debit</p>" +
+      "<li>Debit: </li><p>8000</p>" +
+      "<li>Credit: </li><p>-8000</p>" +
+      "<li>Initial Balance: </li><p>5,000</p>" +
+      "<li>User ID: </li><p>sspragg2</p>" +
+      "<li>Statement: </li><p>Balance Sheet</p>" +
+      "<li>Comment: </li><p>No comment</p>" +
+      "</ul>" +
+      "</div>" +
+      '<div class="col-3 text-center mx-auto" id="actions">' +
+      "</div>" +
+      "</div>" +
+      "</div>"
+    );
+  }
 
-    function formatValue(value){
-        if(!value || value == 'undefined' || value == "null" || value == '[object Object]'){
-            return "<i>Not set "+ value + "</i>";
-        } else {
-            return value;
-        }
-    }
-
-    $(document).ready(function () {
-
-        var table = $('#example').DataTable({
-            dom: '<"addbtn"><"calendarbtn">frt<"logbtn">p'
-
-        });
-       
-        $("div.addbtn").html('<button class="add" data-bs-toggle="modal" data-bs-target="#addaccountmodal">+ Add New Account</button>');
-        $("div.calendarbtn").html('<a class="calendar"><i class="fas fa-calendar-alt"></i></a>');
-        $("div.logbtn").html('<a class="log">View Change Logs</a>');
-
-        // Add event listener for opening and closing details
-        $('#example tbody').on('click', 'tr.details-control', function () {
-            var tr = $(this).closest('tr');
-            var row = table.row(tr);
-            
-            if (row.child.isShown()) {
-                // This row is already open - close it
-                $('div.slider', row.child()).slideUp(function () {
-                    row.child.hide();
-                    tr.removeClass('shown');
-                });
-
-            } else {
-                // Open this row
-                if (table.row('.shown').length) {
-                    $('.details-control', table.row('.shown').node()).click();
-                }
-                row.child(format( tr.data('description'),tr.data('subcategory'), tr.data('normal'),
-                tr.data('debit'),tr.data('credit'),tr.data('initial'),
-                tr.data('userid'),tr.data('statement'),tr.data('comment'),
-                    )).show();
-                tr.addClass('shown');
-                $('div.slider', row.child()).slideDown();
-            }
-        });
+  $(document).ready(function () {
+    var table = $("#example").DataTable({
+      dom: '<"addbtn"><"calendarbtn">frt<"logbtn">p',
     });
+
+    // Add event listener for opening and closing details
+    $("#example tbody").on("click", "tr.details-control", function () {
+      var tr = $(this).closest("tr");
+      var row = table.row(tr);
+
+      if (row.child.isShown()) {
+        // This row is already open - close it
+        $("div.slider", row.child()).slideUp(function () {
+          row.child.hide();
+          tr.removeClass("shown");
+        });
+      } else {
+        // Open this row
+        if (table.row(".shown").length) {
+          $(".details-control", table.row(".shown").node()).click();
+        }
+        row.child(format(row.data())).show();
+        tr.addClass("shown");
+        $("div.slider", row.child()).slideDown();
+      }
+    });
+  });
 </script>
-{% endblock %}
-
-{% load static %}
-
-{% block content %}
+<!--Script For  Tooltips-->
+<script>
+  var tooltipTriggerList = [].slice.call(
+    document.querySelectorAll('[data-bs-toggle="tooltip"]')
+  );
+  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl);
+  });
+</script>
+{% endblock %} {% load static %} {% block content %}
 
 <!--NEW ACCOUNT MODAL START-->
 <div class="modal fade" id="addaccountmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -215,48 +200,122 @@
 <!--CALENDAR DROPDOWN END-->
 
 <div class="container-lg" id="mainbox">
-    <div class="row">
-        <div class="col-lg" id="pagehead">
-            <h1 class="title">Chart of Accounts</h1>
-            <a><i class="fas fa-info-circle"></i></a>
-        </div>
+  <div class="row">
+    <div class="col-lg" id="pagehead">
+      <h1 class="title">Event Logs</h1>
+      <a><i class="fas fa-info-circle"></i></a>
     </div>
-    <table id="example" class="table table-striped" style="width:100%">
-        <thead>
-            <tr class="details-control" data-child-value="Nope">>
-                <th>Account No.</th>
-                <th>Account Name</th>
-                <th>Category</th>
-                <th>Balance</th>
-                <th>Date Created</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% if Account_list %}
-                {% for account in Account_list %}
-                <tr class="details-control" data-description= "{{account.account_description}}" 
-                data-subcategory="{{account.account_subcategory}}"  data-normal="{{account.normal_side}}" 
-                data-debit="{{account.debit}}"  data-credit="{{account.credit}}" 
-                data-initial="{{account.initial_balance}}" data-userid="{{account.userid}}" 
-                data-statement="{{account.get_statement_display}}" data-comment="{{account.comment}}">
-                    <td>{{account.account_number }}</td>
-                    <td>{{account.account_name}}</td>
-                    <td>{{account.get_account_category_display}} </td>
-                    <td>${{account.balance}}</td>
-                    <td>{{account.date_time_added}}</td>
-                </tr>
-                {% endfor %}
-            {% endif %}
-            <tr class="details-control" data-child-value="Nope">
-                <td>101</td>
-                <td>Cash</td>
-                <td>Assets</td>
-                <td>$5,000</td>
-                <td>2011/04/25</td>
-            </tr>
-            </tr>
-        </tbody>
-    </table>
+  </div>
+  <table id="example" class="table table-striped" style="width: 100%">
+    <thead>
+      <tr>
+        <th>Account No.</th>
+        <th>Account Name</th>
+        <th>Category</th>
+        <th>Balance</th>
+        <th>Journal Description</th>
+        <th>Date Posted</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="details-control" data-child-value="Nope">
+        <td>100</td>
+        <td>J.Springer Account</td>
+        <td>Assets</td>
+        <td>$5,000</td>
+        <td>The book in which all financial transactions of a business are recorded</td>
+        <td>2011/04/25</td>
+      </tr>
+      <tr class="details-control" data-child-value="Nope">
+        <td>200</td>
+        <td>S.Spraggins Account</td>
+        <td>Liabilities</td>
+        <td>$3,116</td>
+        <td>The ledger holds financial information needed to make the financial statements</td>
+        <td>2011/04/25</td>
+      </tr>
+      <tr class="details-control" data-child-value="Nope">
+        <td>300</td>
+        <td>L.Taylor Account</td>
+        <td>Equity Accounts</td>
+        <td>$2,552</td>
+        <td>The book in which all financial transactions of a business are recorded</td>
+        <td>2011/04/25</td>
+      </tr>
+      <tr class="details-control" data-child-value="Nope">
+        <td>600</td>
+        <td>J.Puplampa Account</td>
+        <td>Revenues</td>
+        <td>$1,166</td>
+        <td>Journal entries are made in chronological order</td>
+        <td>2011/04/25</td>
+      </tr>
+      <tr class="details-control" data-child-value="Nope">
+        <td>500</td>
+        <td>J.Roby Account</td>
+        <td>Expenses</td>
+        <td>$3,039</td>
+        <td>Journal entries are made in chronological order</td>
+        <td>2011/04/25</td>
+      </tr>
+      <tr class="details-control" data-child-value="Nope">
+        <td>400</td>
+        <td>W.Beckman Account</td>
+        <td>Other</td>
+        <td>$3,037</td>
+        <td>The ledger holds financial information needed to make the financial statements</td>
+        <td>2011/04/25</td>
+      </tr>
+      <tr class="details-control" data-child-value="Nope">
+        <td>102</td>
+        <td>B.Hall Account</td>
+        <td>Assets</td>
+        <td>$2,884</td>
+        <td>The book in which all financial transactions of a business are recorded</td>
+        <td>2011/04/25</td>
+      </tr>
+      <tr class="details-control" data-child-value="Nope">
+        <td>301</td>
+        <td>A.Franklin Account</td>
+        <td>Equity Accounts</td>
+        <td>$5,605</td>
+        <td>The ledger holds financial information needed to make the financial statements</td>
+        <td>2011/04/25</td>
+      </tr>
+      <tr class="details-control" data-child-value="Nope">
+        <td>103</td>
+        <td>O.Rodrigo Account</td>
+        <td>Assets</td>
+        <td>$4,553</td>
+        <td>Journal entries are made in chronological order</td>
+        <td>2011/04/25</td>
+      </tr>
+      <tr class="details-control" data-child-value="Nope">
+        <td>201</td>
+        <td>L.Pricilla Account</td>
+        <td>Liabilities</td>
+        <td>$4,519</td>
+        <td>The ledger holds financial information needed to make the financial statements</td>
+        <td>2011/04/25</td>
+      </tr>
+      <tr class="details-control" data-child-value="Nope">
+        <td>601</td>
+        <td>B.Dawit Account</td>
+        <td>Revenues</td>
+        <td>$2,271</td>
+        <td>It is used for making the trial balance and final accounts</td>
+        <td>2011/04/25</td>
+      </tr>
+      <tr class="details-control" data-child-value="Nope">
+        <td>401</td>
+        <td>R.Roberts Account</td>
+        <td>Other</td>
+        <td>$1,632</td>
+        <td>The book in which all financial transactions of a business are recorded</td>
+        <td>2011/04/25</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
 {% endblock %}

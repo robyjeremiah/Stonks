@@ -1,5 +1,6 @@
 from dataclasses import fields
-from .models import SecurityQuestion, User
+import queue
+from .models import SecurityQuestion, User, Account
 from .forms import CustomUserForm
 from .decorators import allowed_users, unauthenticated_user
 from django.shortcuts import redirect, render
@@ -142,7 +143,7 @@ def passwordReset(request):
         password_reset_form = PasswordResetForm(request.POST)
         if password_reset_form.is_valid():
             data = password_reset_form.cleaned_data['email']
-            associated_users = User.objects.filter(Q(email=data))
+            associated_users = User.objects.filter(queue(email=data))
             if associated_users.exists():
                 for user in associated_users:
                     subject = "Password Reset Requested"
@@ -168,4 +169,11 @@ def passwordConfirm(request):
     return render(request, 'passwordConfirm.html')
 
 def chartOfAccounts(request):
-    return render(request, 'chartOfAccounts.html')
+    
+    Account_list = Account.objects.all()
+    
+    context = {
+        'Account_list': Account_list,
+    }
+    
+    return render(request, 'chartOfAccounts.html', context)
