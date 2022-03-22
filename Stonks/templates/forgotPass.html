@@ -5,11 +5,13 @@
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Stonks Accounting Solutions | Forgot Password</title>
     <link rel="stylesheet" type="text/css" href="{% static 'forgotpass.css' %}">
     <link rel="icon" type="image/x-icon" href="{% static 'images/Stonks.png' %}">
 </head>
+
 <body>
     <div class="resetbox">
         <h1>Forgot Your Password?</h1>
@@ -24,15 +26,16 @@
         </div>
         <div class="charttext">
             <p id="step1">Email Input</p>
-            <p id="step2">Security</p>
+            <p id="step2">Password</p>
         </div>
-            <form method='POST'>
-                {% csrf_token %}
-                <p id="description">Please enter the email address you'd like the password reset information to go to.</p>
-                <input type="text" name="email" maxlength="100" placeholder="Enter Email" required>
-                <input type="submit" name="forgotPass" value="Submit">
-                <a href="/">Back to login</a>
-            </form>
-        </div>
+        <form method='POST'>
+            {% csrf_token %}
+            <p id="description">Please enter the email address you'd like the password reset information to go to.</p>
+            <input type="text" name="email" maxlength="100" placeholder="Enter Email" required>
+            <input type="submit" name="forgotPass" value="Submit">
+            <a href="/">Back to login</a>
+        </form>
+    </div>
 </body>
+
 </html>

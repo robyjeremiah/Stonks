@@ -9,7 +9,7 @@ body {
 
 .newUserAccount {
     width: 475px;
-    height: 585px;
+    height: auto;
     background: #000;
     opacity: 0.80;
     color: #fff;
