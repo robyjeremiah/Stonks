@@ -20,9 +20,12 @@
       "</ul>" +
       "</div>" +
       '<div class="col-3 text-center mx-auto" id="actions">' +
+<<<<<<< HEAD
       '<a href="viewAccountInfo/"><i class="fas fa-file-user"></i> View Account</a><br>' +
       "<a class='{%if user.role == 'Manager' or user.role == 'Accountant' %} hide {% endif %}' href='#'><i class='fas fa-edit'></i> Edit</a><br>" +
       "<a class='{%if user.role == 'Manager' or user.role == 'Accountant' %} hide {% endif %}' href='#'><i class='fas fa-trash'></i> Delete</a>" +
+=======
+>>>>>>> 44442aa545e9de04baa9e654aac2cba44a192dd9
       "</div>" +
       "</div>" +
       "</div>"
@@ -34,6 +37,7 @@
       dom: '<"addbtn"><"calendarbtn">frt<"logbtn">p',
     });
 
+<<<<<<< HEAD
     $("div.addbtn").html(
       "<button class='add {%if user.role == 'Manager' or user.role == 'Accountant' %} hide {% endif %}' data-bs-toggle='modal' data-bs-target='#addaccountmodal'>+ Add New Account</button>"
     );
@@ -42,6 +46,8 @@
     );
     $("div.logbtn").html('<a class="log">View Change Logs</a>');
 
+=======
+>>>>>>> 44442aa545e9de04baa9e654aac2cba44a192dd9
     // Add event listener for opening and closing details
     $("#example tbody").on("click", "tr.details-control", function () {
       var tr = $(this).closest("tr");
@@ -213,7 +219,11 @@
 <div class="container-lg" id="mainbox">
   <div class="row">
     <div class="col-lg" id="pagehead">
+<<<<<<< HEAD
       <h1 class="title">Chart of Accounts</h1>
+=======
+      <h1 class="title">Event Logs</h1>
+>>>>>>> 44442aa545e9de04baa9e654aac2cba44a192dd9
       <a><i class="fas fa-info-circle"></i></a>
     </div>
   </div>
@@ -224,7 +234,12 @@
         <th>Account Name</th>
         <th>Category</th>
         <th>Balance</th>
+<<<<<<< HEAD
         <th>Date Created</th>
+=======
+        <th>Journal Description</th>
+        <th>Date Posted</th>
+>>>>>>> 44442aa545e9de04baa9e654aac2cba44a192dd9
       </tr>
     </thead>
     <tbody>
@@ -233,6 +248,10 @@
         <td>J.Springer Account</td>
         <td>Assets</td>
         <td>$5,000</td>
+<<<<<<< HEAD
+=======
+        <td>The book in which all financial transactions of a business are recorded</td>
+>>>>>>> 44442aa545e9de04baa9e654aac2cba44a192dd9
         <td>2011/04/25</td>
       </tr>
       <tr class="details-control" data-child-value="Nope">
@@ -240,6 +259,10 @@
         <td>S.Spraggins Account</td>
         <td>Liabilities</td>
         <td>$3,116</td>
+<<<<<<< HEAD
+=======
+        <td>The ledger holds financial information needed to make the financial statements</td>
+>>>>>>> 44442aa545e9de04baa9e654aac2cba44a192dd9
         <td>2011/04/25</td>
       </tr>
       <tr class="details-control" data-child-value="Nope">
@@ -247,6 +270,10 @@
         <td>L.Taylor Account</td>
         <td>Equity Accounts</td>
         <td>$2,552</td>
+<<<<<<< HEAD
+=======
+        <td>The book in which all financial transactions of a business are recorded</td>
+>>>>>>> 44442aa545e9de04baa9e654aac2cba44a192dd9
         <td>2011/04/25</td>
       </tr>
       <tr class="details-control" data-child-value="Nope">
@@ -254,6 +281,10 @@
         <td>J.Puplampa Account</td>
         <td>Revenues</td>
         <td>$1,166</td>
+<<<<<<< HEAD
+=======
+        <td>Journal entries are made in chronological order</td>
+>>>>>>> 44442aa545e9de04baa9e654aac2cba44a192dd9
         <td>2011/04/25</td>
       </tr>
       <tr class="details-control" data-child-value="Nope">
@@ -261,6 +292,10 @@
         <td>J.Roby Account</td>
         <td>Expenses</td>
         <td>$3,039</td>
+<<<<<<< HEAD
+=======
+        <td>Journal entries are made in chronological order</td>
+>>>>>>> 44442aa545e9de04baa9e654aac2cba44a192dd9
         <td>2011/04/25</td>
       </tr>
       <tr class="details-control" data-child-value="Nope">
@@ -268,6 +303,10 @@
         <td>W.Beckman Account</td>
         <td>Other</td>
         <td>$3,037</td>
+<<<<<<< HEAD
+=======
+        <td>The ledger holds financial information needed to make the financial statements</td>
+>>>>>>> 44442aa545e9de04baa9e654aac2cba44a192dd9
         <td>2011/04/25</td>
       </tr>
       <tr class="details-control" data-child-value="Nope">
@@ -275,6 +314,10 @@
         <td>B.Hall Account</td>
         <td>Assets</td>
         <td>$2,884</td>
+<<<<<<< HEAD
+=======
+        <td>The book in which all financial transactions of a business are recorded</td>
+>>>>>>> 44442aa545e9de04baa9e654aac2cba44a192dd9
         <td>2011/04/25</td>
       </tr>
       <tr class="details-control" data-child-value="Nope">
@@ -282,6 +325,10 @@
         <td>A.Franklin Account</td>
         <td>Equity Accounts</td>
         <td>$5,605</td>
+<<<<<<< HEAD
+=======
+        <td>The ledger holds financial information needed to make the financial statements</td>
+>>>>>>> 44442aa545e9de04baa9e654aac2cba44a192dd9
         <td>2011/04/25</td>
       </tr>
       <tr class="details-control" data-child-value="Nope">
@@ -289,6 +336,10 @@
         <td>O.Rodrigo Account</td>
         <td>Assets</td>
         <td>$4,553</td>
+<<<<<<< HEAD
+=======
+        <td>Journal entries are made in chronological order</td>
+>>>>>>> 44442aa545e9de04baa9e654aac2cba44a192dd9
         <td>2011/04/25</td>
       </tr>
       <tr class="details-control" data-child-value="Nope">
@@ -296,6 +347,10 @@
         <td>L.Pricilla Account</td>
         <td>Liabilities</td>
         <td>$4,519</td>
+<<<<<<< HEAD
+=======
+        <td>The ledger holds financial information needed to make the financial statements</td>
+>>>>>>> 44442aa545e9de04baa9e654aac2cba44a192dd9
         <td>2011/04/25</td>
       </tr>
       <tr class="details-control" data-child-value="Nope">
@@ -303,6 +358,10 @@
         <td>B.Dawit Account</td>
         <td>Revenues</td>
         <td>$2,271</td>
+<<<<<<< HEAD
+=======
+        <td>It is used for making the trial balance and final accounts</td>
+>>>>>>> 44442aa545e9de04baa9e654aac2cba44a192dd9
         <td>2011/04/25</td>
       </tr>
       <tr class="details-control" data-child-value="Nope">
@@ -310,6 +369,10 @@
         <td>R.Roberts Account</td>
         <td>Other</td>
         <td>$1,632</td>
+<<<<<<< HEAD
+=======
+        <td>The book in which all financial transactions of a business are recorded</td>
+>>>>>>> 44442aa545e9de04baa9e654aac2cba44a192dd9
         <td>2011/04/25</td>
       </tr>
     </tbody>

@@ -1,5 +1,6 @@
 from dataclasses import fields
-from .models import SecurityQuestion, User
+import queue
+from .models import SecurityQuestion, User, Account
 from .forms import CustomUserForm
 from .decorators import allowed_users, unauthenticated_user
 from django.shortcuts import redirect, render
@@ -18,12 +19,11 @@ from django.utils.encoding import force_bytes
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-
 def index(request):
     if request.method == 'POST':
         username = request.POST.get("username")
         password = request.POST.get("password")
-        user = authenticate(request, username=username, password=password)
+        user = authenticate(request, username = username, password=password)
         if user is not None and user.groups.filter(name='Administrator'):
             login(request, user)
             print('Administrator Logged In!')
@@ -37,18 +37,15 @@ def index(request):
             print('Manager Logged In!')
             return redirect('/generalHome/')
         else:
-            messages.info(
-                request, 'User OR Password is incorrect. Please Try Again.')
+            messages.info(request, 'User OR Password is incorrect. Please Try Again.')
             return redirect('/')
     else:
         return render(request, 'login.html')
-
 
 def loggedOut(request):
     print('Logged Out!')
     logout(request)
     return redirect('index')
-
 
 def newUser(request):
     if request.method == 'POST':
@@ -65,10 +62,8 @@ def newUser(request):
 
     return render(request, 'newUser.html', {'form': form})
 
-
 def forgotPass(request):
     return render(request, 'forgotPass.html')
-
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Administrator'])
@@ -83,12 +78,11 @@ def adminHome(request):
             new_user = User.objects.latest('id')
             accountant = Group.objects.get(name=request.POST['role'])
             accountant.user_set.add(new_user)
-            User.objects.filter(username=new_user).update(
-                role=request.POST['role'])
+            User.objects.filter(username=new_user).update(role=request.POST['role'])
             return redirect('adminHome')
     else:
         form = CustomUserForm()
-
+    
     context = {
         'user_list': user_list,
         'group_list': group_list,
@@ -96,6 +90,25 @@ def adminHome(request):
     }
 
     return render(request, 'adminhome.html', context)
+
+def getUserInfo(request):
+    if request.is_ajax and request.method == "GET":
+        user_id = request.GET.get("user_id", None)
+        if User.objects.filter(id = user_id).exists():
+            user = User.objects.all().filter(id = user_id)
+            userInfo = serializers.serialize('json', user, fields=(
+                'first_name',
+                'last_name',
+                'email',
+                'role',
+                'dob',
+                'is_staff',
+                'username'
+            ))
+            return JsonResponse({"valid":True, "user": userInfo}, status = 200)
+        else:
+            return JsonResponse({"valid": False}, status = 200)
+    return JsonResponse({}, status = 400)
 
 
 def delete_user(request, pk):
@@ -105,32 +118,15 @@ def delete_user(request, pk):
 
     return redirect('adminHome')
 
-
 def edit_user(request, pk):
-    if request.is_ajax and request.method == "GET":
-        username = User.objects.get(pk=pk).username
-    if User.objects.filter(username=username).exists():
-        user = User.objects.all().filter(username=username)
-        userInfo = serializers.serialize('json', user, fields=(
-            'first_name',
-            'last_name',
-            'email',
-            'role',
-            'dob',
-            'is_staff',
-            'username'
-        ))
-        return JsonResponse({"valid": True, "user": userInfo}, status=200)
-    else:
-        return JsonResponse({"valid": False}, status=200)
-    return JsonResponse({}, status=400)
+    username = User.objects.get(pk=pk).username
 
+    return render(request, 'updateProfileAdmin.html')
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['Accountant', 'Manager'])
 def generalHome(request):
     return render(request, 'generalHome.html')
-
 
 def security(request):
     security_question_list = SecurityQuestion.objects.all()
@@ -139,23 +135,21 @@ def security(request):
     }
     return render(request, 'security.html', context)
 
-
 def emailSent(request):
     return render(request, 'emailSent.html')
-
 
 def passwordReset(request):
     if request.method == 'POST':
         password_reset_form = PasswordResetForm(request.POST)
         if password_reset_form.is_valid():
             data = password_reset_form.cleaned_data['email']
-            associated_users = User.objects.filter(Q(email=data))
+            associated_users = User.objects.filter(queue(email=data))
             if associated_users.exists():
                 for user in associated_users:
                     subject = "Password Reset Requested"
                     c = {
-                        "email": user.email,
-                        'domain': '127.0.0.1:8000',
+                        "email":user.email,
+                        'domain':'127.0.0.1:8000',
                         'site_name': 'Stonks Website',
                         "uid": urlsafe_base64_encode(force_bytes(user.pk)),
                         "user": user,
@@ -164,25 +158,22 @@ def passwordReset(request):
                     }
                     email = render_to_string(c)
                     try:
-                        send_mail(subject, email, [
-                                  user.email], fail_silently=False)
+                        send_mail(subject, email, [user.email], fail_silently=False)
                     except BadHeaderError:
                         return HttpResponse("Invalid header found.")
                     return redirect("/passwordConfirm/")
     password_reset_form = PasswordResetForm()
-    return render(request=request, template_name='passwordReset.html', context={"password_reset_form": password_reset_form})
-
+    return render(request=request, template_name='passwordReset.html', context={"password_reset_form":password_reset_form})
 
 def passwordConfirm(request):
     return render(request, 'passwordConfirm.html')
 
-
 def chartOfAccounts(request):
-    return render(request, 'chartOfAccounts.html')
-
-
-def useraccount(request):
-    return render(request, 'useraccount.html')
-
-def eventlog(request):
-    return render(request, 'eventlog.html')
+    
+    Account_list = Account.objects.all()
+    
+    context = {
+        'Account_list': Account_list,
+    }
+    
+    return render(request, 'chartOfAccounts.html', context)
