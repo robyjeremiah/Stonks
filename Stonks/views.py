@@ -165,6 +165,14 @@ def update_user(request):
             user.last_name = request.POST['last_name']
             user.email = request.POST['email']
             user.role = request.POST['role']
+            password = request.POST['password']
+            confirmPassword = request.POST['confirmPassword']
+            if password and confirmPassword and password != confirmPassword:
+                print("Passwords did not match")
+            else:
+                user.set_password(password)
+            group = Group.objects.get(name=request.POST['role'])
+            group.user_set.add(user)
             is_staff = bool(request.POST['is_staff'])
             user.is_staff = is_staff
             user.save()

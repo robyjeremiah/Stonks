@@ -168,6 +168,8 @@
     email = $("input[name='edit-email']").val();
     role = $("select[name='edit-role']").val();
     status = $("select[name='edit-status']").val();
+    password = $("input[name='edit-new-password']").val();
+    confirmPassword = $("input[name='edit-confirm-password']").val();
     var is_staff = false;
     if (status == 1) {
       var is_staff = true;
@@ -183,7 +185,9 @@
         last_name: last_name,
         email: email,
         role: role,
-        is_staff: is_staff
+        is_staff: is_staff,
+        password: password,
+        confirmPassword: confirmPassword,
       },
       dataType: 'json',
       success: function (response) {
