@@ -115,9 +115,9 @@
     <table id="example" class="table table-striped" style="width:100%">
         <thead>
             <tr class="details-control" data-child-value="Nope">>
+                <th>Category</th>
                 <th>Account No.</th>
                 <th>Account Name</th>
-                <th>Category</th>
                 <th>Balance</th>
                 <th>Date Created</th>
             </tr>
@@ -130,18 +130,19 @@
                 data-debit="{{account.debit}}"  data-credit="{{account.credit}}" 
                 data-initial="{{account.initial_balance}}" data-userid="{{account.userid}}" 
                 data-statement="{{account.get_statement_display}}" data-comment="{{account.comment}}">
+                    <td>{{account.get_account_category_display}} </td>
                     <td>{{account.account_number }}</td>
                     <td>{{account.account_name}}</td>
-                    <td>{{account.get_account_category_display}} </td>
                     <td>${{account.balance}}</td>
                     <td>{{account.date_time_added}}</td>
                 </tr>
                 {% endfor %}
             {% endif %}
             <tr class="details-control" data-child-value="Nope">
+                <td>Assets</td>
                 <td>101</td>
                 <td>Cash</td>
-                <td>Assets</td>
+                
                 <td>$5,000</td>
                 <td>2011/04/25</td>
             </tr>
