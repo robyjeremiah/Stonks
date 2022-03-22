@@ -47,6 +47,14 @@
         $("div.calendarbtn").html('<a class="calendar"><i class="fas fa-calendar-alt"></i></a>');
         $("div.logbtn").html('<a class="log">View Change Logs</a>');
 
+        $('div.calendarbtn').click(function () {
+            var date = new DateTime($("div.calendarbtn"), {
+                format: "YYYY-MM-DD"
+            });
+            $('input[type="search"]').val(date.val());
+        })
+
+
         // Add event listener for opening and closing details
         $('#example tbody').on('click', 'tr.details-control', function () {
             var tr = $(this).closest('tr');
