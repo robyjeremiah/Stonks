@@ -1,4 +1,3 @@
-from asyncio.windows_events import NULL
 from django.contrib.auth.models import (
     AbstractBaseUser, BaseUserManager, PermissionsMixin, Group
 )
