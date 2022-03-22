@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 from django.contrib.auth.models import (
     AbstractBaseUser, BaseUserManager, PermissionsMixin, Group
 )
@@ -122,12 +123,6 @@ class AccountManager(models.Manager):
         else:
             return False
 
-    #save(self, account_name, account_category,account_description,**extra_fields)
-
-    # def Create_Account(self, account_name, account_category,account_description,**extra_fields):
-    #     account = self(account_name=account_name, account_category = account_category,
-    #                           account_description = account_description,**extra_fields)
-
 
 class Account(models.Model):
     # ATP this point some of this is just notes for me
@@ -157,22 +152,25 @@ class Account(models.Model):
     account_subcategory = models.CharField(
         _('Account Subcategory'), max_length=30, blank=True)
 
-    initial_balance = models.DecimalField(
-        _('Initial balance'), blank=True, decimal_places=2, max_digits=17, null=True)
-    credit = models.DecimalField(
-        _('Credit'), blank=True, decimal_places=2, max_digits=17, null=True)
     balance = models.DecimalField(
         _('Balance'), blank=True, decimal_places=2, max_digits=17, null=True)
+    initial_balance = models.DecimalField(
+        _('Initial balance'), blank=True, decimal_places=2, max_digits=17, null=True)
+    debit = models.DecimalField(
+        _('Debit'), blank=True, decimal_places=2, max_digits=17, null=True)
+    credit = models.DecimalField(
+        _('Credit'), blank=True, decimal_places=2, max_digits=17, null=True)
     order = models.IntegerField(_('Order'), blank=True, null=True)
     statement = models.CharField(
-        _('Financial Statement'), max_length=30, choices=StatementChoices, blank=True)
+        _('Financial Statement'), max_length=30, choices=StatementChoices, blank=True, null=True)
 
     # Dont know what this iis
-    userid = models.IntegerField(_('User id'), blank=True, null=True)
-    normal_side = models.CharField(_('Normal Side'), max_length=5, blank=True)
-    Date_time_added = models.DateTimeField(
+    userid = models.CharField(
+        _('User id'), max_length=30, blank=True, null=True)
+    normal_side = models.CharField(_('Normal Side'), max_length=8, blank=True)
+    date_time_added = models.DateField(
         _('Date/Time Added'), max_length=30, blank=True, auto_now=True)
-    Comment = models.CharField(_('Comment'), max_length=300, blank=True)
+    comment = models.CharField(_('Comment'), max_length=300, blank=True)
 
     objects = AccountManager()
 
@@ -197,7 +195,7 @@ class Account(models.Model):
                     copycheck = True
             self.account_number = temp
             self.statement = "BS"
-            self.normal_side = "Left"
+            self.normal_side = "Debit"
         elif self.account_category == 'L':
             count = Account.objects.filter(account_category='L').count()
             count = count + 1
@@ -218,7 +216,7 @@ class Account(models.Model):
                     copycheck = True
             self.account_number = temp
             self.statement = "BS"
-            self.normal_side = "Right"
+            self.normal_side = "Credit"
         elif self.account_category == 'EQ':
             count = Account.objects.filter(account_category='EQ').count()
             count = count + 1
@@ -239,7 +237,7 @@ class Account(models.Model):
                     copycheck = True
             self.account_number = temp
             self.statement = "BS"
-            self.normal_side = "Right"
+            self.normal_side = "Credit"
         elif self.account_category == 'R':
             count = Account.objects.filter(account_category='R').count()
             count = count + 1
@@ -260,7 +258,7 @@ class Account(models.Model):
                     copycheck = True
             self.account_number = temp
             self.statement = "IS"
-            self.normal_side = "Right"
+            self.normal_side = "Credit"
         elif self.account_category == 'EX':
             count = Account.objects.filter(account_category='EX').count()
             count = count + 1
@@ -281,7 +279,7 @@ class Account(models.Model):
                     copycheck = True
             self.account_number = temp
             self.statement = "IS"
-            self.normal_side = "Left"
+            self.normal_side = "Debit"
         elif self.account_category == 'O':
             count = Account.objects.filter(account_category='O').count()
             count = count + 1
@@ -305,8 +303,9 @@ class Account(models.Model):
 
         super(Account, self).save(*args, **kwargs)
 
-
 # Security Questions stored in database
+
+
 class SecurityQuestion(models.Model):
     question = models.CharField(max_length=250, null=False)
 
