@@ -255,3 +255,11 @@ def eventlog(request):
     }
 
     return render(request, 'chartOfAccounts.html', context)
+
+
+def listJournals(request):
+    return render(request, 'ListOfJournals.html')
+
+
+def addJounral(request):
+    return render(request, 'addJournal.html')
