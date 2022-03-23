@@ -59,6 +59,9 @@
           {% if person.is_staff == 1 %} Active {% else %} Inactive {% endif %}
         </td>
         <td>
+          <a class="emailButton" data-bs-toggle="modal" data-bs-target="#emailModal"><i class="fas fa-envelope"></i></a>
+        </td>
+        <td>
           <button class="editButton" value="{{person.pk}}">edit</button>
         </td>
         <td>
@@ -68,6 +71,38 @@
       {% endfor %} {% endif %}
     </tbody>
   </table>
+  <div class="modal fade" id="emailModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 id="modal-title">Send Email</h3>
+          <a class="close" data-bs-dismiss="modal" aria-label="Close">
+              <i class="fas fa-times" id="xbtn"></i>
+          </a>
+        </div>
+        <div class="modal-body" id="emailForm">
+          <div class="col-11 mx-auto">
+            <div class="input-group mb-3 mt-2">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupPrepend2"><i class="fas fa-user" id="icon-u"></i></span>
+              </div>
+              <input type="text" class="form-control" placeholder="[django username]" aria-describedby="inputGroupPrepend2" required disabled>
+            </div>
+            <label for="subject" id="subject">Subject</label>
+            <input class="form-control mb-3" placeholder="Subject" id="subject-field">
+            <label for="message" id="message">Message</label>
+            <textarea class="form-control mb-3" rows="4" id="message-field"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div class="col-9 mx-auto">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cancel">Cancel</button>
+              <button type="button" class="btn btn-primary" id="submit">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="maincontainer modal fade" id="updateProfile">
     <div class="modal-dialog">
       <div class="modal-content">
