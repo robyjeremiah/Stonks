@@ -11,7 +11,7 @@
             }]
         });
 
-        $("div.addbtn").html('<button class="add">+ Add Journal Entry</button>');
+        $("div.addbtn").html('<a href="/addJournal/"><button class="add">+ Add Journal Entry</button></a>');
     });
 </script>
 {% endblock %} {% load static %} {% block content %}
@@ -79,7 +79,8 @@
                 <td>$0</td>
                 <td>2015/04/25</td>
                 <td id="status">Pending</td>
-                <td><button type="button" class="btn-primary" id="update" data-bs-toggle="modal" data-bs-target="#updateModal">Update<br>Status</button></td>
+                <td><button type="button" class="btn-primary" id="update" data-bs-toggle="modal"
+                        data-bs-target="#updateModal">Update<br>Status</button></td>
             </tr>
             <tr>
                 <td>2</td>
@@ -96,7 +97,9 @@
                 <td><button class="btn-primary" id="update">Update<br>Status</button></td>
             </tr>
         </tbody>
-        <tfoot><tr></tr></tfoot>
+        <tfoot>
+            <tr></tr>
+        </tfoot>
     </table>
 </div>
 

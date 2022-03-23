@@ -45,7 +45,7 @@
 
         $("div.addbtn").html('<button class="add" data-bs-toggle="modal" data-bs-target="#addaccountmodal">+ Add New Account</button>');
         $("div.calendarbtn").html('<a class="calendar"><i class="fas fa-calendar-alt"></i></a>');
-        $("div.logbtn").html('<a class="log">View Change Logs</a>');
+        $("div.logbtn").html('<a href="{% url "EventLog" %}" class="log">View Change Logs</a>');
 
         $('div.calendarbtn').click(function () {
             var date = new DateTime($("div.calendarbtn"), {
@@ -155,7 +155,8 @@
 </div>
 <!--NEW ACCOUNT MODAL END-->
 <!--EDIT ACCOUNT MODAL END-->
-<div class="modal fade" id="editaccountmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="editaccountmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -172,9 +173,11 @@
                 <div class="form-row justify-content-center">
                     <div class="form-group col-5" id="modalblockone">
                         <label for="accountname">Account Name:</label>
-                        <input type="text" class="form-control form-control-sm" id="accountname" placeholder="django name">
+                        <input type="text" class="form-control form-control-sm" id="accountname"
+                            placeholder="django name">
                         <label for="accountnumber">Account Number:</label>
-                        <input type="text" class="form-control form-control-sm" id="accountnumber" placeholder="django number">
+                        <input type="text" class="form-control form-control-sm" id="accountnumber"
+                            placeholder="django number">
                         <label for="accountcategory">Account Category:</label>
                         <select multiple-class="form-control" id="accountcategory">
                             <option>Assets</option>
@@ -185,9 +188,11 @@
                             <option>Other</option>
                         </select>
                         <label for="accountsubcategory">Account Subcategory:</label>
-                        <input type="text" class="form-control form-control-sm" id="accountsubcategory" placeholder="django subcategory">
+                        <input type="text" class="form-control form-control-sm" id="accountsubcategory"
+                            placeholder="django subcategory">
                         <label for="accountdescription">Account Description</label>
-                        <textarea class="form-control form-control-sm" id="accountdescription" rows="4" placeholder="django description"></textarea>
+                        <textarea class="form-control form-control-sm" id="accountdescription" rows="4"
+                            placeholder="django description"></textarea>
                     </div>
                     <div class="form-group col-5" id="modalblocktwo">
                         <label for="normalside">Normal Side:</label>
@@ -208,7 +213,8 @@
                             <option id="short">Retained earnings statement</option>
                         </select>
                         <label for="comment">Comment:</label>
-                        <input type="text" class="form-control form-control-sm" id="comment" placeholder="django comment">
+                        <input type="text" class="form-control form-control-sm" id="comment"
+                            placeholder="django comment">
                     </div>
                 </div>
             </div>
@@ -219,6 +225,7 @@
     </div>
 </div>
 <!--EDIT ACCOUNT MODAL END-->
+<!--CALENDAR DROPDOWN START-->
 
 <!--CALENDAR DROPDOWN START-->
 <!--CALENDAR DROPDOWN END-->
