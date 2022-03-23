@@ -22,6 +22,8 @@ urlpatterns = [
     path('chartOfAccounts/viewAccountInfo/',
          views.useraccount, name='viewAccount'),
     path('chartOfAccounts/viewEventLog/', views.eventlog, name='EventLog'),
+    path('listOfJournals/', views.listJournals, name='listOfJournals'),
+    path('addJournal/', views.addJounral, name='addJournal'),
     # Django Admin Forgot Password Functionalities
     path('forgotPass/', auth_views.PasswordResetView.as_view(
         template_name='forgotPass.html'), name="reset_password"),
