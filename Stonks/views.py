@@ -95,7 +95,7 @@ def forgotPass(request):
 # adminHome -- Function used to only allow Administrators (using decorators) to sign into this rendered template
 
 
-@login_required(login_url='login')
+@login_required(login_url='/')
 @allowed_users(allowed_roles=['Administrator'])
 def adminHome(request):
     user_list = User.objects.all()
@@ -125,6 +125,7 @@ def adminHome(request):
 # delete_user -- Function that can be called to delete a user with providing the primary key of the users table
 
 
+@login_required(login_url='/')
 def delete_user(request, pk):
     username = User.objects.get(pk=pk).username
     b = User.objects.filter(username=username)
@@ -135,6 +136,7 @@ def delete_user(request, pk):
 # edit_user -- Function that can be used to get the information about an individual user
 
 
+@login_required(login_url='/')
 def edit_user(request):
     if request.method == "GET":
         user_id = request.GET.get("user_id", None)
@@ -157,6 +159,7 @@ def edit_user(request):
 # update_user -- Function that can be used to edit the information about the user
 
 
+@login_required(login_url='/')
 def update_user(request):
     if request.method == "POST":
         try:
@@ -186,7 +189,7 @@ def update_user(request):
     return render(request, 'updateProfileAdmin.html')
 
 
-@login_required(login_url='login')
+@login_required(login_url='/')
 @allowed_users(allowed_roles=['Accountant', 'Manager'])
 def generalHome(request):
     return render(request, 'generalHome.html')
@@ -233,18 +236,22 @@ def passwordReset(request):
     return render(request=request, template_name='passwordReset.html', context={"password_reset_form": password_reset_form})
 
 
+@login_required(login_url='/')
 def passwordConfirm(request):
     return render(request, 'passwordConfirm.html')
 
 
+@login_required(login_url='/')
 def chartOfAccounts(request):
     return render(request, 'chartOfAccounts.html')
 
 
+@login_required(login_url='/')
 def useraccount(request):
     return render(request, 'useraccount.html')
 
 
+@login_required(login_url='/')
 def eventlog(request):
     return render(request, 'eventlog.html')
 
@@ -257,9 +264,11 @@ def eventlog(request):
     return render(request, 'chartOfAccounts.html', context)
 
 
+@login_required(login_url='/')
 def listJournals(request):
     return render(request, 'ListOfJournals.html')
 
 
+@login_required(login_url='/')
 def addJounral(request):
     return render(request, 'addJournal.html')
