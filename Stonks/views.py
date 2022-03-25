@@ -243,7 +243,39 @@ def passwordConfirm(request):
 
 @login_required(login_url='/')
 def chartOfAccounts(request):
-    return render(request, 'chartOfAccounts.html')
+    Account_list = Account.objects.all()
+    context = {
+        'Account_list': Account_list,
+    }
+    return render(request, 'chartOfAccounts.html', context)
+
+# Retrieves all the data for that specific account within the model
+
+
+@login_required
+def edit_account(request):
+    if request.method == "GET":
+        account_number = request.GET.get("account_number", None)
+        if Account.objects.filter(id=account_number).exists():
+            account = Account.objects.all().filter(account_number=account_number)
+            account_info = serializers.serialize('json', account, fields=(
+                'account_name',
+                'account_category',
+                'account_description',
+                'initial_balance',
+                'balance',
+                'debit',
+                'credit',
+                'statement',
+                'normal_side'
+                'comment'
+            ))
+
+            return JsonResponse({"valid": True, "account": account_info}, status=200)
+        else:
+            return JsonResponse({"valid": False, "message": "Not able to retrieve data"}, status=200)
+
+    return JsonResponse({}, status=400)
 
 
 @login_required(login_url='/')
@@ -253,15 +285,12 @@ def useraccount(request):
 
 @login_required(login_url='/')
 def eventlog(request):
-    return render(request, 'eventlog.html')
-
     Account_list = Account.objects.all()
 
     context = {
         'Account_list': Account_list,
     }
-
-    return render(request, 'chartOfAccounts.html', context)
+    return render(request, 'eventlog.html', context)
 
 
 @login_required(login_url='/')
