@@ -256,18 +256,19 @@ def chartOfAccounts(request):
 def edit_account(request):
     if request.method == "GET":
         account_number = request.GET.get("account_number", None)
-        if Account.objects.filter(id=account_number).exists():
+        if Account.objects.filter(account_number=account_number).exists():
             account = Account.objects.all().filter(account_number=account_number)
             account_info = serializers.serialize('json', account, fields=(
                 'account_name',
                 'account_category',
+                'account_subcategory',
                 'account_description',
                 'initial_balance',
                 'balance',
                 'debit',
                 'credit',
                 'statement',
-                'normal_side'
+                'normal_side',
                 'comment'
             ))
 

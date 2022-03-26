@@ -21,6 +21,7 @@ urlpatterns = [
     path('chartOfAccounts/', views.chartOfAccounts, name='chartOfAccounts'),
     path('chartOfAccounts/viewAccountInfo/',
          views.useraccount, name='viewAccount'),
+    path('chartOfAccounts/edit/', views.edit_account, name='edit_account'),
     path('chartOfAccounts/viewEventLog/', views.eventlog, name='EventLog'),
     path('listOfJournals/', views.listJournals, name='listOfJournals'),
     path('addJournal/', views.addJounral, name='addJournal'),

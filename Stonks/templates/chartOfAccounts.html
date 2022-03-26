@@ -3,7 +3,7 @@
 
 <link rel="stylesheet" type="text/css" href="/static/chartOfAccounts.css" />
 <script>
-    function format(description, subcategory, normal, debit, credit, initial, user, statement, comment) {
+    function format(account_number, description, subcategory, normal, debit, credit, initial, user, statement, comment) {
         return '<div class="slider">' +
             '<div class="row">' +
             '<div class="col-9 text-start">' +
@@ -21,7 +21,7 @@
             '</div>' +
             '<div class="col-3 text-center mx-auto" id="actions">' +
             '<a href="#"><i class="fas fa-book"></i> View Ledger</a><br>' +
-            '<a data-bs-toggle="modal" href="#editaccountmodal"><i class="fas fa-edit"></i>Edit</a><br>' +
+            `<a id="edit" data-bs-toggle="modal" href="#editaccountmodal" data-value="${account_number}"><i class="fas fa-edit"></i>Edit</a><br>` +
             '<a href="#"><i class="fas fa-trash"></i> Delete</a>' +
             '</div>' +
             '</div>' +
@@ -34,6 +34,35 @@
         } else {
             return value;
         }
+    }
+
+
+    $(document).on('click', '#edit', function (e) {
+        e.preventDefault();
+        var account_number = $(this).data('value');
+        $('#edit_accountnumber').val(account_number);
+        $.ajax({
+            type: "GET",
+            url: "{%url 'edit_account' %}",
+            data: { account_number: account_number },
+            success: function (response) {
+                const data = JSON.parse(response['account']);
+                preload_modal(data[0]['fields'])
+            }
+        })
+    })
+
+    function preload_modal(account_info) {
+        $('#edit_accountname').val(account_info['account_name']);
+        $('#edit_accountcategory').val(`${account_info['account_category']}`).change();
+        $('#edit_accountsubcategory').val(account_info['account_subcategory']);
+        $('#edit_accountdescription').val(account_info['account_description']);
+        $('#edit_normalside').val(`${account_info['normal_side']}`).change();
+        $('#edit_debit').val(account_info['debit']);
+        $('#edit_credit').val(account_info['credit']);
+        $('#edit_statement').val(`${account_info['statement']}`).change();
+        $('#edit_comment').val(account_info['comment']);
+
     }
 
     $(document).ready(function () {
@@ -72,7 +101,7 @@
                 if (table.row('.shown').length) {
                     $('.details-control', table.row('.shown').node()).click();
                 }
-                row.child(format(tr.data('description'), tr.data('subcategory'), tr.data('normal'),
+                row.child(format(tr.data('account_number'), tr.data('description'), tr.data('subcategory'), tr.data('normal'),
                     tr.data('debit'), tr.data('credit'), tr.data('initial'),
                     tr.data('userid'), tr.data('statement'), tr.data('comment'),
                 )).show();
@@ -103,50 +132,68 @@
                 <div class="row text-center">
                     <h2 id="modaltitle">Add Account</h2>
                 </div>
-                <form>
+                <form method="POST">
+                    <div class="form-row justify-content-center">
+                        <div class="form-group col-5" id="modalblockone">
+                            <label for="accountname">Account Name:
+                                <input type="text" class="form-control form-control-sm" id="add_accountname"
+                                    name="add_accountname">
+                            </label>
+                            <label for="accountnumber">Account Number:
+                                <input type="text" class="form-control form-control-sm" id="add_accountnumber"
+                                    name="add_accountnumber">
+                            </label>
+                            <label for="accountcategory">Account Category:
+                                <select multiple-class="form-control" name="add_accountcategory"
+                                    id="add_accountcategory">
+                                    <option class="short" value="IS">Income statement</option>
+                                    <option class="short" value="BS">Balance sheet</option>
+                                    <option class="short" value="RE">Retained statement</option>
+                                </select>
+                            </label>
+                            <label for="accountsubcategory">Account Subcategory:
+                                <input type="text" class="form-control form-control-sm" id="add_accountsubcategory"
+                                    name="add_accountsubcategory">
+                            </label>
+                            <label for="accountdescription">Account Description
+                                <textarea class="form-control form-control-sm" id="add_accountdescription"
+                                    name="add_accountdescription" rows="4"></textarea>
+                            </label>
+                        </div>
+                        <div class="form-group col-5" id="modalblocktwo">
+                            <label for="normalside">Normal Side:
+                                <select multiple-class="form-control form-select" id="add_normalside"
+                                    name="add_normalside">
+                                    <option value="Debit">Debit</option>
+                                    <option value="Credit">Credit</option>
+                                </select>
+                            </label>
+                            <label for="balance">Balance:
+                                <input type="number" class="form-control form-control-sm" id="add_balance"
+                                    name="add_balance">
+                            </label>
+                            <label for="debit">Debit:
+                                <input type="number" class="form-control form-control-sm" id="add_debit"
+                                    name="add_debit">
+                            </label>
+                            <label for="credit">Credit:
+                                <input type="number" class="form-control form-control-sm" id="add_credit"
+                                    name="add_credit">
+                            </label>
+                            <label for="statement">Statement:
+                                <select multiple-class="form-control" id="add_statement" name="add_statement">
+                                    <option value="IS">Income statement</option>
+                                    <option value="BS">Balance sheet</option>
+                                    <option value="RE">Retained statement</option>
+                                </select>
+                            </label>
+                            <label for="comment">Comment:
+                                <input type="text" class="form-control form-control-sm" id="add_comment"
+                                    name="add_comment">
+                            </label>
+                        </div>
+                    </div>
                 </form>
-                <div class="form-row justify-content-center">
-                    <div class="form-group col-5" id="modalblockone">
-                        <label for="accountname">Account Name:</label>
-                        <input type="text" class="form-control form-control-sm" id="accountname">
-                        <label for="accountnumber">Account Number:</label>
-                        <input type="text" class="form-control form-control-sm" id="accountnumber">
-                        <label for="accountcategory">Account Category:</label>
-                        <select multiple-class="form-control" id="accountcategory">
-                            <option>Assets</option>
-                            <option>Liabilities</option>
-                            <option>Equity Accounts</option>
-                            <option>Revenues</option>
-                            <option>Expenses</option>
-                            <option>Other</option>
-                        </select>
-                        <label for="accountsubcategory">Account Subcategory:</label>
-                        <input type="text" class="form-control form-control-sm" id="accountsubcategory">
-                        <label for="accountdescription">Account Description</label>
-                        <textarea class="form-control form-control-sm" id="accountdescription" rows="4"></textarea>
-                    </div>
-                    <div class="form-group col-5" id="modalblocktwo">
-                        <label for="normalside">Normal Side:</label>
-                        <select multiple-class="form-control" id="normalside">
-                            <option>Debit</option>
-                            <option>Credit</option>
-                        </select>
-                        <label for="balance">Balance:</label>
-                        <input type="number" class="form-control form-control-sm" id="balance">
-                        <label for="debit">Debit:</label>
-                        <input type="number" class="form-control form-control-sm" id="debit">
-                        <label for="credit">Credit:</label>
-                        <input type="number" class="form-control form-control-sm" id="credit">
-                        <label for="statement">Statement:</label>
-                        <select multiple-class="form-control" id="statement">
-                            <option id="short">Income statement</option>
-                            <option id="short">Balance sheet</option>
-                            <option id="short">Retained earnings statement</option>
-                        </select>
-                        <label for="comment">Comment:</label>
-                        <input type="text" class="form-control form-control-sm" id="comment">
-                    </div>
-                </div>
             </div>
             <div class="modal-footer justify-content-center">
                 <button type="button" class="btn btn-primary" id="savebtn">Save</button>
@@ -169,55 +216,67 @@
                 <div class="row text-center">
                     <h2 id="modaltitle">Edit Account</h2>
                 </div>
-                <form>
+                <form method="POST">
+                    <div class="form-row justify-content-center">
+                        <div class="form-group col-5" id="modalblockone">
+                            <input type="hidden" name="edit_accountnumber" id="edit_accountnumber">
+                            <label for="accountname">Account Name:
+                                <input type="text" class="form-control form-control-sm" id="edit_accountname"
+                                    name="edit_accountname" placeholder="django name" />
+                            </label>
+                            <label for="accountcategory">Account Category:
+                                <select multiple-class="form-control" id="edit_accountcategory"
+                                    name="edit_accountcategory">
+                                    <option value="A">Assets</option>
+                                    <option value="L">Liabilities</option>
+                                    <option value="EQ">Equity Accounts</option>
+                                    <option value="R">Revenues</option>
+                                    <option value="EX">Expenses</option>
+                                    <option value="O">Other</option>
+                                </select>
+                            </label>
+                            <label for="accountsubcategory">Account Subcategory:
+                                <input type="text" class="form-control form-control-sm" id="edit_accountsubcategory"
+                                    name="edit_accountsubcategory" placeholder="django subcategory">
+                            </label>
+                            <label for="accountdescription">Account Description
+                                <textarea class="form-control form-control-sm" id="edit_accountdescription" rows="4"
+                                    placeholder="django description" name="edit_accountdescription"></textarea>
+                            </label>
+                        </div>
+                        <div class="form-group col-5" id="modalblocktwo">
+                            <label for="normalside">Normal Side:
+                                <select multiple-class="form-control" id="edit_normalside" name="edit_normalside">
+                                    <option value="Debit">Debit</option>
+                                    <option value="Credit">Credit</option>
+                                </select>
+                            </label>
+                            <label for="balance">Balance:
+                                <input type="number" class="form-control form-control-sm" id="edit_balance"
+                                    name="edit_balance" placeholder="5000">
+                            </label>
+                            <label for="debit">Debit:
+                                <input type="number" class="form-control form-control-sm" id="edit_debit"
+                                    name="edit_debit" placeholder="5000">
+                            </label>
+                            <label for="credit">Credit:
+                                <input type="number" class="form-control form-control-sm" id="edit_credit"
+                                    name="edit_credit" placeholder="-5000">
+                            </label>
+                            <label for="statement">Statement:
+                                <select multiple-class="form-control" id="edit_statement" name="edit_statement">
+                                    <option class="short" value="IS">Income statement</option>
+                                    <option class="short" value="BS">Balance sheet</option>
+                                    <option class="short" value="RE">Retained statement</option>
+                                </select>
+                            </label>
+                            <label for="comment">Comment:
+                                <input type="text" class="form-control form-control-sm" id="edit_comment"
+                                    name="edit_comment" placeholder="django comment">
+                            </label>
+                        </div>
+                    </div>
                 </form>
-                <div class="form-row justify-content-center">
-                    <div class="form-group col-5" id="modalblockone">
-                        <label for="accountname">Account Name:</label>
-                        <input type="text" class="form-control form-control-sm" id="accountname"
-                            placeholder="django name">
-                        <label for="accountnumber">Account Number:</label>
-                        <input type="text" class="form-control form-control-sm" id="accountnumber"
-                            placeholder="django number">
-                        <label for="accountcategory">Account Category:</label>
-                        <select multiple-class="form-control" id="accountcategory">
-                            <option>Assets</option>
-                            <option>Liabilities</option>
-                            <option>Equity Accounts</option>
-                            <option>Revenues</option>
-                            <option>Expenses</option>
-                            <option>Other</option>
-                        </select>
-                        <label for="accountsubcategory">Account Subcategory:</label>
-                        <input type="text" class="form-control form-control-sm" id="accountsubcategory"
-                            placeholder="django subcategory">
-                        <label for="accountdescription">Account Description</label>
-                        <textarea class="form-control form-control-sm" id="accountdescription" rows="4"
-                            placeholder="django description"></textarea>
-                    </div>
-                    <div class="form-group col-5" id="modalblocktwo">
-                        <label for="normalside">Normal Side:</label>
-                        <select multiple-class="form-control" id="normalside">
-                            <option>Debit</option>
-                            <option>Credit</option>
-                        </select>
-                        <label for="balance">Balance:</label>
-                        <input type="number" class="form-control form-control-sm" id="balance" placeholder="5000">
-                        <label for="debit">Debit:</label>
-                        <input type="number" class="form-control form-control-sm" id="debit" placeholder="5000">
-                        <label for="credit">Credit:</label>
-                        <input type="number" class="form-control form-control-sm" id="credit" placeholder="-5000">
-                        <label for="statement">Statement:</label>
-                        <select multiple-class="form-control" id="statement">
-                            <option id="short">Income statement</option>
-                            <option id="short">Balance sheet</option>
-                            <option id="short">Retained earnings statement</option>
-                        </select>
-                        <label for="comment">Comment:</label>
-                        <input type="text" class="form-control form-control-sm" id="comment"
-                            placeholder="django comment">
-                    </div>
-                </div>
             </div>
             <div class="modal-footer justify-content-center">
                 <button type="button" class="btn btn-primary" id="savebtn">Update</button>
@@ -247,9 +306,9 @@
         <tbody>
             {% if Account_list %}
             {% for account in Account_list %}
-            <tr class="details-control" data-description="{{account.account_description}}"
-                data-subcategory="{{account.account_subcategory}}" data-normal="{{account.normal_side}}"
-                data-debit="{{account.debit}}" data-credit="{{account.credit}}"
+            <tr class="details-control" data-account_number="{{account.account_number}}"
+                data-description="{{account.account_description}}" data-subcategory="{{account.account_subcategory}}"
+                data-normal="{{account.normal_side}}" data-debit="{{account.debit}}" data-credit="{{account.credit}}"
                 data-initial="{{account.initial_balance}}" data-userid="{{account.user}}"
                 data-statement="{{account.get_statement_display}}" data-comment="{{account.comment}}">
                 <td>{{account.account_number}}</td>

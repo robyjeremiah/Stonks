@@ -201,7 +201,7 @@ tr {
 }
 
 #statement,
-#short {
+.short {
   font-size: 13px;
   padding: 10px 0 10px 0;
 }
