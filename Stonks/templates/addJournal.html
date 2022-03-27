@@ -2,171 +2,87 @@
 
 <link rel="stylesheet" type="text/css" href="/static/addJournal.css" />
 <script>
-    $(document).ready(function () {
-        $('#example').DataTable({
-            "dom": '<"addbtn">frt<"addfile">p',
-            "columnDefs": [{
-                "targets": [0, 5],
-                "orderable": false
-            }]
-        });
-
-        $("div.addbtn").html('<button class="add" data-bs-toggle="modal" data-bs-target="#addModal">Add Transaction</button>');
-        $("div.addfile").html('<label for="formfile" class="form-label">Add an Attachment: </label><input class="form-control" type="file" id="formfile">');
+  $(document).ready(function () {
+    var example = $("#example").DataTable({
+      dom: '<"addbtn">frt<"addfile">p',
+      columnDefs: [
+        {
+          targets: [0, 3, 5],
+          orderable: false,
+        },
+      ],
     });
+
+    $(".addbtn").on("click", function () {
+      example.row
+        .add([
+        "",
+          "<select class='form-select form-select-sm transaction_account' name='transaction_account'>" + 
+                "<option value='1'>Assets</option>" + "<option value='2'>Liabilities</option>" +
+            "</select>",
+          "<input type='text' class='form-control form-control-sm transaction_type' name='transaction_description'>",
+          "<select class='form-select form-select-sm transaction_type' name='transaction_type'>" + 
+                "<option value='1'>Debit</option>" + "<option value='2'>Credit</option>" +
+            "</select>",
+          "<input type='number' class='form-control form-control-sm transaction_amount' name='transaction_amount'>",
+          '<button class="remove"><i class="fas fa-trash-alt"></i></button>',
+        ])
+        .draw();
+    });
+
+    $("#example").on("click", ".remove", function () {
+      example.row($(this).parents("tr")).remove().draw();
+    });
+
+    example.on( 'order.dt search.dt', function () {
+        example.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        } );
+    } ).draw();
+
+    $("div.addbtn").html('<button class="add">Add Transaction</button>');
+    $("div.addfile").html(
+      '<label for="formfile" class="form-label">Add an Attachment: </label><input class="form-control" type="file" id="formfile">'
+    );
+  });
 </script>
 {% endblock %} {% load static %} {% block content %}
 
-<!--ADD TRANSACTION MODAL START-->
-<div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Add Transaction</h3>
-                <button class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <i class="fas fa-times" id="xbtn"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="col-11 mx-auto">
-                    <div class="input-group mb-3 mt-2">
-                        <span class="input-group-text">Account</span>
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected>Assets</option>
-                            <option value="1">Liabilities</option>
-                            <option value="2">Expenses</option>
-                            <option value="3">Stocks</option>
-                        </select>
-                    </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text">Debit</span>
-                        <input type="text" class="form-control" placeholder="$0.00">
-                        <span class="input-group-text">Credit</span>
-                        <input type="text" class="form-control" placeholder="$0.00">
-                    </div>
-                    <div class="input-group mb-2">
-                        <span class="input-group-text">Description</span>
-                        <textarea class="form-control"></textarea>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <div class="col-11 mx-auto">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cancel">Cancel</button>
-                    <button type="button" class="btn btn-primary" id="submit">Add</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!--ADD TRANSACTION MODAL END-->
-
-<!--EDIT TRANSACTION MODAL START-->
-<div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Edit Transaction</h3>
-                <button class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <i class="fas fa-times" id="xbtn"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="col-11 mx-auto">
-                    <div class="input-group mb-3 mt-2">
-                        <span class="input-group-text">Account</span>
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected>Assets</option>
-                            <option value="1">Liabilities</option>
-                            <option value="2">Expenses</option>
-                            <option value="3">Stocks</option>
-                        </select>
-                    </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text">Debit</span>
-                        <input type="text" class="form-control" placeholder="$0.00">
-                        <span class="input-group-text">Credit</span>
-                        <input type="text" class="form-control" placeholder="$0.00">
-                    </div>
-                    <div class="input-group mb-2">
-                        <span class="input-group-text">Description</span>
-                        <textarea class="form-control"></textarea>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <div class="col-11 mx-auto">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cancel">Cancel</button>
-                    <button type="button" class="btn btn-primary" id="submit">Update</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!--EDIT TRANSACTION MODAL END-->
-
 <div class="container-lg" id="mainbox">
-    <div class="row">
-        <div class="col-lg" id="pagehead">
-            <a href="/listOfJournals/"><i class="fas fa-arrow-circle-left" id="back"></i></a>
-            <h1 class="title">Journal Entry [incremental number]</h1>
-        </div>
+  <div class="row">
+    <div class="col-lg" id="pagehead">
+      <a href="/listOfJournals/"
+        ><i class="fas fa-arrow-circle-left" id="back"></i
+      ></a>
+      <h1 class="title">Journal Entry [incremental number]</h1>
     </div>
-    <div class="row">
-        <!--Used as feedback so the user can ensure the journal entry is balanced, cannot proceed if not equal to 0-->
-        <h2 class="text-center" id="subtitle">Balance: $0.00</h2>
-    </div>
-    <table id="example" class="stripe row-border compact" style="width: 100%">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Account</th>
-                <th>Description</th>
-                <th>Debit</th>
-                <th>Credit</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>1</td>
-                <td>Cash</td>
-                <td>Making loan payment</td>
-                <td>$250.00</td>
-                <td>$0.00</td>
-                <td>
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-secondary" id="editbtn" data-bs-toggle="modal"
-                            data-bs-target="#editModal"><i class="fas fa-pen" id="icon"></i></button>
-                        <button type="button" class="btn btn-secondary" id="deletebtn"><i class="fas fa-trash-alt"
-                                id="icon"></i></button>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Liability</td>
-                <td>The loan being paid</td>
-                <td>$0.00</td>
-                <td>$250.00</td>
-                <td>
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-secondary" id="editbtn" data-bs-toggle="modal"
-                            data-bs-target="#editModal"><i class="fas fa-pen" id="icon"></i></button>
-                        <button type="button" class="btn btn-secondary" id="deletebtn"><i class="fas fa-trash-alt"
-                                id="icon"></i></button>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-        <tfoot>
-            <tr></tr>
-        </tfoot>
-    </table>
-    <div class="col-5 mx-auto" id="btn-container">
-        <button class="btn-primary" id="reset">Reset Page</button>
-        <button class="btn-primary" id="confirm">Submit</button>
-    </div>
+  </div>
+  <div class="row">
+    <!--Used as feedback so the user can ensure the journal entry is balanced, cannot proceed if not equal to 0-->
+    <h2 class="text-center" id="subtitle">Balance: $0.00</h2>
+  </div>
+  <table id="example" class="stripe row-border compact" style="width: 100%">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Account</th>
+        <th>Description</th>
+        <th>Type</th>
+        <th>Amount</th>
+        <th style="width: 10%">Action</th>
+      </tr>
+    </thead>
+    <form>
+      <tbody></tbody>
+    </form>
+    <tfoot>
+      <tr></tr>
+    </tfoot>
+  </table>
+  <div class="col-5 mx-auto" id="btn-container">
+    <button class="btn-primary" id="reset">Reset Page</button>
+    <button class="btn-primary" id="confirm">Submit</button>
+  </div>
 </div>
 
 {% endblock %}
