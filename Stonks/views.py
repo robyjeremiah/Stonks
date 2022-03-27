@@ -1,6 +1,6 @@
 from dataclasses import fields
 import queue
-from .models import SecurityQuestion, User, Account
+from .models import SecurityQuestion, User, Account, Journal, Journal_Transaction, Transaction
 from .forms import CustomUserForm
 from .decorators import allowed_users, unauthenticated_user
 from django.shortcuts import redirect, render
@@ -396,7 +396,14 @@ def generalledger(request):
 
 @login_required(login_url='/')
 def listJournals(request):
-    return render(request, 'ListOfJournals.html')
+    Journal_list = Journal.objects.all()
+    Account_list = Journal_Transaction.objects.all().filter(
+        transaction_id__account__account_number__isnull=False)
+    context = {
+        'Journal_list': Journal_list,
+        'Account_list': Account_list
+    }
+    return render(request, 'ListOfJournals.html', context)
 
 
 @login_required(login_url='/')
