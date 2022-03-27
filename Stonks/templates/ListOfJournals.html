@@ -69,7 +69,9 @@
             {% if Journal_list and Account_list %}
             {% for journal in Journal_list %}
             <tr>
-                <td>{{journal.pk}}</td>
+                <td>
+                    <a href="{%url 'journal' pk=journal.pk%}">{{journal.pk}}</a>
+                </td>
                 <td>
                     <ul id="celllist">
                         {% for account in Account_list %}

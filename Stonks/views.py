@@ -410,5 +410,12 @@ def listJournals(request):
 def addJounral(request):
     return render(request, 'addJournal.html')
 
-def journal(request):
-    return render(request, 'journal.html')
+
+def journal(request, pk):
+    Transaction_list = Transaction.objects.all().filter(
+        journal_transaction__journal_id=pk)
+    context = {
+        'Transaction_list': Transaction_list,
+        'journal_id': pk,
+    }
+    return render(request, 'journal.html', context)
