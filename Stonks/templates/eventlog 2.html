@@ -1,0 +1,110 @@
+{% extends 'base.html' %} {% block stylesheet %}
+
+<link rel="stylesheet" type="text/css" href="/static/chartOfAccounts.css" />
+<script>
+  function format(d) {
+    return (
+      '<div class="slider">' +
+      '<div class="row">' +
+      '<div class="col-9 text-start">' +
+      "<ul>" +
+      "<li>Account Description: </li><p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.Donec eu libero sit amet quam egestas semper.Aenean ultricies mi vitae est.Mauris placerat eleifend leo.Quisque sit amet est et sapien ullamcorper pharetra.Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui.Donec non enim in turpis pulvinar facilisis.Ut felis.Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat.Aliquam erat volutpat.Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>" +
+      "<li>Account Subcategory: </li><p>Current Assets</p>" +
+      "<li>Normal Side: </li><p>Debit</p>" +
+      "<li>Debit: </li><p>8000</p>" +
+      "<li>Credit: </li><p>-8000</p>" +
+      "<li>Initial Balance: </li><p>5,000</p>" +
+      "<li>User ID: </li><p>sspragg2</p>" +
+      "<li>Statement: </li><p>Balance Sheet</p>" +
+      "<li>Comment: </li><p>No comment</p>" +
+      "</ul>" +
+      "</div>" +
+      '<div class="col-3 text-center mx-auto" id="actions">' +
+      '<a href="viewAccountInfo/"><i class="fas fa-file-user"></i> View Account</a><br>' +
+      "</div>" +
+      "</div>" +
+      "</div>"
+    );
+  }
+
+  $(document).ready(function () {
+    var table = $("#example").DataTable({
+    });
+
+    $("div.addbtn").html(
+      "<button class='add {%if user.role == 'Manager' or user.role == 'Accountant' %} hide {% endif %}' data-bs-toggle='modal' data-bs-target='#addaccountmodal'>+ Add New Account</button>"
+    );
+    $("div.calendarbtn").html(
+      '<a class="calendar"><i class="fas fa-calendar-alt"></i></a>'
+    );
+    $("div.logbtn").html('<a class="log">View Change Logs</a>');
+
+    // Add event listener for opening and closing details
+    $("#example tbody").on("click", "tr.details-control", function () {
+      var tr = $(this).closest("tr");
+      var row = table.row(tr);
+
+      if (row.child.isShown()) {
+        // This row is already open - close it
+        $("div.slider", row.child()).slideUp(function () {
+          row.child.hide();
+          tr.removeClass("shown");
+        });
+      } else {
+        // Open this row
+        if (table.row(".shown").length) {
+          $(".details-control", table.row(".shown").node()).click();
+        }
+        row.child(format(row.data())).show();
+        tr.addClass("shown");
+        $("div.slider", row.child()).slideDown();
+      }
+    });
+  });
+</script>
+<!--Script For  Tooltips-->
+<script>
+  var tooltipTriggerList = [].slice.call(
+    document.querySelectorAll('[data-bs-toggle="tooltip"]')
+  );
+  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl);
+  });
+</script>
+{% endblock %} {% load static %} {% block content %}
+
+<div class="container-lg" id="mainbox">
+  <div class="row">
+    <div class="col-lg" id="pagehead">
+      <a href="{% url 'chartOfAccounts'%}"><i class="fas fa-arrow-circle-left" id="back"></i></a>
+      <h1 class="title">Event Logs</h1>
+      <a><i class="fas fa-info-circle"></i></a>
+    </div>
+  </div>
+  <table id="example" class="table table-striped" style="width: 100%">
+    <thead>
+      <tr>
+        <th>Account No.</th>
+        <th>Account Name</th>
+        <th>Category</th>
+        <th>Balance</th>
+        <th>Journal Description</th>
+        <th>Date Posted</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if Account_list %} {% for account in Account_list %}
+      <tr class="details-control" data-child-value="Nope">
+        <td>{{account.account_number }}</td>
+        <td>{{account.account_name}}</td>
+        <td>{{account.account_category}}</td>
+        <td>{{account.initial_balance}}</td>
+        <td>{{account.statement}}</td>
+        <td>{{account.date_time_added}}</td>
+      </tr>
+      {% endfor %}{% endif %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

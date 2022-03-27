@@ -1,0 +1,98 @@
+{% load static %}
+<html>
+
+<head>
+  <!--Title-->
+  <title>{% block title %}Stonks Home Page{% endblock %}</title>
+  <!--Title End-->
+  <link rel="stylesheet" type="text/css" href="{% static 'base.css' %}" />
+  <script type="text/javascript" src="{% static '/js/jquery-3.6.0.js' %}"></script>
+  <script type="text/javascript" src="{% static '/js/app.js' %}"></script>
+  <script src="https://kit.fontawesome.com/fe8b803c14.js" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="{% static '/bootstrap_js/bootstrap.bundle.js' %}"></script>
+  <link rel="stylesheet" type="text/css" href="{% static '/bootstrap_css/bootstrap.css' %}" />
+  <link rel="stylesheet" type="text/css"
+    href="https://cdn.datatables.net/v/dt/dt-1.11.4/b-2.2.2/date-1.1.2/datatables.min.css" />
+  <script type="text/javascript"
+    src="https://cdn.datatables.net/v/dt/dt-1.11.4/b-2.2.2/date-1.1.2/datatables.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/datetime/1.1.1/js/dataTables.dateTime.min.js"></script>
+  {% block stylesheet %}{% endblock %}
+</head>
+
+<!--Script For Dropdown-->
+<script>
+  function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+  }
+
+  // Close the dropdown menu if the user clicks outside of it
+  window.onclick = function (event) {
+    if (!event.target.matches(".dropbtn")) {
+      var dropdowns = document.getElementsByClassName("dropdown-content");
+      var i;
+      for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains("show")) {
+          openDropdown.classList.remove("show");
+        }
+      }
+    }
+  };
+</script>
+<!--Script For Dropdown End-->
+
+<!--Script For  Tooltips-->
+<script>
+  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl)
+  })
+</script>
+
+<body>
+  <div class="banner">
+    <!--Nav Bar-->
+    <div class="navbar">
+      <img src="{% static 'images/TransparentStonksFinLogo.png' %}" class="logo" />
+      <ul>
+        {% if user.role == 'Administrator' %}
+        <li><a href="/adminHome/" class="btn" data-bs-toggle="tooltip" data-bs-placement="top"
+            title="Home Page">Home</a></li>
+        {% else %}
+        <li><a href="/generalHome/" class="btn" data-bs-toggle="tooltip" data-bs-placement="top"
+            title="Home Page">Home</a></li>
+        {% endif %}
+        <li><a href="/listOfJournals/" class="btn" data-bs-toggle="tooltip" data-bs-placement="top"
+            title="View Account Journal">Journals</a></li>
+        <li><a href="/chartOfAccounts/" class="btn" data-bs-toggle="tooltip" data-bs-placement="top"
+            title="View Chart of Accounts">Chart of Accounts</a></li>
+        <li><a href="#" class="btn" data-bs-toggle="tooltip" data-bs-placement="top"
+            title="Generate New Reports">Reports</a></li>
+        <li>
+          {{user.username}}
+          <div class="dropdown">
+            <button onclick="myFunction()" class="dropbtn">
+              <i class="fas fa-user"></i>
+            </button>
+            <div id="myDropdown" class="dropdown-content">
+              <a href="#"><i class="fas fa-user"></i> My Profile</a>
+              <a href="/chartOfAccounts/"><i class="fas fa-file-invoice"></i> Accounts</a>
+              <a href="/listOfJournals/"><i class="fas fa-book"></i> Ledgers</a>
+              <a href="{% url 'loggedOut' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <!--Nav Bar End-->
+    <!--Page Content-->
+    <div class="content">{% block content %} {% endblock %}</div>
+    <!--Page Content End-->
+  </div>
+  <footer>
+    <p>Stonks Accounting for all your Financial Solutions</p>
+    <p><a href="#">Need Help?</a></p>
+  </footer>
+</body>
+
+</html>
