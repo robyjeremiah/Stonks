@@ -263,3 +263,6 @@ def listJournals(request):
 
 def addJounral(request):
     return render(request, 'addJournal.html')
+
+def journal(request):
+    return render(request, 'journal.html')

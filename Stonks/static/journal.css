@@ -1,0 +1,103 @@
+.banner {
+    overflow: hidden;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 60px;
+    margin-top: 30px;
+    color: #706338;
+    display: inline;
+}
+
+#subtitle {
+    font-weight: bold;
+    color: #706338;
+}
+
+#example {
+    background: #FFF8E3;
+    margin-bottom: 15px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+#example_filter {
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+    #example_filter label {
+        color: #73673B;
+        font-weight: 800;
+    }
+
+.dataTables_wrapper .dataTables_filter input {
+    margin-left: 15px;
+    background: #FFF8E3;
+    border-radius: 7px;
+    border: solid 3px #726539;
+}
+
+#back {
+    font-size: 50px;
+    margin-right: 20px;
+}
+
+#pagehead {
+    margin-bottom: 10px;
+}
+
+@media (max-width: 970px) {
+    #pagehead {
+        text-align: center;
+    }
+}
+
+.printbtn {
+    display: inline-block;
+}
+
+@media (max-width: 640px) {
+    .printbtn {
+        margin: auto;
+        display: table;
+    }
+}
+
+.print {
+    padding: 0;
+    height: 40px;
+    width: 180px;
+    font-weight: bold;
+    background: #807243;
+    border-radius: 8px;
+    transition: 0.4s;
+}
+
+    .print:hover {
+        background: #5F5430;
+    }
+
+tr {
+    height: 45px;
+    vertical-align: middle;
+}
+
+#example_paginate {
+    margin-bottom: 30px;
+    display: inline;
+}
+
+@media (max-width: 958px) {
+    #example_paginate {
+        margin: auto;
+        margin-bottom: 10px;
+        display: block;
+        text-align: center;
+    }
+}
+
+.dataTables_empty {
+    padding-top: 12px!important;
+}

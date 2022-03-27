@@ -1,0 +1,44 @@
+{% extends 'base.html' %} {% block stylesheet %}
+
+<link rel="stylesheet" type="text/css" href="/static/journal.css" />
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable({
+            "dom": '<"printbtn">frtp',
+            "columnDefs": [{
+                "targets": [0],
+                "orderable": false
+            }]
+        });
+
+        $("div.printbtn").html('<button class="print">Print</button>');
+    });
+</script>
+{% endblock %} {% load static %} {% block content %}
+
+<div class="container-lg" id="mainbox">
+    <div class="row">
+        <div class="col-lg" id="pagehead">
+            <a href="/listOfJournals/"><i class="fas fa-arrow-circle-left" id="back"></i></a>
+            <h1 class="title">Journal Entry [incremental number]</h1>
+        </div>
+    </div>
+    <table id="example" class="stripe row-border compact" style="width: 100%">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Account</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+        <tfoot>
+            <tr></tr>
+        </tfoot>
+    </table>
+</div>
+
+{% endblock %}
