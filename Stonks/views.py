@@ -386,9 +386,10 @@ def eventlog(request):
     context = {
         'Account_list': Account_list,
     }
-    return render(request, 'chartOfAccounts.html', context)
+    return render(request, 'eventlog.html', context)
 
 
+@login_required(login_url='/')
 def generalledger(request):
     return render(request, 'generalLedgers.html')
 

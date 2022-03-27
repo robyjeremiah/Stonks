@@ -21,8 +21,6 @@
       "</div>" +
       '<div class="col-3 text-center mx-auto" id="actions">' +
       '<a href="viewAccountInfo/"><i class="fas fa-file-user"></i> View Account</a><br>' +
-      "<a class='{%if user.role == 'Manager' or user.role == 'Accountant' %} hide {% endif %}' href='#'><i class='fas fa-edit'></i> Edit</a><br>" +
-      "<a class='{%if user.role == 'Manager' or user.role == 'Accountant' %} hide {% endif %}' href='#'><i class='fas fa-trash'></i> Delete</a>" +
       "</div>" +
       "</div>" +
       "</div>"
@@ -31,7 +29,6 @@
 
   $(document).ready(function () {
     var table = $("#example").DataTable({
-      dom: '<"addbtn"><"calendarbtn">frt<"logbtn">p',
     });
 
     $("div.addbtn").html(
