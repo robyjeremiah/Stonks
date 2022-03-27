@@ -254,3 +254,6 @@ def eventlog(request):
         'Account_list': Account_list,
     }
     return render(request, 'chartOfAccounts.html', context)
+
+def generalledger(request):
+    return render(request, 'generalLedgers.html')
