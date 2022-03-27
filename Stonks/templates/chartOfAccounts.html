@@ -20,7 +20,7 @@
             '</ul>' +
             '</div>' +
             '<div class="col-3 text-center mx-auto" id="actions">' +
-            '<a href="#"><i class="fas fa-book"></i> View Ledger</a><br>' +
+            '<a href="{%url "general_ledger" %}"><i class="fas fa-book"></i> View Ledger</a><br>' +
             `<a id="edit" data-bs-toggle="modal" href="#editaccountmodal" data-value="${account_number}"><i class="fas fa-edit"></i>Edit</a><br>` +
             `<a id="delete" data-value="${account_number}"><i class="fas fa-trash"></i> Delete</a>` +
             '</div>' +
@@ -184,7 +184,7 @@
 
         $("div.addbtn").html('<button class="add" data-bs-toggle="modal" data-bs-target="#addaccountmodal">+ Add New Account</button>');
         $("div.calendarbtn").html('<a class="calendar"><i class="fas fa-calendar-alt"></i></a>');
-        $("div.logbtn").html('<a href="{% url "EventLog" %}" class="log">View Change Logs</a>');
+        $("div.logbtn").html('<a href="{% url "EventLog" %}" class="log">View Event Logs</a>');
 
         $('div.calendarbtn').click(function () {
             var date = new DateTime($("div.calendarbtn"), {

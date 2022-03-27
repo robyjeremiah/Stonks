@@ -20,6 +20,7 @@
       "</ul>" +
       "</div>" +
       '<div class="col-3 text-center mx-auto" id="actions">' +
+      '<a href="viewAccountInfo/"><i class="fas fa-file-user"></i> View Account</a><br>' +
       "</div>" +
       "</div>" +
       "</div>"
@@ -28,8 +29,15 @@
 
   $(document).ready(function () {
     var table = $("#example").DataTable({
-      dom: '<"addbtn"><"calendarbtn">frt<"logbtn">p',
     });
+
+    $("div.addbtn").html(
+      "<button class='add {%if user.role == 'Manager' or user.role == 'Accountant' %} hide {% endif %}' data-bs-toggle='modal' data-bs-target='#addaccountmodal'>+ Add New Account</button>"
+    );
+    $("div.calendarbtn").html(
+      '<a class="calendar"><i class="fas fa-calendar-alt"></i></a>'
+    );
+    $("div.logbtn").html('<a class="log">View Change Logs</a>');
 
     // Add event listener for opening and closing details
     $("#example tbody").on("click", "tr.details-control", function () {

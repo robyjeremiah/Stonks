@@ -390,6 +390,11 @@ def eventlog(request):
 
 
 @login_required(login_url='/')
+def generalledger(request):
+    return render(request, 'generalLedgers.html')
+
+
+@login_required(login_url='/')
 def listJournals(request):
     return render(request, 'ListOfJournals.html')
 
