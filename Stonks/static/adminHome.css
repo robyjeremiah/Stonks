@@ -177,3 +177,78 @@ input[type="password"] {
   font-weight: bold;
   text-decoration: none;
 }
+
+.emailButton {
+  cursor: pointer;
+}
+
+#emailForm {
+  text-align: left;
+}
+
+#subject,
+#message {
+  font-weight: bold;
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
+
+.modal-header,
+.modal-footer {
+  background: #ffffff!important;
+}
+
+#icon-u {
+  margin: 5px;
+  color: #a9a9a9;
+}
+
+#modal-title {
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+#subject-field:focus,
+#message-field:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+#submit,
+#cancel {
+    width: 100px;
+    transition: 0.6s;
+    float: left;
+}
+
+#submit {
+    float: right;
+    background: #706337;
+    border: none;
+}
+
+#submit:hover {
+    background: #A89451;
+    border-radius: 10px;
+}
+
+#cancel {
+    background: #D5C79A;
+    border: none;
+}
+
+    #cancel:hover {
+        background: #ABA07E;
+        border-radius: 10px;
+    }
+
+#cancel:focus,
+#submit:focus {
+    box-shadow: none;
+}
+
+#xbtn {
+  cursor: pointer;
+}
