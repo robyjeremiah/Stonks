@@ -41,6 +41,7 @@ urlpatterns = [
         template_name='passwordReset.html'), name="password_reset_confirm"),
     path('passwordConfirm/', auth_views.PasswordResetCompleteView.as_view(
         template_name='passwordConfirm.html'), name="password_reset_complete"),
+    path('journal/<pk>', views.journal, name='journal'),
     path('generalLedgers/',
          views.generalledger, name='generalLedger'),
 ]
