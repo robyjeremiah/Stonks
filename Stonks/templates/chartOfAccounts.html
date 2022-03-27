@@ -184,7 +184,7 @@
 
         $("div.addbtn").html('<button class="add" data-bs-toggle="modal" data-bs-target="#addaccountmodal">+ Add New Account</button>');
         $("div.calendarbtn").html('<a class="calendar"><i class="fas fa-calendar-alt"></i></a>');
-        $("div.logbtn").html('<a href="{% url "EventLog" %}" class="log">View Change Logs</a>');
+        $("div.logbtn").html('<a href="{% url "EventLog" %}" class="log">View Event Logs</a>');
 
         $('div.calendarbtn').click(function () {
             var date = new DateTime($("div.calendarbtn"), {
