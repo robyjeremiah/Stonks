@@ -321,13 +321,43 @@ def update_account(request):
 
 @login_required(login_url='/')
 def add_account(request):
-    if request.method == 'POST' and request.POST.get('user_id', None):
+    current_user = request.user
+    if request.method == 'POST' and current_user:
         try:
-            print('hello')
+            # Retrieves the data from the request
+            account_name = request.POST.get('account_name', None)
+            account_name = request.POST.get('account_name', None)
+            account_category = request.POST.get('account_category', None)
+            account_subcategory = request.POST.get('account_subcategory', None)
+            account_description = request.POST.get('account_description', None)
+            normal_side = request.POST.get('normal_side', None)
+            balance = float(request.POST['balance'])
+            debit = float(request.POST['debit'])
+            credit = float(request.POST['credit'])
+            statement = request.POST.get('statement', None)
+            comment = request.POST.get('comment', None)
+
+            # Checks to see if account has already been created, else create account
+            account, created = Account.objects.filter(account_name=account_name).get_or_create(
+                account_name=account_name,
+                account_category=account_category,
+                account_subcategory=account_subcategory,
+                account_description=account_description,
+                normal_side=normal_side,
+                initial_balance=balance,
+                balance=balance,
+                debit=debit,
+                credit=credit,
+                statement=statement,
+                comment=comment,
+                user=current_user
+            )
+
+            return JsonResponse({'status': 'Success', 'msg': 'Account has been created successfully!'})
         except:
-            print('why')
+            return JsonResponse({'status': 'Exists', 'msg': 'Account already Exists!'})
     else:
-        print('okay')
+        return JsonResponse({'status': 'Error', 'msg': 'Not a valid request!'})
 
     return render(request, 'chartOfAccounts.html')
 

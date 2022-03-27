@@ -72,6 +72,7 @@
             dom: '<"addbtn"><"calendarbtn">frt<"logbtn">p'
         });
 
+        // Makes a new request to update account information
         $('#updatebtn').click(function (e) {
             e.preventDefault();
             var token = '{{csrf_token}}';
@@ -107,6 +108,7 @@
                 dataType: 'json',
                 success: function (response) {
                     location.reload()
+                    console.log(response)
                 },
                 error: function (response) {
                     console.log(response);
@@ -114,9 +116,46 @@
             })
         })
 
+        // Makes a request to add a new account
         $('#savebtn').click(function (e) {
             e.preventDefault();
             var token = '{{csrf_token}}';
+            var account_name = $('#add_accountname').val();
+            var account_category = $('#add_accountcategory').val();
+            var account_subcategory = $('#add_accountsubcategory').val();
+            var account_description = $('#add_accountdescription').val();
+            var normal_side = $('#add_normalside').val();
+            var balance = $('#add_balance').val();
+            var debit = $('#add_debit').val();
+            var credit = $('#add_credit').val();
+            var statement = $('#add_statement').val();
+            var comment = $('#add_comment').val();
+
+            $.ajax({
+                headers: { "X-CSRFToken": token },
+                type: "POST",
+                url: "{%url 'add_account' %}",
+                data: {
+                    account_name: account_name,
+                    account_category: account_category,
+                    account_subcategory: account_subcategory,
+                    account_description: account_description,
+                    normal_side: normal_side,
+                    balance: balance,
+                    debit: debit,
+                    credit: credit,
+                    statement: statement,
+                    comment: comment
+                },
+                dataType: 'json',
+                success: function (response) {
+                    location.reload()
+                    console.log(response)
+                },
+                error: function (response) {
+                    console.log(response);
+                }
+            })
         })
 
         $("div.addbtn").html('<button class="add" data-bs-toggle="modal" data-bs-target="#addaccountmodal">+ Add New Account</button>');
