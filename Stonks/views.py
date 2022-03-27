@@ -19,9 +19,8 @@ from django.utils.encoding import force_bytes
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
+
 # index -- Function used to handle logging in user and rendering login page
-
-
 def index(request):
     if request.method == 'POST':
         username = request.POST.get("username")
@@ -46,17 +45,15 @@ def index(request):
     else:
         return render(request, 'login.html')
 
+
 # loggedOut -- Function used to sign out a user
-
-
 def loggedOut(request):
     print('Logged Out!')
     logout(request)
     return redirect('index')
 
+
 # newUser -- Can be called to create a user specifically through the newUser template
-
-
 def newUser(request):
     if request.method == 'POST':
         form = CustomUserForm(request.POST)
@@ -86,15 +83,13 @@ def newUser(request):
 
     return render(request, 'newUser.html', {'form': form})
 
+
 # forgotPass -- Function used to current render the forgot password page
-
-
 def forgotPass(request):
     return render(request, 'forgotPass.html')
 
+
 # adminHome -- Function used to only allow Administrators (using decorators) to sign into this rendered template
-
-
 @login_required(login_url='/')
 @allowed_users(allowed_roles=['Administrator'])
 def adminHome(request):
@@ -122,9 +117,8 @@ def adminHome(request):
 
     return render(request, 'adminhome.html', context)
 
+
 # delete_user -- Function that can be called to delete a user with providing the primary key of the users table
-
-
 @login_required(login_url='/')
 def delete_user(request, pk):
     username = User.objects.get(pk=pk).username
@@ -133,9 +127,8 @@ def delete_user(request, pk):
 
     return redirect('adminHome')
 
+
 # edit_user -- Function that can be used to get the information about an individual user
-
-
 @login_required(login_url='/')
 def edit_user(request):
     if request.method == "GET":
@@ -156,9 +149,8 @@ def edit_user(request):
             return JsonResponse({"valid": False}, status=200)
     return JsonResponse({}, status=400)
 
+
 # update_user -- Function that can be used to edit the information about the user
-
-
 @login_required(login_url='/')
 def update_user(request):
     if request.method == "POST":
@@ -189,12 +181,14 @@ def update_user(request):
     return render(request, 'updateProfileAdmin.html')
 
 
+# generalHome -- Function that renders the General Home for an Accountant and Manager with data
 @login_required(login_url='/')
 @allowed_users(allowed_roles=['Accountant', 'Manager'])
 def generalHome(request):
     return render(request, 'generalHome.html')
 
 
+# security -- Function to handle set security answers for a user
 def security(request):
     security_question_list = SecurityQuestion.objects.all()
     context = {
@@ -203,10 +197,13 @@ def security(request):
     return render(request, 'security.html', context)
 
 
+# emailSent -- Function to render the view for an email being sent
+@login_required(login_url='/')
 def emailSent(request):
     return render(request, 'emailSent.html')
 
 
+# passwordReset -- Function to render the password reset HTML page and call the auth.password_reset form
 def passwordReset(request):
     if request.method == 'POST':
         password_reset_form = PasswordResetForm(request.POST)
@@ -236,11 +233,12 @@ def passwordReset(request):
     return render(request=request, template_name='passwordReset.html', context={"password_reset_form": password_reset_form})
 
 
-@login_required(login_url='/')
+# passwordConfirm -- Function to render the post password reset screen and display a confirmation page
 def passwordConfirm(request):
     return render(request, 'passwordConfirm.html')
 
 
+# chartOfAccounts -- Renders the Chart of Accounts HTML page with data to view the accounts
 @login_required(login_url='/')
 def chartOfAccounts(request):
     Account_list = Account.objects.all()
@@ -249,9 +247,8 @@ def chartOfAccounts(request):
     }
     return render(request, 'chartOfAccounts.html', context)
 
-# Retrieves all the data for that specific account within the model
 
-
+# edit_account -- Retrieves all the data for that specific account within the model
 @login_required
 def edit_account(request):
     if request.method == "GET":
@@ -278,9 +275,8 @@ def edit_account(request):
 
     return JsonResponse({}, status=400)
 
-# Allows for updating the fields of the account through the request
 
-
+# update_account -- Allows for updating the fields of the account through the request
 @login_required(login_url='/')
 def update_account(request):
     if request.method == "POST" and request.POST.get('account_number', None):
@@ -316,9 +312,8 @@ def update_account(request):
 
     return render(request, 'chartOfAccounts.html')
 
-# Inserts a new account into the Account model
 
-
+# add_account -- Inserts a new account into the Account model
 @login_required(login_url='/')
 def add_account(request):
     current_user = request.user
@@ -361,9 +356,8 @@ def add_account(request):
 
     return render(request, 'chartOfAccounts.html')
 
-# Deletes an account based on it's account number
 
-
+# delete_account -- Deletes an account based on it's account number
 @login_required(login_url='/')
 def delete_account(request):
     if request.method == 'POST':
