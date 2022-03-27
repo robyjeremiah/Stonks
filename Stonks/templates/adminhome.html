@@ -59,7 +59,8 @@
           {% if person.is_staff == 1 %} Active {% else %} Inactive {% endif %}
         </td>
         <td>
-          <a class="emailButton" data-bs-toggle="modal" data-bs-target="#emailModal"><i class="fas fa-envelope"></i></a>
+          <a class="emailButton" data-value="{{person.email}}" data-bs-toggle="modal" data-bs-target="#emailModal"><i
+              class="fas fa-envelope"></i></a>
         </td>
         <td>
           <button class="editButton" value="{{person.pk}}">edit</button>
@@ -86,7 +87,7 @@
               <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroupPrepend2"><i class="fas fa-user" id="icon-u"></i></span>
               </div>
-              <input type="text" class="form-control" placeholder="[django username]"
+              <input type="text" id='email_user' class="form-control" placeholder="[django username]"
                 aria-describedby="inputGroupPrepend2" required disabled>
             </div>
             <label for="subject" id="subject">Subject</label>
@@ -174,6 +175,11 @@
     $('#end-date').toggle(0, 'show');
     $('input[name="start-date"]').toggle(0, 'show');
     $('input[name="end-date"]').toggle(0, 'show');
+  })
+
+  $('.emailButton').click(function () {
+    var email = $(this).data('value');
+    $('#email_user').val(email);
   })
 
   $(".editButton").click(function (e) {
