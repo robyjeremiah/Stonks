@@ -268,27 +268,29 @@ class Account(models.Model):
         
         
         super(Account, self).save(*args, **kwargs)
-    
-class Journal(models.Model):
-    journal_id = models.AutoField(primary_key=True)
-    account = models.ForeignKey(Account, on_delete=models.CASCADE)
-    date_time_added =  models.DateField(_('Date/Time Added'), max_length=30, blank=True,auto_now=True)
-    description =  models.CharField(_('Description of Entry'), max_length=300, blank=True)
-    debit =  models.DecimalField(_('Debit'), blank=True, decimal_places = 2, max_digits=17,null=True)
-    pass
-
+ 
 class Transaction(models.Model):
     transaction_id = models.AutoField(primary_key=True)
-    debit = models.DecimalField(_('Debit'), blank=True, decimal_places = 2, max_digits=17,null=True)
-    credit = models.DecimalField(_('Credit'), blank=True, decimal_places = 2, max_digits=17,null=True)
+    account = models.ForeignKey(Account, on_delete=models.CASCADE)
+    amount =  models.DecimalField(_('Amount'), blank=True, decimal_places = 2, max_digits=17,null=True)
+    Status = models.BooleanField(_(''))
     
+    pass
+
+   
+class Journal(models.Model):
+    journal_id = models.AutoField(primary_key=True)
+    date_time_added =  models.DateField(_('Date/Time Added'), max_length=30, blank=True,auto_now=True)
+    description =  models.CharField(_('Description of Entry'), max_length=300, blank=True)
+    balance =  models.DecimalField(_('Balance'), blank=True, decimal_places = 2, max_digits=17,null=True)
     pass
 
 class Journal_Transaction(models.Model):
     jt_id = models.AutoField(primary_key=True)
     journal_id = models.ForeignKey(Journal, on_delete=models.CASCADE)
     transaction_id = models.ForeignKey(Transaction, on_delete=models.CASCADE)
-    pass    
+    pass
+    
     
     
 # Security Questions stored in database
