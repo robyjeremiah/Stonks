@@ -75,11 +75,11 @@
                 <td>
                     <ul id="celllist">
                         {% for account in Account_list %}
-                        <li>{{account}}</li>
-                        {% endfor %}
+                        <li>{{account.account_name}}</li>
                     </ul>
                 </td>
-                <td>Jordan</td>
+                <td>{{account.user}}</td>
+                {% endfor %}
                 <td>${{journal.balance}}</td>
                 <td>{{journal.date_time_added}}</td>
                 <td id="status">{{journal.journal_status}}</td>

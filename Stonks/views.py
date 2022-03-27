@@ -397,8 +397,14 @@ def generalledger(request):
 @login_required(login_url='/')
 def listJournals(request):
     Journal_list = Journal.objects.all()
-    Account_list = Journal_Transaction.objects.all().filter(
-        transaction_id__account__account_number__isnull=False)
+    for journal in Journal_list:
+        Transaction_list = Transaction.objects.all().filter(
+            journal_transaction__journal_id=journal.journal_id)
+
+    for transaction in Transaction_list:
+        Account_list = Account.objects.all().filter(
+            transaction__transaction_id=transaction.transaction_id)
+
     context = {
         'Journal_list': Journal_list,
         'Account_list': Account_list
@@ -411,6 +417,7 @@ def addJounral(request):
     return render(request, 'addJournal.html')
 
 
+@login_required(login_url='/')
 def journal(request, pk):
     Transaction_list = Transaction.objects.all().filter(
         journal_transaction__journal_id=pk)
