@@ -164,8 +164,7 @@ class Account(models.Model):
         _('Financial Statement'), max_length=30, choices=StatementChoices, blank=True, null=True)
 
     # Dont know what this iis
-    userid = models.CharField(
-        _('User id'), max_length=30, blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     normal_side = models.CharField(_('Normal Side'), max_length=8, blank=True)
     date_time_added = models.DateField(
         _('Date/Time Added'), max_length=30, blank=True, auto_now=True)

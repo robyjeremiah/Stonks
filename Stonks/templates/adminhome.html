@@ -59,7 +59,8 @@
           {% if person.is_staff == 1 %} Active {% else %} Inactive {% endif %}
         </td>
         <td>
-          <a class="emailButton" data-bs-toggle="modal" data-bs-target="#emailModal"><i class="fas fa-envelope"></i></a>
+          <a class="emailButton" data-value="{{person.email}}" data-bs-toggle="modal" data-bs-target="#emailModal"><i
+              class="fas fa-envelope"></i></a>
         </td>
         <td>
           <button class="editButton" value="{{person.pk}}">edit</button>
@@ -77,7 +78,7 @@
         <div class="modal-header">
           <h3 id="modal-title">Send Email</h3>
           <a class="close" data-bs-dismiss="modal" aria-label="Close">
-              <i class="fas fa-times" id="xbtn"></i>
+            <i class="fas fa-times" id="xbtn"></i>
           </a>
         </div>
         <div class="modal-body" id="emailForm">
@@ -86,7 +87,8 @@
               <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroupPrepend2"><i class="fas fa-user" id="icon-u"></i></span>
               </div>
-              <input type="text" class="form-control" placeholder="[django username]" aria-describedby="inputGroupPrepend2" required disabled>
+              <input type="text" id='email_user' class="form-control" placeholder="[django username]"
+                aria-describedby="inputGroupPrepend2" required disabled>
             </div>
             <label for="subject" id="subject">Subject</label>
             <input class="form-control mb-3" placeholder="Subject" id="subject-field">
@@ -96,8 +98,8 @@
         </div>
         <div class="modal-footer">
           <div class="col-9 mx-auto">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cancel">Cancel</button>
-              <button type="button" class="btn btn-primary" id="submit">Submit</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cancel">Cancel</button>
+            <button type="button" class="btn btn-primary" id="submit">Submit</button>
           </div>
         </div>
       </div>
@@ -173,6 +175,11 @@
     $('#end-date').toggle(0, 'show');
     $('input[name="start-date"]').toggle(0, 'show');
     $('input[name="end-date"]').toggle(0, 'show');
+  })
+
+  $('.emailButton').click(function () {
+    var email = $(this).data('value');
+    $('#email_user').val(email);
   })
 
   $(".editButton").click(function (e) {
