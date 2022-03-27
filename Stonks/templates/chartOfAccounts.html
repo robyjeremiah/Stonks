@@ -22,7 +22,7 @@
             '<div class="col-3 text-center mx-auto" id="actions">' +
             '<a href="#"><i class="fas fa-book"></i> View Ledger</a><br>' +
             `<a id="edit" data-bs-toggle="modal" href="#editaccountmodal" data-value="${account_number}"><i class="fas fa-edit"></i>Edit</a><br>` +
-            '<a href="#"><i class="fas fa-trash"></i> Delete</a>' +
+            `<a id="delete" data-value="${account_number}"><i class="fas fa-trash"></i> Delete</a>` +
             '</div>' +
             '</div>' +
             '</div>';
@@ -50,6 +50,30 @@
                 preload_modal(data[0]['fields'])
             }
         })
+    })
+
+    $(document).on('click', '#delete', function (e) {
+        e.preventDefault();
+        var account_number = $(this).data('value');
+        var token = '{{csrf_token}}';
+
+        $.ajax({
+            headers: { "X-CSRFToken": token },
+            type: "POST",
+            url: "{%url 'delete_account' %}",
+            data: {
+                account_number: account_number,
+            },
+            dataType: 'json',
+            success: function (response) {
+                location.reload()
+                console.log(response)
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        })
+
     })
 
     function preload_modal(account_info) {

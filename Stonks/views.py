@@ -361,6 +361,24 @@ def add_account(request):
 
     return render(request, 'chartOfAccounts.html')
 
+# Deletes an account based on it's account number
+
+
+@login_required(login_url='/')
+def delete_account(request):
+    if request.method == 'POST':
+        try:
+            account_number = request.POST.get('account_number', None)
+            account = Account.objects.filter(account_number=account_number)
+            account.delete()
+            return JsonResponse({'status': 'Success', 'msg': 'Account has been deleted successfully!'})
+        except Account.DoesNotExist:
+            return JsonResponse({'status': 'Exists', 'msg': 'Account already Exists!'})
+    else:
+        return JsonResponse({'status': 'Error', 'msg': 'Not a valid request!'})
+
+    return render(request, 'chartOfAccounts.html')
+
 
 @login_required(login_url='/')
 def useraccount(request):

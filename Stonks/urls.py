@@ -25,6 +25,8 @@ urlpatterns = [
     path('chartOfAccounts/edit/', views.edit_account, name='edit_account'),
     path('chartOfAccounts/update/', views.update_account, name='update_account'),
     path('chartOfAccounts/add', views.add_account, name='add_account'),
+    path('chartOfAccounts/delete',
+         views.delete_account, name='delete_account'),
     path('chartOfAccounts/viewEventLog/', views.eventlog, name='EventLog'),
     path('listOfJournals/', views.listJournals, name='listOfJournals'),
     path('addJournal/', views.addJounral, name='addJournal'),
