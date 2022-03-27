@@ -60,6 +60,7 @@
         $('#edit_normalside').val(`${account_info['normal_side']}`).change();
         $('#edit_debit').val(account_info['debit']);
         $('#edit_credit').val(account_info['credit']);
+        $('#edit_balance').val(account_info['balance']);
         $('#edit_statement').val(`${account_info['statement']}`).change();
         $('#edit_comment').val(account_info['comment']);
 
@@ -69,8 +70,54 @@
 
         var table = $('#example').DataTable({
             dom: '<"addbtn"><"calendarbtn">frt<"logbtn">p'
-
         });
+
+        $('#updatebtn').click(function (e) {
+            e.preventDefault();
+            var token = '{{csrf_token}}';
+            var account_number = $('#edit_accountnumber').val();
+            var account_name = $('#edit_accountname').val();
+            var account_category = $('#edit_accountcategory').val();
+            var account_subcategory = $('#edit_accountsubcategory').val();
+            var account_description = $('#edit_accountdescription').val();
+            var normal_side = $('#edit_normalside').val();
+            var balance = $('#edit_balance').val();
+            var debit = $('#edit_debit').val();
+            var credit = $('#edit_credit').val();
+            var statement = $('#edit_statement').val();
+            var comment = $('#edit_comment').val();
+
+            $.ajax({
+                headers: { "X-CSRFToken": token },
+                type: "POST",
+                url: "{%url 'update_account' %}",
+                data: {
+                    account_number: account_number,
+                    account_name: account_name,
+                    account_category: account_category,
+                    account_subcategory: account_subcategory,
+                    account_description: account_description,
+                    normal_side: normal_side,
+                    balance: balance,
+                    debit: debit,
+                    credit: credit,
+                    statement: statement,
+                    comment: comment
+                },
+                dataType: 'json',
+                success: function (response) {
+                    location.reload()
+                },
+                error: function (response) {
+                    console.log(response);
+                }
+            })
+        })
+
+        $('#savebtn').click(function (e) {
+            e.preventDefault();
+            var token = '{{csrf_token}}';
+        })
 
         $("div.addbtn").html('<button class="add" data-bs-toggle="modal" data-bs-target="#addaccountmodal">+ Add New Account</button>');
         $("div.calendarbtn").html('<a class="calendar"><i class="fas fa-calendar-alt"></i></a>');
@@ -134,21 +181,20 @@
                 </div>
                 <form method="POST">
                     <div class="form-row justify-content-center">
-                        <div class="form-group col-5" id="modalblockone">
+                        <div class="form-group col-5 modalblockone">
                             <label for="accountname">Account Name:
                                 <input type="text" class="form-control form-control-sm" id="add_accountname"
                                     name="add_accountname">
                             </label>
-                            <label for="accountnumber">Account Number:
-                                <input type="text" class="form-control form-control-sm" id="add_accountnumber"
-                                    name="add_accountnumber">
-                            </label>
                             <label for="accountcategory">Account Category:
                                 <select multiple-class="form-control" name="add_accountcategory"
                                     id="add_accountcategory">
-                                    <option class="short" value="IS">Income statement</option>
-                                    <option class="short" value="BS">Balance sheet</option>
-                                    <option class="short" value="RE">Retained statement</option>
+                                    <option value="A">Assets</option>
+                                    <option value="L">Liabilities</option>
+                                    <option value="EQ">Equity Accounts</option>
+                                    <option value="R">Revenues</option>
+                                    <option value="EX">Expenses</option>
+                                    <option value="O">Other</option>
                                 </select>
                             </label>
                             <label for="accountsubcategory">Account Subcategory:
@@ -160,7 +206,7 @@
                                     name="add_accountdescription" rows="4"></textarea>
                             </label>
                         </div>
-                        <div class="form-group col-5" id="modalblocktwo">
+                        <div class="form-group col-5 modalblocktwo">
                             <label for="normalside">Normal Side:
                                 <select multiple-class="form-control form-select" id="add_normalside"
                                     name="add_normalside">
@@ -196,7 +242,7 @@
                 </form>
             </div>
             <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-primary" id="savebtn">Save</button>
+                <button type="submit" class="btn btn-primary custombtn" id="savebtn" name="savebtn">Save</button>
             </div>
         </div>
     </div>
@@ -217,8 +263,9 @@
                     <h2 id="modaltitle">Edit Account</h2>
                 </div>
                 <form method="POST">
+                    {%csrf_token%}
                     <div class="form-row justify-content-center">
-                        <div class="form-group col-5" id="modalblockone">
+                        <div class="form-group col-5 modalblockone">
                             <input type="hidden" name="edit_accountnumber" id="edit_accountnumber">
                             <label for="accountname">Account Name:
                                 <input type="text" class="form-control form-control-sm" id="edit_accountname"
@@ -244,7 +291,7 @@
                                     placeholder="django description" name="edit_accountdescription"></textarea>
                             </label>
                         </div>
-                        <div class="form-group col-5" id="modalblocktwo">
+                        <div class="form-group col-5 modalblocktwo">
                             <label for="normalside">Normal Side:
                                 <select multiple-class="form-control" id="edit_normalside" name="edit_normalside">
                                     <option value="Debit">Debit</option>
@@ -279,7 +326,7 @@
                 </form>
             </div>
             <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-primary" id="savebtn">Update</button>
+                <button class="btn btn-primary custombtn" name="submit" id="updatebtn">Update</button>
             </div>
         </div>
     </div>

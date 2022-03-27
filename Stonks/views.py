@@ -278,6 +278,59 @@ def edit_account(request):
 
     return JsonResponse({}, status=400)
 
+# Allows for updating the fields of the account through the request
+
+
+@login_required(login_url='/')
+def update_account(request):
+    if request.method == "POST" and request.POST.get('account_number', None):
+        try:
+            account_number = request.POST.get("account_number", None)
+            account_name = request.POST.get('account_name', None)
+            account_category = request.POST.get('account_category', None)
+            account_subcategory = request.POST.get('account_subcategory', None)
+            account_description = request.POST.get('account_description', None)
+            normal_side = request.POST.get('normal_side', None)
+            balance = float(request.POST['balance'])
+            debit = float(request.POST['debit'])
+            credit = float(request.POST['credit'])
+            statement = request.POST.get('statement', None)
+            comment = request.POST.get('comment', None)
+            Account.objects.filter(account_number=account_number).update(
+                account_name=account_name,
+                account_category=account_category,
+                account_subcategory=account_subcategory,
+                account_description=account_description,
+                normal_side=normal_side,
+                balance=balance,
+                debit=debit,
+                credit=credit,
+                statement=statement,
+                comment=comment
+            )
+            return JsonResponse({'status': 'Success', 'msg': 'Saved Successfully!'})
+        except Account.DoesNotExist:
+            return JsonResponse({'status': 'Fail', 'msg': 'Object does not exist'})
+    else:
+        return JsonResponse({'status': 'Fail', 'msg': 'Not a valid request'})
+
+    return render(request, 'chartOfAccounts.html')
+
+# Inserts a new account into the Account model
+
+
+@login_required(login_url='/')
+def add_account(request):
+    if request.method == 'POST' and request.POST.get('user_id', None):
+        try:
+            print('hello')
+        except:
+            print('why')
+    else:
+        print('okay')
+
+    return render(request, 'chartOfAccounts.html')
+
 
 @login_required(login_url='/')
 def useraccount(request):
