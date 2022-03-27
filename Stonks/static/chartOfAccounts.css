@@ -71,6 +71,12 @@ div.slider a {
   margin-bottom: 10px;
 }
 
+#back {
+  font-size: 50px;
+  margin-right: 20px;
+}
+
+
 @media (max-width: 970px) {
   #pagehead {
     text-align: center;
@@ -162,17 +168,13 @@ tr {
   margin-top: 10px;
 }
 
-#modalblockone,
-#modalblocktwo {
+.modalblockone {
   display: inline-block;
-}
-
-#modalblockone {
   float: left;
-  margin-left: 15px;
+  margin-top: 15px;
 }
 
-#modalblocktwo {
+.modalblocktwo {
   float: right;
   margin-right: 15px;
 }
@@ -195,19 +197,19 @@ tr {
 }
 
 #statement,
-#short {
+.short {
   font-size: 13px;
   padding: 10px 0 10px 0;
 }
 
-#savebtn {
+.custombtn {
   background: #706337;
   border: none;
   box-shadow: none;
   transition: 0.3s;
 }
 
-#savebtn:hover {
+.custombtn:hover {
   background: none;
   border: 3px solid #706337;
   color: #706337;
