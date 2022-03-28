@@ -21,6 +21,11 @@
         <div class="col-lg" id="pagehead">
             <a href="/listOfJournals/"><i class="fas fa-arrow-circle-left" id="back"></i></a>
             <h1 class="title">Journal Entry #{{journal_id}}</h1>
+            <h2 class="text-center" id="subtitle">
+                {% for journal in Journal %}
+                Balance: ${{journal.balance}}
+                {% endfor %}
+            </h2>
         </div>
     </div>
     <table id="example" class="stripe row-border compact" style="width: 100%">
@@ -39,7 +44,7 @@
             <tr>
                 <td>{{transaction.pk}}</td>
                 <td>{{transaction.account_id}}</td>
-                <td>Bob</td>
+                <td>{{transaction.description}}</td>
                 <td>
                     {% if transaction.transaction_type == 1%}
                     Debit

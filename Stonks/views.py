@@ -391,23 +391,24 @@ def eventlog(request):
 
 @login_required(login_url='/')
 def generalledger(request):
-    return render(request, 'generalLedgers.html')
+    Journal_Transaction_list = Journal_Transaction.objects.all().select_related()
+
+    context = {
+        'Journal_Transaction': Journal_Transaction_list,
+    }
+    return render(request, 'generalLedgers.html', context)
 
 
 @login_required(login_url='/')
 def listJournals(request):
     Journal_list = Journal.objects.all()
-    for journal in Journal_list:
-        Transaction_list = Transaction.objects.all().filter(
-            journal_transaction__journal_id=journal.journal_id)
 
-    for transaction in Transaction_list:
-        Account_list = Account.objects.all().filter(
-            transaction__transaction_id=transaction.transaction_id)
+    Journal_Transaction_list = Journal_Transaction.objects.filter(
+        journal_id__journal_id__isnull=False)
 
     context = {
         'Journal_list': Journal_list,
-        'Account_list': Account_list
+        'Journal_Transaction': Journal_Transaction_list
     }
     return render(request, 'ListOfJournals.html', context)
 
@@ -421,8 +422,10 @@ def addJounral(request):
 def journal(request, pk):
     Transaction_list = Transaction.objects.all().filter(
         journal_transaction__journal_id=pk)
+    Journal_object = Journal.objects.filter(journal_id=pk)
     context = {
         'Transaction_list': Transaction_list,
         'journal_id': pk,
+        'Journal': Journal_object
     }
     return render(request, 'journal.html', context)

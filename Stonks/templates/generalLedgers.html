@@ -73,25 +73,33 @@
             <tr>
                 <th>Date</th>
                 <th>Account Name</th>
-                <th>Account ID</th>
+                <th>Account Number</th>
                 <th>Description</th>
-                <th>Debit</th>
-                <th>Credit</th>
+                <th>Type</th>
                 <th>Balance</th>
                 <th>Post Ref.</th>
             </tr>
         </thead>
         <tbody>
+            {% if Journal_Transaction %}
+            {% for journal_transaction in Journal_Transaction %}
             <tr>
-                <td>03/14/2022</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>$0.00</td>
-                <td></td>
-                <td>$5,000</td>
-                <td><a href="#">View Journal</a></td>
+                <td>{{journal_transaction.journal_id.date_time_added}}</td>
+                <td>{{journal_transaction.transaction_id.account.account_name}}</td>
+                <td>{{journal_transaction.transaction_id.account.account_number}}</td>
+                <td>{{journal_transaction.transaction_id.description}}</td>
+                <td>
+                    {% if journal_transaction.transaction_id.transaction_type == 1%}
+                    Debit
+                    {% else %}
+                    Credit
+                    {% endif %}
+                </td>
+                <td>{{journal_transaction.transaction_id.amount}}</td>
+                <td><a href="{% url 'journal' pk=journal_transaction.journal_id.pk %}">View Journal</a></td>
             </tr>
+            {% endfor %}
+            {% endif %}
         </tbody>
     </table>
 </div>

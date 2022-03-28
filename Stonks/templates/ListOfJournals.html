@@ -66,7 +66,7 @@
             </tr>
         </thead>
         <tbody>
-            {% if Journal_list and Account_list %}
+            {% if Journal_list and Journal_Transaction %}
             {% for journal in Journal_list %}
             <tr>
                 <td>
@@ -74,12 +74,12 @@
                 </td>
                 <td>
                     <ul id="celllist">
-                        {% for account in Account_list %}
-                        <li>{{account.account_name}}</li>
+                        {% for journal_transaction in Journal_Transaction %}
+                        <li>{{journal_transaction.transaction_id.account.account_name}}</li>
+                        {% endfor %}
                     </ul>
                 </td>
-                <td>{{account.user}}</td>
-                {% endfor %}
+                <td>Bob</td>
                 <td>${{journal.balance}}</td>
                 <td>{{journal.date_time_added}}</td>
                 <td id="status">{{journal.journal_status}}</td>

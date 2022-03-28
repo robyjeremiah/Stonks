@@ -307,6 +307,8 @@ class Account(models.Model):
 class Transaction(models.Model):
     transaction_id = models.AutoField(primary_key=True)
     account = models.ForeignKey(Account, on_delete=models.CASCADE)
+    description = models.CharField(
+        _('Transaction Description'), max_length=300, blank=True)
     amount = models.DecimalField(
         _('Amount'), blank=True, decimal_places=2, max_digits=17, null=True)
     transaction_type = models.BooleanField(_('Transaction Type'))
