@@ -266,3 +266,6 @@ def addJounral(request):
 
 def journal(request):
     return render(request, 'journal.html')
+
+def journalEntries(request):
+    return render(request, 'journalEntries.html')

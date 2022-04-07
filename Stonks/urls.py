@@ -34,4 +34,5 @@ urlpatterns = [
     path('passwordConfirm/', auth_views.PasswordResetCompleteView.as_view(
         template_name='passwordConfirm.html'), name="password_reset_complete"),
     path('journal/', views.journal, name='journal'),
+    path('journalEntries/', views.journalEntries, name='journalEntries'),
 ]
