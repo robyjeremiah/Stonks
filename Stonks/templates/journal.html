@@ -20,7 +20,7 @@
     <div class="row">
         <div class="col-lg" id="pagehead">
             <a href="/listOfJournals/"><i class="fas fa-arrow-circle-left" id="back"></i></a>
-            <h1 class="title">Journal Entry [incremental number]</h1>
+            <h1 class="title">Journal Entry #{{journal_id}}</h1>
         </div>
     </div>
     <table id="example" class="stripe row-border compact" style="width: 100%">
@@ -34,6 +34,23 @@
             </tr>
         </thead>
         <tbody>
+            {% if Transaction_list %}
+            {% for transaction in Transaction_list %}
+            <tr>
+                <td>{{transaction.pk}}</td>
+                <td>{{transaction.account_id}}</td>
+                <td>Bob</td>
+                <td>
+                    {% if transaction.transaction_type == 1%}
+                    Debit
+                    {% else %}
+                    Credit
+                    {% endif %}
+                </td>
+                <td>{{transaction.amount}}</td>
+            </tr>
+            {% endfor %}
+            {% endif %}
         </tbody>
         <tfoot>
             <tr></tr>

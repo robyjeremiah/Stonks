@@ -66,36 +66,28 @@
             </tr>
         </thead>
         <tbody>
+            {% if Journal_list and Account_list %}
+            {% for journal in Journal_list %}
             <tr>
-                <td>1</td>
+                <td>
+                    <a href="{%url 'journal' pk=journal.pk%}">{{journal.pk}}</a>
+                </td>
                 <td>
                     <ul id="celllist">
-                        <li>Cash</li>
-                        <li>Liability</li>
-                        <li>Stock</li>
+                        {% for account in Account_list %}
+                        <li>{{account}}</li>
+                        {% endfor %}
                     </ul>
                 </td>
                 <td>Jordan</td>
-                <td>$0</td>
-                <td>2015/04/25</td>
-                <td id="status">Pending</td>
+                <td>${{journal.balance}}</td>
+                <td>{{journal.date_time_added}}</td>
+                <td id="status">{{journal.journal_status}}</td>
                 <td><button type="button" class="btn-primary" id="update" data-bs-toggle="modal"
                         data-bs-target="#updateModal">Update<br>Status</button></td>
             </tr>
-            <tr>
-                <td>2</td>
-                <td>
-                    <ul id="celllist">
-                        <li>Assets</li>
-                        <li>Expenses</li>
-                    </ul>
-                </td>
-                <td>Avery</td>
-                <td>$0</td>
-                <td>2022/03/10</td>
-                <td id="status">Approved</td>
-                <td><button class="btn-primary" id="update">Update<br>Status</button></td>
-            </tr>
+            {% endfor %}
+            {% endif %}
         </tbody>
         <tfoot>
             <tr></tr>

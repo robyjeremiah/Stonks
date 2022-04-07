@@ -129,7 +129,8 @@ class Account(models.Model):
     StatementChoices = (
         ("BS", "Balance sheet"),
         ("IS", "Income statement"),
-        ("RE", "Retained Earnings statement"),)
+        ("RE", "Retained Earnings statement"),
+    )
 
     Account_Category = (
         ("A", "Assets"),
@@ -137,7 +138,8 @@ class Account(models.Model):
         ("EQ", "Equity Accounts"),
         ("R", "Revenues"),
         ("EX", "Expenses"),
-        ("O", "Other"),)
+        ("O", "Other"),
+    )
 
     # id = models.BigAutoField(primary_key=True)
     account_name = models.CharField(
@@ -164,8 +166,7 @@ class Account(models.Model):
         _('Financial Statement'), max_length=30, choices=StatementChoices, blank=True, null=True)
 
     # Dont know what this iis
-    userid = models.CharField(
-        _('User id'), max_length=30, blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     normal_side = models.CharField(_('Normal Side'), max_length=8, blank=True)
     date_time_added = models.DateField(
         _('Date/Time Added'), max_length=30, blank=True, auto_now=True)
@@ -301,6 +302,43 @@ class Account(models.Model):
             self.statement = "RE"
 
         super(Account, self).save(*args, **kwargs)
+
+
+class Transaction(models.Model):
+    transaction_id = models.AutoField(primary_key=True)
+    account = models.ForeignKey(Account, on_delete=models.CASCADE)
+    amount = models.DecimalField(
+        _('Amount'), blank=True, decimal_places=2, max_digits=17, null=True)
+    transaction_type = models.BooleanField(_('Transaction Type'))
+
+    pass
+
+
+class Journal(models.Model):
+    Journal_Categories = (
+        ("Pending", "Pending"),
+        ("Approved", "Approved"),
+        ("Rejected", "Rejected"),
+    )
+
+    journal_id = models.AutoField(primary_key=True)
+    date_time_added = models.DateField(
+        _('Date/Time Added'), max_length=30, blank=True, auto_now=True)
+    description = models.CharField(
+        _('Description of Entry'), max_length=300, blank=True)
+    journal_status = models.CharField(
+        _('Journal Status'), max_length=30, choices=Journal_Categories, null=True)
+    balance = models.DecimalField(
+        _('Balance'), blank=True, decimal_places=2, max_digits=17, null=True)
+    pass
+
+
+class Journal_Transaction(models.Model):
+    jt_id = models.AutoField(primary_key=True)
+    journal_id = models.ForeignKey(Journal, on_delete=models.CASCADE)
+    transaction_id = models.ForeignKey(Transaction, on_delete=models.CASCADE)
+    pass
+
 
 # Security Questions stored in database
 
