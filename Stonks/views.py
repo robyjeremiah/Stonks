@@ -397,20 +397,6 @@ def generalledger(request):
         'Journal_Transaction': Journal_Transaction_list,
     }
     return render(request, 'generalLedgers.html', context)
-
-
-@login_required(login_url='/')
-def listJournals(request):
-    Journal_list = Journal.objects.all()
-
-    Journal_Transaction_list = Journal_Transaction.objects.filter(
-        journal_id__journal_id__isnull=False)
-
-    context = {
-        'Journal_list': Journal_list,
-        'Journal_Transaction': Journal_Transaction_list
-    }
-    return render(request, 'ListOfJournals.html', context)
     
 @login_required(login_url='/')
 def journal_entries(request):

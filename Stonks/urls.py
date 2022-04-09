@@ -29,11 +29,10 @@ urlpatterns = [
     path('chartOfAccounts/delete',
          views.delete_account, name='delete_account'),
     path('chartOfAccounts/viewEventLog/', views.eventlog, name='EventLog'),
-    path('listOfJournals/', views.listJournals, name='listOfJournals'),
     path('addJournal/', views.addJounral, name='addJournal'),
     # General Ledger Urls
-    path('generalLedger', views.generalledger, name="general_ledger"),
-    path('journalEntries', views.journal_entries, name="journal_entries"),
+    path('generalLedger/', views.generalledger, name="general_ledger"),
+    path('journalEntries/', views.journal_entries, name="journal_entries"),
     # Django Admin Forgot Password Functionalities
     path('forgotPass/', auth_views.PasswordResetView.as_view(
         template_name='forgotPass.html'), name="reset_password"),
