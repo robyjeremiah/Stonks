@@ -411,7 +411,10 @@ def listJournals(request):
         'Journal_Transaction': Journal_Transaction_list
     }
     return render(request, 'ListOfJournals.html', context)
-
+    
+@login_required(login_url='/')
+def journal_entries(request):
+    return render(request, 'journalEntries.html');
 
 @login_required(login_url='/')
 def addJounral(request):
