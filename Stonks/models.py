@@ -304,18 +304,6 @@ class Account(models.Model):
         super(Account, self).save(*args, **kwargs)
 
 
-class Transaction(models.Model):
-    transaction_id = models.AutoField(primary_key=True)
-    account = models.ForeignKey(Account, on_delete=models.CASCADE)
-    description = models.CharField(
-        _('Transaction Description'), max_length=300, blank=True)
-    amount = models.DecimalField(
-        _('Amount'), blank=True, decimal_places=2, max_digits=17, null=True)
-    transaction_type = models.BooleanField(_('Transaction Type'))
-
-    pass
-
-
 class Journal(models.Model):
     Journal_Categories = (
         ("Pending", "Pending"),
@@ -335,12 +323,32 @@ class Journal(models.Model):
     pass
 
 
-class Journal_Transaction(models.Model):
-    jt_id = models.AutoField(primary_key=True)
-    journal_id = models.ForeignKey(Journal, on_delete=models.CASCADE)
-    transaction_id = models.ForeignKey(Transaction, on_delete=models.CASCADE)
+class Transaction(models.Model):
+    transaction_id = models.AutoField(primary_key=True)
+    account = models.ForeignKey(Account, on_delete=models.CASCADE)
+    journal = models.ForeignKey(Journal, on_delete=models.CASCADE, default=1)
+    description = models.CharField(
+        _('Transaction Description'), max_length=300, blank=True)
+    amount = models.DecimalField(
+        _('Amount'), blank=True, decimal_places=2, max_digits=17, null=True)
+    transaction_type = models.BooleanField(_('Transaction Type'))
+
     pass
 
+
+class File(models.Model):
+    file_id = models.AutoField(primary_key=True)
+    date_created = models.DateTimeField(
+        _("Date/Time"), auto_now=False, auto_now_add=False, blank=True)
+    date_updated = models.DateTimeField(
+        _("Date/Time"), auto_now=False, auto_now_add=False, blank=True)
+    file_name = models.CharField(_("File Name"), max_length=500)
+    user = models.ForeignKey(User, verbose_name=_(
+        "User"), on_delete=models.CASCADE)
+    journal_entry = models.ForeignKey(Journal, verbose_name=_(
+        "Journal Entry"), on_delete=models.CASCADE)
+
+    pass
 
 # Security Questions stored in database
 

@@ -1,6 +1,6 @@
 from dataclasses import fields
 import queue
-from .models import SecurityQuestion, User, Account, Journal, Journal_Transaction, Transaction
+from .models import SecurityQuestion, User, Account, Journal, Transaction, File
 from .forms import CustomUserForm
 from .decorators import allowed_users, unauthenticated_user
 from django.shortcuts import redirect, render
@@ -391,30 +391,51 @@ def eventlog(request):
 
 @login_required(login_url='/')
 def generalledger(request):
-    Journal_Transaction_list = Journal_Transaction.objects.all().select_related()
+    return render(request, 'generalLedgers.html')
 
-    context = {
-        'Journal_Transaction': Journal_Transaction_list,
-    }
-    return render(request, 'generalLedgers.html', context)
-    
+
 @login_required(login_url='/')
 def journal_entries(request):
-    return render(request, 'journalEntries.html');
+    File_list = File.objects.all()
+    # journal_ids = Journal.objects.values_list('journal_id', flat=True)
+    # for x in journal_ids:
+    #     Files_list[x] = File.objects.get(journal_entry=x)
+    Transaction_list = Transaction.objects.all()
 
-@login_required(login_url='/')
+    context = {
+        'Transaction_list': Transaction_list,
+        'Files': File_list,
+    }
+    return render(request, 'journalEntries.html', context)
+
+
+@login_required(login_url="/")
+def get_transaction_info(request):
+    journal_entry = request.GET.get("journal_entry", None)
+    if request.method == "GET":
+        try:
+            transaction = Transaction.objects.all().filter(journal_id=journal_entry)
+            transaction_info = serializers.serialize('json', transaction, fields=(
+                'transaction_id',
+                'description',
+                'amount',
+                'transaction_type'
+            ))
+
+            return JsonResponse({"valid": True, "transaction": transaction_info}, status=200)
+        except Journal.DoesNotExist:
+            return JsonResponse({"valid": False, "message": "Object does not exist"})
+    else:
+        return JsonResponse({"valid": False, "message": "Not able to retrieve data"}, status=200)
+
+    return JsonResponse({}, status=400)
+
+
+@ login_required(login_url='/')
 def addJounral(request):
     return render(request, 'addJournal.html')
 
 
-@login_required(login_url='/')
+@ login_required(login_url='/')
 def journal(request, pk):
-    Transaction_list = Transaction.objects.all().filter(
-        journal_transaction__journal_id=pk)
-    Journal_object = Journal.objects.filter(journal_id=pk)
-    context = {
-        'Transaction_list': Transaction_list,
-        'journal_id': pk,
-        'Journal': Journal_object
-    }
-    return render(request, 'journal.html', context)
+    return render(request, 'journal.html')
