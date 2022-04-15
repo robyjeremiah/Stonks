@@ -66,8 +66,18 @@
             title="View Account Journal">Journals</a></li>
         <li><a href="/chartOfAccounts/" class="btn" data-bs-toggle="tooltip" data-bs-placement="top"
             title="View Chart of Accounts">Chart of Accounts</a></li>
-        <li><a href="#" class="btn" data-bs-toggle="tooltip" data-bs-placement="top"
-            title="Generate New Reports">Reports</a></li>
+        <li>
+          <div class="dropdown">
+            <a href="#" class="btn dropdown-toggle" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Generate New Reports">Reports</a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="report-content">
+              <a class="dropdown-item" href="#">Trial Balance</a>
+              <a class="dropdown-item" href="#">Income Statement</a>
+              <a class="dropdown-item" href="#">Balance Sheet</a>
+              <a class="dropdown-item" href="#">Retained Earnings</a>
+              <a class="dropdown-item" href="#">Expired Passwords</a>
+            </div>
+          </div>
+        </li>
         <li>
           {{user.username}}
           <div class="dropdown">
