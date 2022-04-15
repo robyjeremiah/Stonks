@@ -90,10 +90,44 @@
 
     }
 
+    var minDate, maxDate;
+
+    // Custom filtering function which will search data in column four between two values
+    $.fn.dataTable.ext.search.push(
+        function (settings, data, dataIndex) {
+            var min = minDate.val();
+            var max = maxDate.val();
+            var date = new Date(data[4]);
+
+            if (
+                (min === null && max === null) ||
+                (min === null && date <= max) ||
+                (min <= date && max === null) ||
+                (min <= date && date <= max)
+            ) {
+                return true;
+            }
+            return false;
+        }
+    );
+
     $(document).ready(function () {
 
+        // Create date inputs
+        minDate = new DateTime($('#min'), {
+            format: 'MMMM Do YYYY'
+        });
+        maxDate = new DateTime($('#max'), {
+            format: 'MMMM Do YYYY'
+        });
+
         var table = $('#example').DataTable({
-            dom: '<"addbtn"><"calendarbtn">frt<"logbtn">p'
+            dom: '<"addbtn">frt<"logbtn">p'
+        });
+
+        // Refilter the table
+        $('#min, #max').on('change', function () {
+            table.draw();
         });
 
         // Makes a new request to update account information
@@ -403,6 +437,18 @@
             <a><i class="fas fa-info-circle"></i></a>
         </div>
     </div>
+    <table border="0" cellspacing="5" cellpadding="5">
+        <tbody>
+            <tr>
+                <td>Minimum date:</td>
+                <td><input type="text" id="min" name="min"></td>
+            </tr>
+            <tr>
+                <td>Maximum date:</td>
+                <td><input type="text" id="max" name="max"></td>
+            </tr>
+        </tbody>
+    </table>
     <table id="example" class="table table-striped" style="width:100%">
         <thead>
             <tr class="details-control" data-child-value="Nope">
