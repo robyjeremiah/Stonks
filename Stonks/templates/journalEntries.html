@@ -3,38 +3,6 @@
 
 <link rel="stylesheet" type="text/css" href="/static/journalEntries.css" />
 <script>
-    //function and container for accordion content
-    function format(account_name, credit, debit, description) {
-        return '<div class="slider" >' +
-            '<div class="row">' +
-            '<div class="col-9 text-start">' +
-            '<table id="journaltable">' +
-            '<tr>' +
-            '<th id="topleft">Account</th><th style="width:20%">Debit</th><th id="topright" style="width:20%">Credit</th>' +
-            '</tr>' +
-            '<tr>' +
-            `<td>${account_name}</td>` +
-            `<td>${credit}</td>` +
-            `<td>${debit}</td>` +
-            '</tr>' +
-            '<tr>' +
-            '<td colspan="3" id="bottom"><p id="labeldesc">Description: </p>' +
-            `${description}</td>` +
-            '</tr>' +
-            '</table>' +
-            '</div>' +
-            '<div class="col-3 text-center mx-auto" id="actions">' +
-            '<div class="actionscolor">' +
-            '<a data-bs-toggle="modal" href="#updateModal"><i class="fas fa-gavel"></i> Update Status</a><br>' +
-            '<a href="{% url "general_ledger"%}"><i class="fas fa-book"></i> View Ledger</a><br>' +
-            '<a data-bs-toggle="modal" href="#editaccountmodal"><i class="fas fa-edit"></i>Edit</a><br>' +
-            '<a href="#"><i class="fas fa-trash"></i> Delete</a>' +
-            '</div>' +
-            '</div>' +
-            '</div>' +
-            '</div>';
-    }
-
     $(document).ready(function () {
         //Main table with accordion start
         $("tbody tr:visible:even").css("background-color", "#f0f0f0");
@@ -73,29 +41,69 @@
                 });
 
             } else {
-                get_transaction_info($(this).data().value);
-                row.child(format('Inventory', 0, 100, 'Hello Bob')).show();
-                tr.addClass('shown');
-                $('div.slider', row.child()).slideDown();
+                get_transaction_info($(this).data().value, row, tr)
             }
-            row.child().css("background-color", "#dddddd");
             //Main table with accordion end
         });
 
-        function get_transaction_info(journal_entry) {
+        function get_transaction_info(journal_entry, row, tr) {
             $.ajax({
                 type: "GET",
                 url: "{%url 'transaction_info' %}",
                 data: { journal_entry: journal_entry },
                 success: function (response) {
-                    const data = JSON.parse(response['transaction'])
-                    console.log(data);
-                    return data;
+                    const data = JSON.parse(response['models_info']['journal_info'])
+                    row.child(format(data[0].fields, response['models_info']['transaction_info'])).show();
+                    tr.addClass('shown');
+                    $('div.slider', row.child()).slideDown();
                 },
                 error: function (response) {
-                    console.log(response);
+                    alert(response);
                 }
             })
+        }
+        //function and container for accordion content
+        function format(journal_info, transaction_info) {
+            var info = []
+            for (var i = 0; i < transaction_info['amount'].length; i++) {
+                if (transaction_info['type'][i] == true) {
+                    info.push(`<tr>
+                    <td>${transaction_info['account_name'][i]}</td>` +
+                        `<td>$${transaction_info['amount'][i]}</td>` +
+                        `<td>$0.00</td>
+                    </tr>`);
+                } else {
+                    info.push(`<tr>
+                    <td>${transaction_info['account_name'][i]}</td>` +
+                        `<td>$0.00</td>` +
+                        `<td>$${transaction_info['amount'][i]}</td>
+                    </tr>`);
+                }
+            }
+
+            return '<div class="slider" >' +
+                '<div class="row">' +
+                '<div class="col-9 text-start">' +
+                '<table id="journaltable">' +
+                '<tr>' +
+                '<th id="topleft">Account</th><th style="width:20%">Debit</th><th id="topright" style="width:20%">Credit</th>' +
+                `${info}` +
+                '<tr>' +
+                '<td colspan="3" id="bottom"><p id="labeldesc">Description: </p>' +
+                `${journal_info.description}</td>` +
+                '</tr>' +
+                '</table>' +
+                '</div>' +
+                '<div class="col-3 text-center mx-auto" id="actions">' +
+                '<div class="actionscolor">' +
+                '<a data-bs-toggle="modal" href="#updateModal"><i class="fas fa-gavel"></i> Update Status</a><br>' +
+                '<a href="{% url "general_ledger"%}"><i class="fas fa-book"></i> View Ledger</a><br>' +
+                '<a data-bs-toggle="modal" href="#editaccountmodal"><i class="fas fa-edit"></i>Edit</a><br>' +
+                '<a href="#"><i class="fas fa-trash"></i> Delete</a>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>';
         }
 
         //Add journal table start
@@ -305,8 +313,7 @@
             {% if journal_entries %}
             {% for journal_entry in journal_entries %}
             <tr>
-                <input type="hidden" name="journal_id" value="{{journal_entry.journal_id}}">
-                <td class="details-control"></td>
+                <td class="details-control" data-value="{{journal_entry.journal_id}}"></td>
                 <td>J/E. {{journal_entry.journal_id}}</td>
                 <td>{{journal_entry.date_time_added}}</td>
                 <td>{{journal_entry.file.file_name}}</td>

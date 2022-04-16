@@ -412,6 +412,33 @@ def journal_entries(request):
 
 @ login_required(login_url="/")
 def get_transaction_info(request):
+    journal_entry = request.GET.get("journal_entry", None)
+    if request.method == "GET":
+        try:
+            journal_entry = Journal.objects.all().filter(journal_id=journal_entry)
+            transactions = {
+                "account_name": [],
+                "amount": [],
+                "type": [],
+            }
+            for journal in journal_entry:
+                for transaction in journal.transaction.all():
+                    transactions["account_name"].append(
+                        transaction.account.account_name)
+                    transactions["amount"].append(transaction.amount)
+                    transactions["type"].append(transaction.transaction_type)
+
+            journal_entry_info = serializers.serialize('json', journal_entry)
+
+            model_info = {
+                'journal_info': journal_entry_info,
+                'transaction_info': transactions,
+            }
+            return JsonResponse({"valid": True, "models_info": model_info, "message": "Successfully retrieved data"}, status=200)
+        except Journal.DoesNotExist:
+            return JsonResponse({"valid": False, "message": "Object does not exist"})
+    else:
+        return JsonResponse({"valid": False, "message": "Not able to retrieve data"}, status=200)
     return JsonResponse({}, status=400)
 
 
