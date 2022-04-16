@@ -81,23 +81,25 @@
             </tr>
         </thead>
         <tbody>
-            {% if Journal_Transaction %}
-            {% for journal_transaction in Journal_Transaction %}
+            {% if general_ledger_list %}
+            {% for journal in general_ledger_list %}
+            {% for transaction in journal.transaction.all %}
             <tr>
-                <td>{{journal_transaction.journal_id.date_time_added}}</td>
-                <td>{{journal_transaction.transaction_id.account.account_name}}</td>
-                <td>{{journal_transaction.transaction_id.account.account_number}}</td>
-                <td>{{journal_transaction.transaction_id.description}}</td>
+                <td>{{journal.date_time_added}}</td>
+                <td>{{transaction.account.account_name}}</td>
+                <td>{{transaction.account.account_number}}</td>
+                <td>{{journal.description}}</td>
                 <td>
-                    {% if journal_transaction.transaction_id.transaction_type == 1%}
+                    {% if transaction.transaction_type == 1 %}
                     Debit
                     {% else %}
                     Credit
-                    {% endif %}
+                    {%endif%}
                 </td>
-                <td>{{journal_transaction.transaction_id.amount}}</td>
-                <td><a href="{% url 'journal' pk=journal_transaction.journal_id.pk %}">View Journal</a></td>
+                <td>{{journal.balance}}</td>
+                <td><a href="#">View Journal</a></td>
             </tr>
+            {% endfor %}
             {% endfor %}
             {% endif %}
         </tbody>

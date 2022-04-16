@@ -391,43 +391,27 @@ def eventlog(request):
 
 @login_required(login_url='/')
 def generalledger(request):
-    return render(request, 'generalLedgers.html')
-
-
-@login_required(login_url='/')
-def journal_entries(request):
-    File_list = File.objects.all()
-    # journal_ids = Journal.objects.values_list('journal_id', flat=True)
-    # for x in journal_ids:
-    #     Files_list[x] = File.objects.get(journal_entry=x)
-    Transaction_list = Transaction.objects.all()
+    general_ledger_list = Journal.objects.all().filter(
+        journal_status='Approved').order_by('journal_id')
 
     context = {
-        'Transaction_list': Transaction_list,
-        'Files': File_list,
+        "general_ledger_list": general_ledger_list,
+    }
+
+    return render(request, 'generalLedgers.html', context)
+
+
+@ login_required(login_url='/')
+def journal_entries(request):
+    journal_entries = Journal.objects.all()
+    context = {
+        'journal_entries': journal_entries
     }
     return render(request, 'journalEntries.html', context)
 
 
-@login_required(login_url="/")
+@ login_required(login_url="/")
 def get_transaction_info(request):
-    journal_entry = request.GET.get("journal_entry", None)
-    if request.method == "GET":
-        try:
-            transaction = Transaction.objects.all().filter(journal_id=journal_entry)
-            transaction_info = serializers.serialize('json', transaction, fields=(
-                'transaction_id',
-                'description',
-                'amount',
-                'transaction_type'
-            ))
-
-            return JsonResponse({"valid": True, "transaction": transaction_info}, status=200)
-        except Journal.DoesNotExist:
-            return JsonResponse({"valid": False, "message": "Object does not exist"})
-    else:
-        return JsonResponse({"valid": False, "message": "Not able to retrieve data"}, status=200)
-
     return JsonResponse({}, status=400)
 
 

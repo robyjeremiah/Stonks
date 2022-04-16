@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="/static/journalEntries.css" />
 <script>
     //function and container for accordion content
-    function format(description, subcategory, normal, userid, statement, comment) {
+    function format(account_name, credit, debit, description) {
         return '<div class="slider" >' +
             '<div class="row">' +
             '<div class="col-9 text-start">' +
@@ -13,13 +13,13 @@
             '<th id="topleft">Account</th><th style="width:20%">Debit</th><th id="topright" style="width:20%">Credit</th>' +
             '</tr>' +
             '<tr>' +
-            `<td>Inventory</td>` +
-            `<td>0</td>` +
-            `<td>100</td>` +
+            `<td>${account_name}</td>` +
+            `<td>${credit}</td>` +
+            `<td>${debit}</td>` +
             '</tr>' +
             '<tr>' +
-            `<td colspan="3" id="bottom"><p id="labeldesc">Description: </p>` +
-            'Purchased out of my own resources</td>' +
+            '<td colspan="3" id="bottom"><p id="labeldesc">Description: </p>' +
+            `${description}</td>` +
             '</tr>' +
             '</table>' +
             '</div>' +
@@ -60,11 +60,6 @@
             $('input[type="search"]').val(date.val());
         })
 
-        // $('.details-control').click(function (e) {
-        //     e.preventDefault();
-        //     console.log($(this).attr('data-child-value'));
-        // })
-
         // Add event listener for opening and closing details
         $('#example tbody').on('click', 'td.details-control', function () {
             var tr = $(this).closest('tr');
@@ -79,10 +74,7 @@
 
             } else {
                 get_transaction_info($(this).data().value);
-                row.child(format(tr.data('description'), tr.data('subcategory'), tr.data('normal'),
-                    tr.data('debit'), tr.data('credit'), tr.data('initial'),
-                    tr.data('userid'), tr.data('statement'), tr.data('comment'),
-                )).show();
+                row.child(format('Inventory', 0, 100, 'Hello Bob')).show();
                 tr.addClass('shown');
                 $('div.slider', row.child()).slideDown();
             }
@@ -97,15 +89,13 @@
                 data: { journal_entry: journal_entry },
                 success: function (response) {
                     const data = JSON.parse(response['transaction'])
-                    preload_transaction_table(data)
+                    console.log(data);
+                    return data;
                 },
                 error: function (response) {
                     console.log(response);
                 }
             })
-        }
-
-        function preload_transaction_table(transaction_list) {
         }
 
         //Add journal table start
@@ -312,15 +302,15 @@
             </tr>
         </thead>
         <tbody>
-            {% if Files %}
-            {% for file in Files %}
+            {% if journal_entries %}
+            {% for journal_entry in journal_entries %}
             <tr>
-                <input type="hidden" name="journal_id" value="{{file.journal_entry.journal_id}}">
-                <td class="details-control" data-value="{{file.journal_entry.journal_id}}"></td>
-                <td>J/E. {{file.journal_entry.journal_id}}</td>
-                <td>{{file.journal_entry.date_time_added}}</td>
-                <td>{{file.file_name}}</td>
-                <td id=" status">{{file.journal_entry.journal_status}}</td>
+                <input type="hidden" name="journal_id" value="{{journal_entry.journal_id}}">
+                <td class="details-control"></td>
+                <td>J/E. {{journal_entry.journal_id}}</td>
+                <td>{{journal_entry.date_time_added}}</td>
+                <td>{{journal_entry.file.file_name}}</td>
+                <td id=" status">{{journal_entry.journal_status}}</td>
             </tr>
             {% endfor %}
             {% endif %}
