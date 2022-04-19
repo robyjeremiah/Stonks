@@ -73,25 +73,35 @@
             <tr>
                 <th>Date</th>
                 <th>Account Name</th>
-                <th>Account ID</th>
+                <th>Account Number</th>
                 <th>Description</th>
-                <th>Debit</th>
-                <th>Credit</th>
+                <th>Type</th>
                 <th>Balance</th>
                 <th>Post Ref.</th>
             </tr>
         </thead>
         <tbody>
+            {% if general_ledger_list %}
+            {% for journal in general_ledger_list %}
+            {% for transaction in journal.transaction.all %}
             <tr>
-                <td>03/14/2022</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>$0.00</td>
-                <td></td>
-                <td>$5,000</td>
+                <td>{{journal.date_time_added}}</td>
+                <td>{{transaction.account.account_name}}</td>
+                <td>{{transaction.account.account_number}}</td>
+                <td>{{journal.description}}</td>
+                <td>
+                    {% if transaction.transaction_type == 1 %}
+                    Debit
+                    {% else %}
+                    Credit
+                    {%endif%}
+                </td>
+                <td>{{journal.balance}}</td>
                 <td><a href="#">View Journal</a></td>
             </tr>
+            {% endfor %}
+            {% endfor %}
+            {% endif %}
         </tbody>
     </table>
 </div>

@@ -1,6 +1,6 @@
 from dataclasses import fields
 import queue
-from .models import SecurityQuestion, User, Account, Journal, Journal_Transaction, Transaction
+from .models import SecurityQuestion, User, Account, Journal, Transaction, File
 from .forms import CustomUserForm
 from .decorators import allowed_users, unauthenticated_user
 from django.shortcuts import redirect, render
@@ -391,34 +391,62 @@ def eventlog(request):
 
 @login_required(login_url='/')
 def generalledger(request):
-    return render(request, 'generalLedgers.html')
+    general_ledger_list = Journal.objects.all().filter(
+        journal_status='Approved').order_by('journal_id')
 
-
-@login_required(login_url='/')
-def listJournals(request):
-    Journal_list = Journal.objects.all()
-    Account_list = Journal_Transaction.objects.all().filter(
-        transaction_id__account__account_number__isnull=False)
     context = {
-        'Journal_list': Journal_list,
-        'Account_list': Account_list
+        "general_ledger_list": general_ledger_list,
     }
-    return render(request, 'ListOfJournals.html', context)
-    
-@login_required(login_url='/')
-def journal_entries(request):
-    return render(request, 'journalEntries.html');
 
-@login_required(login_url='/')
+    return render(request, 'generalLedgers.html', context)
+
+
+@ login_required(login_url='/')
+def journal_entries(request):
+    journal_entries = Journal.objects.all()
+    context = {
+        'journal_entries': journal_entries
+    }
+    return render(request, 'journalEntries.html', context)
+
+
+@ login_required(login_url="/")
+def get_transaction_info(request):
+    journal_entry = request.GET.get("journal_entry", None)
+    if request.method == "GET":
+        try:
+            journal_entry = Journal.objects.all().filter(journal_id=journal_entry)
+            transactions = {
+                "account_name": [],
+                "amount": [],
+                "type": [],
+            }
+            for journal in journal_entry:
+                for transaction in journal.transaction.all():
+                    transactions["account_name"].append(
+                        transaction.account.account_name)
+                    transactions["amount"].append(transaction.amount)
+                    transactions["type"].append(transaction.transaction_type)
+
+            journal_entry_info = serializers.serialize('json', journal_entry)
+
+            model_info = {
+                'journal_info': journal_entry_info,
+                'transaction_info': transactions,
+            }
+            return JsonResponse({"valid": True, "models_info": model_info, "message": "Successfully retrieved data"}, status=200)
+        except Journal.DoesNotExist:
+            return JsonResponse({"valid": False, "message": "Object does not exist"})
+    else:
+        return JsonResponse({"valid": False, "message": "Not able to retrieve data"}, status=200)
+    return JsonResponse({}, status=400)
+
+
+@ login_required(login_url='/')
 def addJounral(request):
     return render(request, 'addJournal.html')
 
 
+@ login_required(login_url='/')
 def journal(request, pk):
-    Transaction_list = Transaction.objects.all().filter(
-        journal_transaction__journal_id=pk)
-    context = {
-        'Transaction_list': Transaction_list,
-        'journal_id': pk,
-    }
-    return render(request, 'journal.html', context)
+    return render(request, 'journal.html')
