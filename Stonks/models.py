@@ -304,12 +304,25 @@ class Account(models.Model):
         super(Account, self).save(*args, **kwargs)
 
 
+class File(models.Model):
+    file_id = models.AutoField(primary_key=True)
+    date_created = models.DateTimeField(
+        _("Date/Time"), auto_now=False, auto_now_add=False, blank=True)
+    date_updated = models.DateTimeField(
+        _("Date/Time"), auto_now=False, auto_now_add=False, blank=True)
+    file_name = models.CharField(_("File Name"), max_length=500)
+    user = models.ForeignKey(User, verbose_name=_(
+        "User"), on_delete=models.CASCADE)
+
+    pass
+
+
 class Transaction(models.Model):
     transaction_id = models.AutoField(primary_key=True)
     account = models.ForeignKey(Account, on_delete=models.CASCADE)
+    transaction_type = models.BooleanField(_('Transaction Type'))
     amount = models.DecimalField(
         _('Amount'), blank=True, decimal_places=2, max_digits=17, null=True)
-    transaction_type = models.BooleanField(_('Transaction Type'))
 
     pass
 
@@ -326,17 +339,14 @@ class Journal(models.Model):
         _('Date/Time Added'), max_length=30, blank=True, auto_now=True)
     description = models.CharField(
         _('Description of Entry'), max_length=300, blank=True)
-    journal_status = models.CharField(
-        _('Journal Status'), max_length=30, choices=Journal_Categories, null=True)
     balance = models.DecimalField(
         _('Balance'), blank=True, decimal_places=2, max_digits=17, null=True)
-    pass
-
-
-class Journal_Transaction(models.Model):
-    jt_id = models.AutoField(primary_key=True)
-    journal_id = models.ForeignKey(Journal, on_delete=models.CASCADE)
-    transaction_id = models.ForeignKey(Transaction, on_delete=models.CASCADE)
+    journal_status = models.CharField(
+        _('Journal Status'), max_length=30, choices=Journal_Categories, null=True)
+    transaction = models.ManyToManyField(
+        Transaction, verbose_name=_("Transaction"))
+    file = models.ForeignKey(File, verbose_name=_(
+        "File"), on_delete=models.CASCADE, default=1)
     pass
 
 

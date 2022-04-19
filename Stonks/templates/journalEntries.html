@@ -3,38 +3,6 @@
 
 <link rel="stylesheet" type="text/css" href="/static/journalEntries.css" />
 <script>
-    //function and container for accordion content
-    function format() {
-        return '<div class="slider" >' +
-            '<div class="row">' +
-            '<div class="col-9 text-start">' +
-            '<table id="journaltable">' +
-            '<tr>' +
-            '<th id="topleft">Account</th><th style="width:20%">Debit</th><th id="topright" style="width:20%">Credit</th>' +
-            '</tr>' +
-            '<tr>' +
-            '<td>Inventory</td>' +
-            '<td>0</td>' +
-            '<td>100</td>' +
-            '</tr>' +
-            '<tr>' +
-            '<td colspan="3" id="bottom"><p id="labeldesc">Description: </p>' +
-            'Purchased out of my own resources</td>' +
-            '</tr>' +
-            '</table>' +
-            '</div>' +
-            '<div class="col-3 text-center mx-auto" id="actions">' +
-            '<div class="actionscolor">' +
-            '<a href="#"><i class="fas fa-gavel"></i> Update Status</a><br>' +
-            '<a href="#"><i class="fas fa-book"></i> View Ledger</a><br>' +
-            '<a data-bs-toggle="modal" href="#editaccountmodal"><i class="fas fa-edit"></i>Edit</a><br>' +
-            '<a href="#"><i class="fas fa-trash"></i> Delete</a>' +
-            '</div>' +
-            '</div>' +
-            '</div>' +
-            '</div>';
-    }
-
     $(document).ready(function () {
         //Main table with accordion start
         $("tbody tr:visible:even").css("background-color", "#f0f0f0");
@@ -73,17 +41,71 @@
                 });
 
             } else {
-                row.child(format(tr.data('description'), tr.data('subcategory'), tr.data('normal'),
-                    tr.data('debit'), tr.data('credit'), tr.data('initial'),
-                    tr.data('userid'), tr.data('statement'), tr.data('comment'),
-                )).show();
-                tr.addClass('shown');
-                $('div.slider', row.child()).slideDown();
+                get_transaction_info($(this).data().value, row, tr)
             }
-            row.child().css("background-color", "#dddddd");
             //Main table with accordion end
         });
-        
+
+        function get_transaction_info(journal_entry, row, tr) {
+            $.ajax({
+                type: "GET",
+                url: "{%url 'transaction_info' %}",
+                data: { journal_entry: journal_entry },
+                success: function (response) {
+                    const data = JSON.parse(response['models_info']['journal_info'])
+                    row.child(format(data[0].fields, response['models_info']['transaction_info'])).show();
+                    tr.addClass('shown');
+                    $('div.slider', row.child()).slideDown();
+                },
+                error: function (response) {
+                    alert(response);
+                }
+            })
+        }
+        //function and container for accordion content
+        function format(journal_info, transaction_info) {
+            var info = []
+            for (var i = 0; i < transaction_info['amount'].length; i++) {
+                if (transaction_info['type'][i] == true) {
+                    info.push(`<tr>
+                    <td>${transaction_info['account_name'][i]}</td>` +
+                        `<td>$${transaction_info['amount'][i]}</td>` +
+                        `<td>$0.00</td>
+                    </tr>`);
+                } else {
+                    info.push(`<tr>
+                    <td>${transaction_info['account_name'][i]}</td>` +
+                        `<td>$0.00</td>` +
+                        `<td>$${transaction_info['amount'][i]}</td>
+                    </tr>`);
+                }
+            }
+
+            return '<div class="slider" >' +
+                '<div class="row">' +
+                '<div class="col-9 text-start">' +
+                '<table id="journaltable">' +
+                '<tr>' +
+                '<th id="topleft">Account</th><th style="width:20%">Debit</th><th id="topright" style="width:20%">Credit</th>' +
+                `${info}` +
+                '<tr>' +
+                '<td colspan="3" id="bottom"><p id="labeldesc">Description: </p>' +
+                `${journal_info.description}</td>` +
+                '</tr>' +
+                '</table>' +
+                '</div>' +
+                '<div class="col-3 text-center mx-auto" id="actions">' +
+                '<div class="actionscolor">' +
+                '<a data-bs-toggle="modal" href="#updateModal"><i class="fas fa-gavel"></i> Update Status</a><br>' +
+                '<a href="{% url "general_ledger"%}"><i class="fas fa-book"></i> View Ledger</a><br>' +
+                '<a data-bs-toggle="modal" href="#editaccountmodal"><i class="fas fa-edit"></i>Edit</a><br>' +
+                '<a href="#"><i class="fas fa-trash"></i> Delete</a>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>';
+        }
+
         //Add journal table start
         var addtable = $("#addtable").DataTable({
             dom: '<"addbtnT2"><"addfileT2">',
@@ -94,16 +116,16 @@
         $(".addbtnT2").on("click", function () {
             addtable.row
                 .add([
-                "<select class='form-select form-select-sm transaction_account' name='transaction_account'>" + 
+                    "<select class='form-select form-select-sm transaction_account' name='transaction_account'>" +
                     "<option value='1'>Assets</option>" + "<option value='2'>Liabilities</option>" +
-                "</select>",
-                "<select class='form-select form-select-sm transaction_type' name='transaction_type'>" + 
+                    "</select>",
+                    "<select class='form-select form-select-sm transaction_type' name='transaction_type'>" +
                     "<option value='1'>Debit</option>" + "<option value='2'>Credit</option>" +
-                "</select>",
-                "<input type='number' class='form-control form-control-sm transaction_amount' name='transaction_amount'>",
-                '<button class="remove"><i class="fas fa-trash-alt"></i></button>',
-            ])
-            .draw();
+                    "</select>",
+                    "<input type='number' class='form-control form-control-sm transaction_amount' name='transaction_amount'>",
+                    '<button class="remove"><i class="fas fa-trash-alt"></i></button>',
+                ])
+                .draw();
         });
 
         $("#addtable").on("click", ".remove", function () {
@@ -138,16 +160,16 @@
                 <table id="addtable" class="stripe row-border compact">
                     <thead>
                         <tr>
-                        <th>Account</th>
-                        <th>Type</th>
-                        <th>Amount</th>
-                        <th id="actionhead">Action</th>
+                            <th>Account</th>
+                            <th>Type</th>
+                            <th>Amount</th>
+                            <th id="actionhead">Action</th>
                         </tr>
                     </thead>
                     <form>
                         <tbody></tbody>
                     </form>
-                    </table>
+                </table>
                 </table>
                 <div class="col-10 mx-auto mt-3">
                     <div class="input-group">
@@ -240,6 +262,34 @@
 <!--CALENDAR DROPDOWN START-->
 <!--CALENDAR DROPDOWN END-->
 <!--STATUS MODAL START-->
+<div class="modal fade" id="updateModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Update Journal Status</h3>
+                <button class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="fas fa-times" id="xbtn"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-11 mx-auto">
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>Pending</option>
+                        <option value="1">Approved</option>
+                        <option value="2">Rejected</option>
+                    </select>
+                    <textarea class="form-control" rows="4" placeholder="Write optional message here..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="col-11 mx-auto">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cancel">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="submit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <!--STATUS MODAL END-->
 
 <div class="container-lg" id="mainbox">
@@ -260,20 +310,17 @@
             </tr>
         </thead>
         <tbody>
+            {% if journal_entries %}
+            {% for journal_entry in journal_entries %}
             <tr>
-                <td class="details-control"></td>
-                <td>J/E. 00001</td>
-                <td>09/01/2021</td>
-                <td>Tax Return Document</td>
-                <td id="status">Pending</td>
+                <td class="details-control" data-value="{{journal_entry.journal_id}}"></td>
+                <td>J/E. {{journal_entry.journal_id}}</td>
+                <td>{{journal_entry.date_time_added}}</td>
+                <td>{{journal_entry.file.file_name}}</td>
+                <td id=" status">{{journal_entry.journal_status}}</td>
             </tr>
-            <tr>
-                <td class="details-control"></td>
-                <td>J/E. 00001</td>
-                <td>09/01/2021</td>
-                <td>Tax Return Document</td>
-                <td id="status">Pending</td>
-            </tr>
+            {% endfor %}
+            {% endif %}
         </tbody>
     </table>
 </div>
