@@ -98,7 +98,7 @@
                 '<div class="actionscolor">' +
                 '<a data-bs-toggle="modal" href="#updateModal"><i class="fas fa-gavel"></i> Update Status</a><br>' +
                 '<a href="{% url "general_ledger"%}"><i class="fas fa-book"></i> View Ledger</a><br>' +
-                '<a data-bs-toggle="modal" href="#editaccountmodal"><i class="fas fa-edit"></i>Edit</a><br>' +
+                '<a data-bs-toggle="modal" href="#editjournalmodal"><i class="fas fa-edit"></i>Edit</a><br>' +
                 '<a href="#"><i class="fas fa-trash"></i> Delete</a>' +
                 '</div>' +
                 '</div>' +
@@ -134,6 +134,37 @@
 
         $("div.addbtnT2").html('<button class="addT2">Add Transaction</button>');
         $("div.addfileT2").html(
+            '<label for="formfile" class="form-label">Add an Attachment: </label><input class="form-control" type="file" id="formfile">'
+        );
+
+        //Edit journal table start
+        var edittable = $("#edittable").DataTable({
+            dom: '<"addbtnT3"><"addfileT3">',
+            ordering: false,
+            paging: false,
+        });
+
+        $(".addbtnT3").on("click", function () {
+            edittable.row
+                .add([
+                    "<select class='form-select form-select-sm transaction_account' name='transaction_account'>" +
+                    "<option value='1'>Assets</option>" + "<option value='2'>Liabilities</option>" +
+                    "</select>",
+                    "<select class='form-select form-select-sm transaction_type' name='transaction_type'>" +
+                    "<option value='1'>Debit</option>" + "<option value='2'>Credit</option>" +
+                    "</select>",
+                    "<input type='number' class='form-control form-control-sm transaction_amount' name='transaction_amount'>",
+                    '<button class="remove"><i class="fas fa-trash-alt"></i></button>',
+                ])
+                .draw();
+        });
+
+        $("#edittable").on("click", ".remove", function () {
+            edittable.row($(this).parents("tr")).remove().draw();
+        });
+
+        $("div.addbtnT3").html('<button class="addT3">Add Transaction</button>');
+        $("div.addfileT3").html(
             '<label for="formfile" class="form-label">Add an Attachment: </label><input class="form-control" type="file" id="formfile">'
         );
     });
@@ -189,71 +220,44 @@
 </div>
 <!--NEW JOURNAL MODAL END-->
 <!--EDIT JOURNAL MODAL START-->
-<div class="modal fade" id="editaccountmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="editjournalmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button class="close" data-bs-dismiss="modal" aria-label="Close">
                     <i class="fas fa-backspace"></i>
                 </button>
             </div>
-            <div class="modal-body">
-                <div class="row text-center">
-                    <h2 id="modaltitle">Edit Account</h2>
-                </div>
-                <form>
-                </form>
-                <div class="form-row justify-content-center">
-                    <div class="form-group col-5" id="modalblockone">
-                        <label for="accountname">Account Name:</label>
-                        <input type="text" class="form-control form-control-sm" id="accountname"
-                            placeholder="django name">
-                        <label for="accountnumber">Account Number:</label>
-                        <input type="text" class="form-control form-control-sm" id="accountnumber"
-                            placeholder="django number">
-                        <label for="accountcategory">Account Category:</label>
-                        <select multiple-class="form-control" id="accountcategory">
-                            <option>Assets</option>
-                            <option>Liabilities</option>
-                            <option>Equity Accounts</option>
-                            <option>Revenues</option>
-                            <option>Expenses</option>
-                            <option>Other</option>
-                        </select>
-                        <label for="accountsubcategory">Account Subcategory:</label>
-                        <input type="text" class="form-control form-control-sm" id="accountsubcategory"
-                            placeholder="django subcategory">
-                        <label for="accountdescription">Account Description</label>
-                        <textarea class="form-control form-control-sm" id="accountdescription" rows="4"
-                            placeholder="django description"></textarea>
-                    </div>
-                    <div class="form-group col-5" id="modalblocktwo">
-                        <label for="normalside">Normal Side:</label>
-                        <select multiple-class="form-control" id="normalside">
-                            <option>Debit</option>
-                            <option>Credit</option>
-                        </select>
-                        <label for="balance">Balance:</label>
-                        <input type="number" class="form-control form-control-sm" id="balance" placeholder="5000">
-                        <label for="debit">Debit:</label>
-                        <input type="number" class="form-control form-control-sm" id="debit" placeholder="5000">
-                        <label for="credit">Credit:</label>
-                        <input type="number" class="form-control form-control-sm" id="credit" placeholder="-5000">
-                        <label for="statement">Statement:</label>
-                        <select multiple-class="form-control" id="statement">
-                            <option id="short">Income statement</option>
-                            <option id="short">Balance sheet</option>
-                            <option id="short">Retained earnings statement</option>
-                        </select>
-                        <label for="comment">Comment:</label>
-                        <input type="text" class="form-control form-control-sm" id="comment"
-                            placeholder="django comment">
+            <div class="modal-body col-11 mx-auto">
+                <h3 id="journaltitleh3">Journal Entry: 1</h3>
+                <h3 id="journaldateh3">Date: 09/01/2021</h3>
+                <table id="edittable" class="stripe row-border compact">
+                    <thead>
+                        <tr>
+                            <th>Account</th>
+                            <th>Type</th>
+                            <th>Amount</th>
+                            <th id="actionhead">Action</th>
+                        </tr>
+                    </thead>
+                    <form>
+                        <tbody></tbody>
+                    </form>
+                </table>
+                </table>
+                <div class="col-10 mx-auto mt-3">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Description</div>
+                        </div>
+                        <input type="text" class="form-control">
                     </div>
                 </div>
             </div>
             <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-primary" id="savebtn">Update</button>
+                <button type="button" class="btn btn-primary" id="resetbtn">Reset</button>
+                <button type="button" class="btn btn-primary" id="savebtn">Save</button>
             </div>
         </div>
     </div>
