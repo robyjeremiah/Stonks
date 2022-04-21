@@ -450,3 +450,19 @@ def addJounral(request):
 @ login_required(login_url='/')
 def journal(request, pk):
     return render(request, 'journal.html')
+
+#Paths for reports
+def generateReport(request):
+    return render(request, 'generateReport.html')
+
+def trialBalance(request):
+    return render(request, 'trialBalance.html')
+
+def incomeStatement(request):
+    return render(request, 'incomeStatement.html')
+
+def balanceSheet(request):
+    return render(request, 'balanceSheet.html')
+
+def retainedEarnings(request):
+    return render(request, 'retainedEarnings.html')

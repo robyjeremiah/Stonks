@@ -1,0 +1,68 @@
+{% extends 'base.html' %} {% block title %} Retained Earnings {% endblock %} {% block stylesheet %}
+<!--The block title above will show on the printed page-->
+<link rel="stylesheet" type="text/css" href="/static/retainedEarnings.css" />
+<script>
+    $(document).ready(function() {
+        $('#retained_earnings').DataTable( {
+            ordering: false,
+            paging: false,
+            dom: '<"title">Bt',
+            buttons: [
+                {
+                    extend: 'print',
+                    text: '<i class="fas fa-download"></i></i>',
+                    messageTop: 'here is the date information on the print page',
+                    titleAttr: 'Print Retained Earnings Statement',
+                },
+            ],
+            aoColumnDefs: [
+                {
+                    sClass: "second-col", 
+                    aTargets: [1],
+                }
+            ]
+        } );
+
+        $("div.title").html('<h1>STONKS INC.</h1><br><h1>RETAINED EARNINGS</h1><h3>For the year ending Dec. 31 20XX</h3>');
+    } );
+</script>
+{% endblock %} {% load static %} {% block content %}
+<div class="container-sm">
+    <table id="retained_earnings" style="width:80%">
+        <thead>
+            <tr>
+                <th style="width:85%"></th>
+                <th style="width:15%"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Retained Earnings - Jan. 1 20XX</td>
+                <td>$400,000</td>
+            </tr>
+            <tr>
+                <td><p style="font-weight:bold">Plus:<p> Net Income</td>
+                <td id="calc">115,000</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>$515,000</td>
+            </tr>
+            <tr>
+                <td><p style="font-weight:bold">Less:</p> Dividends</td>
+                <td id="calc">25,000</td>
+            </tr>
+            <tr>
+                <td>Retained Earnings - Dec. 1 20XX</td>
+                <td id="total">$480,000</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+{% endblock %}

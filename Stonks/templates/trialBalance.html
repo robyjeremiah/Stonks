@@ -1,0 +1,89 @@
+{% extends 'base.html' %} {% block title %} Trial Balance {% endblock %} {% block stylesheet %}
+<!--The block title above will show on the printed page-->
+<link rel="stylesheet" type="text/css" href="/static/trialBalance.css" />
+<script>
+    $(document).ready(function() {
+        $('#trial_balance').DataTable( {
+            ordering: false,
+            paging: false,
+            dom: '<"title">Bt',
+            buttons: [
+                {
+                    extend: 'print',
+                    text: '<i class="fas fa-download"></i></i>',
+                    messageTop: 'here is the date information on the print page',
+                    titleAttr: 'Print Trial Balance',
+                },
+            ]
+        } );
+
+        $("div.title").html('<h1>STONKS INC.</h1><br><h1>TRIAL BALANCE</h1><h3>Sep. 21 2022 - Oct. 07 2020</h3>');
+    } );
+</script>
+{% endblock %} {% load static %} {% block content %}
+<div class="container-sm">
+    <table id="trial_balance" class="cell-border stripe" style="width:95%">
+        <thead>
+            <tr>
+                <th style="width:60%">ACCOUNTS</th>
+                <th style="width:20%">DEBIT</th>
+                <th style="width:20%">CREDIT</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Cash</td>
+                <td>$400</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Supplies</td>
+                <td>$25</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Equipment</td>
+                <td>$30</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Accounts Payable</td>
+                <td></td>
+                <td>$50</td>
+            </tr>
+            <tr>
+                <td>Loans Payable</td>
+                <td></td>
+                <td>$200</td>
+            </tr>
+            <tr>
+                <td>Owners Equity</td>
+                <td></td>
+                <td>$100</td>
+            </tr>
+            <tr>
+                <td>Revenue</td>
+                <td></td>
+                <td>$150</td>
+            </tr>
+            <tr>
+                <td>Cost of Sales</td>
+                <td>$25</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Laundry Cost</td>
+                <td>$20</td>
+                <td></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>TOTAL</th>
+                <th>$500</th>
+                <th>$500</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+{% endblock %}

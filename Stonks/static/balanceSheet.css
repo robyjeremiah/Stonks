@@ -1,0 +1,122 @@
+.banner {
+    overflow: hidden;
+}
+
+.container-lg {
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+#balance_sheet.datatables {
+    margin-bottom: 25px;
+}
+
+#balance_sheet_wrapper {
+    background-color: #ffffff;
+    padding: 25px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+#balance_sheet td {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#balance_sheet thead th {
+    border-bottom: 2px solid #999999;
+}
+
+#balance_sheet tfoot th {
+    border-top: none;
+}
+
+#balance_sheet tbody td { /*Mark for delete*/
+    vertical-align: top;
+}
+
+.title {
+    width: 100%;
+    text-align: center;
+    line-height: 0;
+}
+
+.title h1 {
+    font-weight: bold;
+    margin: 0;
+}
+
+.title h3 {
+    font-size: 25px;
+    margin: 5px 0px 0px 0px;
+    padding: 0;
+}
+
+.dt-buttons {
+    text-align: center;
+    margin-top: 10px;
+}
+
+    /*.dt-buttons span {
+        font-family: system-ui;
+    }*/
+
+    .dt-button.buttons-print {
+        width: auto;
+        height: auto;
+        /*padding: 5px 15px 5px 15px; With 'Print' text*/
+        padding: 10px 15px 10px 15px;
+        color: #343F4B;
+        border: 3px solid #343F4B;
+        border-radius: 4px;
+        background-color: none;
+        transition: 0.4s;
+    }
+
+        .dt-button.buttons-print:hover {
+            background: #343F4B;
+            color: #ffffff;
+        }
+
+        .dt-button.buttons-print:hover .fas.fa-print {
+            color: #ffffff;
+        }
+
+.fas.fa-print {
+    color: #343F4B;
+}
+
+#level-1,
+#level-1-close {
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+    #level-1 #cell-1 {
+        width: 70%;
+    }
+
+    #level-1-close #cell-2 {
+        border-bottom: 2px solid #1d1d1d;
+    }
+
+#level-2,
+#level-2-close {
+    font-weight: bold;
+}
+
+    #level-2 #cell-1,
+    #level-2-close #cell-1 {
+        padding-left: 10%;
+    }
+
+#level-1-close #cell-2,
+#level-2-close #cell-2 {
+    border-top: 1px solid #333333;
+}
+
+#level-3 #cell-1 {
+    padding-left: 20%;
+}
+
+#cell-2 {
+    text-align: right;
+}

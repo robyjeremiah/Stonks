@@ -3,7 +3,7 @@
 
 <head>
   <!--Title-->
-  <title>{% block title %}Stonks Home Page{% endblock %}</title>
+  <title>{% block title %}Stonks Accounting{% endblock %}</title>
   <!--Title End-->
   <link rel="stylesheet" type="text/css" href="{% static 'base.css' %}" />
   <script type="text/javascript" src="{% static '/js/jquery-3.6.0.js' %}"></script>
@@ -17,6 +17,8 @@
   <script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
   <script type="text/javascript" src="https://cdn.datatables.net/datetime/1.1.2/js/dataTables.dateTime.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
   {% block stylesheet %}{% endblock %}
 </head>
 
@@ -71,11 +73,11 @@
           <div class="dropdown">
             <a href="#" class="btn dropdown-toggle" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Generate New Reports">Reports</a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="report-content">
-              <a class="dropdown-item" href="#">Trial Balance</a>
-              <a class="dropdown-item" href="#">Income Statement</a>
-              <a class="dropdown-item" href="#">Balance Sheet</a>
-              <a class="dropdown-item" href="#">Retained Earnings</a>
-              <a class="dropdown-item" href="#">Expired Passwords</a>
+              <a class="dropdown-item" href="/trialBalance/">Trial Balance</a>
+              <a class="dropdown-item" href="/incomeStatement/">Income Statement</a>
+              <a class="dropdown-item" href="/balanceSheet/">Balance Sheet</a>
+              <a class="dropdown-item" href="/retainedEarnings/">Retained Earnings</a>
+              <a class="dropdown-item" href="/generateReport/">Expired Passwords</a>
             </div>
           </div>
         </li>

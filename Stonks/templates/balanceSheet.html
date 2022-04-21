@@ -1,0 +1,125 @@
+{% extends 'base.html' %} {% block title %} Stonks Accounting | Balance Sheet {% endblock %} {% block stylesheet %}
+<!--The block title above will show on the printed page-->
+<link rel="stylesheet" type="text/css" href="/static/balanceSheet.css" />
+<script>
+    $(document).ready(function() {
+        $('#balance_sheet').DataTable( {
+            ordering: false,
+            paging: false,
+            dom: '<"title">Bt',
+            buttons: [
+                {
+                    extend: 'print',
+                    text: '<i class="fas fa-print"></i>',
+                    messageTop: 'here is the date information on the print page',
+                    titleAttr: 'Print Balance Sheet',
+                },
+            ]
+        } );
+
+        $("div.title").html('<h1>STONKS INC.</h1><br><h1>BALANCE SHEET</h1><h3>Sep. 21 2022 - Oct. 07 2020</h3>');
+    } );
+</script>
+{% endblock %} {% load static %} {% block content %}
+<div class="container-lg">
+    <table id="balance_sheet" style="width:95%">
+        <thead>
+            <tr>
+                <th style="width:50%"></th>
+                <th style="width:50%"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><!--Table one-->
+                    <table style="width:100%">
+                        <tr id="level-1">
+                            <td id="cell-1">Assets</td>
+                            <td id="cell-2"></td>
+                        </tr>
+                            <tr id="level-2">
+                                <td id="cell-1">Current Assets</td>
+                            </tr>
+                                <tr id="level-3">
+                                    <td id="cell-1">Cash</td>
+                                    <td id="cell-2">$300.00</td>
+                                </tr>
+                                <tr id="level-3">
+                                    <td id="cell-1">Supplies</td>
+                                    <td id="cell-2">$2,500.00</td>
+                                </tr>
+                                <tr id="level-3">
+                                    <td id="cell-1">Inventory</td>
+                                    <td id="cell-2">$75.00</td>
+                                </tr>
+                            <tr id="level-2-close">
+                                <td id="cell-1">Total Current Assets</td>
+                                <td id="cell-2">$500.00</td>
+                            </tr>
+                        <tr id="level-1-close">
+                            <td id="cell-1">Total Assets</td>
+                            <td id="cell-2">$3,600.00</td>
+                        </tr>
+                    </table>
+                </td><!--Table one end-->
+                <td><!--Table two start-->
+                    <table style="width:100%">
+                        <tr id="level-1">
+                            <td id="cell-1">Liabilities and Equity</td>
+                            <td id="cell-2"></td>
+                        </tr>
+                            <tr id="level-2">
+                                <td id="cell-1">Liabilities</td>
+                            </tr>
+                                <tr id="level-3">
+                                    <td id="cell-1">Accounts Payable</td>
+                                    <td id="cell-2">$300.00</td>
+                                </tr>
+                                <tr id="level-3">
+                                    <td id="cell-1">Taxes Payable</td>
+                                    <td id="cell-2">$2,500.00</td>
+                                </tr>
+                                <tr id="level-3">
+                                    <td id="cell-1">Salaries Payable</td>
+                                    <td id="cell-2">$75.00</td>
+                                </tr>
+                                <tr id="level-3">
+                                    <td id="cell-1">Accrued Expenses</td>
+                                    <td id="cell-2">$175.00</td>
+                                </tr>
+                            <tr id="level-2-close">
+                                <td id="cell-1">Total Liabilities</td>
+                                <td id="cell-2">$500.00</td>
+                            </tr>
+                            <tr id="level-2">
+                                <td id="cell-1">Equity</td>
+                            </tr>
+                                <tr id="level-3">
+                                    <td id="cell-1">Owners Equity</td>
+                                    <td id="cell-2">$600.00</td>
+                                </tr>
+                                <tr id="level-3">
+                                    <td id="cell-1">Retained Earnings</td>
+                                    <td id="cell-2">$50.00</td>
+                                </tr>
+                            <tr id="level-2-close">
+                                <td id="cell-1">Total Equity</td>
+                                <td id="cell-2">$500.00</td>
+                            </tr>
+                        <tr id="level-1-close">
+                            <td id="cell-1">Total Liabilities and Equity</td>
+                            <td id="cell-2">$3,600.00</td>
+                        </tr>
+                    </table>
+                </td><!--Table two end-->
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+{% endblock %}
