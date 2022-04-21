@@ -46,11 +46,11 @@
     text-align: right;
 }
 
-#calc {
+#calc .second-col {
     border-bottom: 1px solid #1d1d1d;
 }
 
-#total {
+#total .second-col {
     border-bottom: 3px solid #1d1d1d;
 }
 
