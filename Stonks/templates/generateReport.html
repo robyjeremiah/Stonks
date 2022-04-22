@@ -1,12 +1,38 @@
 {% extends 'base.html' %} {% block stylesheet %}
 <link rel="stylesheet" type="text/css" href="/static/generateReport.css" />
+<script>
+</script>
 {% endblock %} {% load static %} {% block content %}
 <div class="container-md">
-    <div class="row">
-        <div class="col-9 mx-auto">
-            <h1>Enter Dates:</h1>
-            <input type="text">
-            <input type="text">
+    <h1 id="title">Generate Report</h1>
+    <div class="col-6 mx-auto">
+        <div class="box-one">
+            <h2>Which dates would you like the report to cover?</h2>
+        </div>
+        <div class="box-two">
+            <div class="col-8" id="fields">
+                <div class="row">
+                    <div class="col-4">
+                        <label>From:</label>
+                    </div>
+                    <div class="col-8">
+                        <div class="input-wrapper">
+                            <input type="text" placeholder="mm / dd / yyyy">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <label>To:</label>
+                    </div>
+                    <div class="col-8">
+                        <div class="input-wrapper">
+                            <input type="text" placeholder="mm / dd / yyyy">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button id="submit"><span>Generate Report</span></button>
         </div>
     </div>
 </div>

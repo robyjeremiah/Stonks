@@ -76,11 +76,11 @@
             color: #ffffff;
         }
 
-        .dt-button.buttons-print:hover .fas.fa-print {
+        .dt-button.buttons-print:hover .fas.fa-download {
             color: #ffffff;
         }
 
-.fas.fa-print {
+.fas.fa-download {
     color: #343F4B;
 }
 
