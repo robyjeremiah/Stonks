@@ -1,0 +1,108 @@
+{% extends 'base.html' %} {% block title %} Income Statement {% endblock %} {% block stylesheet %}
+<!--The block title above will show on the printed page-->
+<link rel="stylesheet" type="text/css" href="/static/incomeStatement.css" />
+<script>
+    $(document).ready(function() {
+        $('#income_statement').DataTable( {
+            ordering: false,
+            paging: false,
+            dom: '<"title">Bt',
+            buttons: [
+                {
+                    extend: 'print',
+                    text: '<i class="fas fa-download"></i></i>',
+                    messageTop: 'here is the date information on the print page',
+                    titleAttr: 'Print Income Statement',
+                },
+            ],
+            aoColumnDefs: [
+                {
+                    sClass: "first-col",
+                    aTargets: [0],
+                },    
+                {
+                    sClass: "second-col", 
+                    aTargets: [1],
+                }
+            ]
+        } );
+
+        $("div.title").html('<h1>STONKS INC.</h1><br><h1>INCOME STATEMENT</h1><h3>For the year ending Dec. 31 20XX</h3>');
+    } );
+</script>
+{% endblock %} {% load static %} {% block content %}
+<div class="container-sm">
+    <table id="income_statement" style="width:80%">
+        <thead>
+            <tr>
+                <th style="width:85%"></th>
+                <th style="width:15%"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Net sales</td>
+                <td>4,738,714</td>
+            </tr>
+            <tr>
+                <td>Cost of sales</td>
+                <td>2,738,714</td>
+            </tr>
+            <tr id="calc" class="break">
+                <td>Gross profit</td>
+                <td>1,619,386</td>
+            </tr>
+            <tr>
+                <td>Selling and operating expenses</td>
+                <td>560,430</td>
+            </tr>
+            <tr>
+                <td>General and administrative expenses</td>
+                <td>293,729</td>
+            </tr>
+            <tr id="calc">
+                <td>Total operating expenses</td>
+                <td>854,159</td>
+            </tr>
+            <tr id="calc" class="break">
+                <td>Operating income</td>
+                <td>765,227</td>
+            </tr>
+            <tr>
+                <td>Other income</td>
+                <td>960</td>
+            </tr>
+            <tr>
+                <td>Gain (loss) on financial instruments</td>
+                <td>5,513</td>
+            </tr>
+            <tr>
+                <td>(Loss) gain on foreign currency</td>
+                <td>(12,649)</td>
+            </tr>
+            <tr>
+                <td>Interest expense</td>
+                <td>(18,177)</td>
+            </tr>
+            <tr id="calc">
+                <td>Income Before Taxes</td>
+                <td>740,874</td>
+            </tr>
+            <tr>
+                <td>Income tax expense</td>
+                <td>257,642</td>
+            </tr>
+            <tr id="total">
+                <td>Net income</td>
+                <td>483,232</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+{% endblock %}

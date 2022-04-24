@@ -125,6 +125,37 @@ button {
             background-color: #BCAB6F;
         }
 
+#dropdownMenuLink {
+    background: none;
+    border: none;
+    box-shadow: none;
+    outline: none;
+}
+
+#report-content {
+    width: max-content;
+    background-color: #f1f1f1;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    border-radius: 0;
+    border: none;
+    padding: 0;
+}
+
+    #report-content .dropdown-item {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        color: #6F6236;
+    }
+
+        #report-content .dropdown-item:hover {
+            background-color: #BCAB6F;
+        }
+
+        #report-content .dropdown-item:active {
+            background-color: #BCAB6F;
+            color: #6F6236;
+        }
+
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show {
     display: block;

@@ -1,0 +1,96 @@
+.banner {
+    overflow: hidden;
+}
+
+.container-sm {
+    margin-top: 30px;
+    margin-bottom: 50px;
+    width: 70%;
+}
+
+@media (max-width: 991px) {
+    .container-sm {
+        width: 100%;
+    }
+}
+
+#trial_balance_wrapper {
+    background-color: #ffffff;
+    padding: 25px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+#trial_balance td {
+    padding: 12px 10px 12px 7%;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#trial_balance th {
+    font-weight: 900;
+    padding-left: 6%;
+}
+
+@media (max-width: 1313px) {
+    #trial_balance th {
+        padding-left: 5%;
+    }
+}
+
+@media (max-width: 761px) {
+    #trial_balance th,
+    #trial_balance td {
+        padding-left: 0;
+        text-align: center;
+    }
+}
+
+.title {
+    width: 100%;
+    text-align: center;
+    line-height: 0;
+}
+
+.title h1 {
+    font-weight: bold;
+    margin: 0;
+}
+
+.title h3 {
+    font-size: 25px;
+    margin: 5px 0px 0px 0px;
+    padding: 0;
+}
+
+.dt-buttons {
+    text-align: center;
+    margin-top: 10px;
+}
+
+    /*.dt-buttons span {
+        font-family: system-ui;
+    }*/
+
+    .dt-button.buttons-print {
+        width: auto;
+        height: auto;
+        /*padding: 5px 15px 5px 15px; With 'Print' text*/
+        padding: 10px 15px 10px 15px;
+        color: #1d1d1d;
+        border: 3px solid #343F4B;
+        border-radius: 4px;
+        background-color: none;
+        transition: 0.4s;
+    }
+
+    .dt-button.buttons-print:hover {
+        background: #343F4B;
+        color: #ffffff;
+    }
+
+    .dt-button.buttons-print:hover .fas.fa-download {
+        color: #ffffff;
+    }
+
+.fas.fa-download {
+    color: #343F4B;
+}

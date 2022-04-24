@@ -217,3 +217,7 @@ tr {
 #example_paginate {
   margin-bottom: 30px;
 }
+
+.dataTables_Empty {
+  padding-top: 12px!important;
+}

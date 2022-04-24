@@ -48,4 +48,9 @@ urlpatterns = [
     path('journal/<pk>', views.journal, name='journal'),
     path('generalLedgers/',
          views.generalledger, name='generalLedger'),
+    path('generateReport/', views.generateReport, name="generateReport"),
+    path('trialBalance/', views.trialBalance, name="trialBalance"),
+    path('incomeStatement/', views.incomeStatement, name="incomeStatement"),
+    path('balanceSheet/', views.balanceSheet, name="balanceSheet"),
+    path('retainedEarnings/', views.retainedEarnings, name="retainedEarnings")
 ]

@@ -1,0 +1,109 @@
+.banner {
+    overflow: hidden;
+}
+
+#title {
+    font-weight: bold;
+    font-size: 60px;
+    margin-top: 20px;
+    color: #706338;
+    text-align: center;
+}
+
+.col-6 {
+    background-color: #FFF8E3;
+    margin-top: 35px;
+    margin-bottom: 60px;
+    text-align: center;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+    .col-6 h2 {
+        font-weight: bold;
+        color: #ffffff;
+    }
+
+    .col-6 label {
+        font-size: 20px;
+        font-weight: bold;
+        font-family: system-ui;
+    }
+
+.box-one {
+    padding: 3% 8%;
+    background-image: linear-gradient(#473f23,#574d2c,#7a6c3d);
+    width: 100%;
+}
+
+.box-two {
+    padding: 5%;
+    border: 2px solid #7a6c3d;
+}
+
+#fields {
+    margin: auto;
+}
+
+.col-4 {
+    text-align: right;
+}
+
+.input-wrapper {
+    display: inline-block;
+    position: relative;
+    margin: auto;
+}
+
+    .input-wrapper:after {
+        font-family: 'FontAwesome';
+        content: '\f073';
+        position: absolute;
+        right: 10px;
+        top: 2px;
+    }
+
+    .input-wrapper input[type="text"] {
+        margin-bottom: 15px;
+        width: 100%;
+        padding: 0 8%;
+        border-radius: 3px;
+    }
+
+        .input-wrapper input[type="text"]::placeholder {
+            color: #1d1d1d;
+            opacity: 1;
+        }
+
+#submit {
+    margin: 15px auto auto auto;
+    display: inline-block;
+    position: relative;
+    width: 190px;
+    height: auto;
+    padding: 10px 30px;
+    background-image: linear-gradient(#574d2c,#7a6c3d);
+    border: none;
+    border-radius: 7px;
+    font-family: system-ui;
+    transition: all 0.5s;
+    box-shadow: 0 10px 20px -8px rgba(0, 0, 0,.7);
+}
+
+    #submit:after {
+        font-family: 'FontAwesome';
+        content: '\f30b';
+        position: absolute;
+        opacity: 0;  
+        top: 10px;
+        right: -25px;
+        transition: 0.5s;
+    }
+
+    #submit:hover{
+        padding-left: 20px;
+    }
+
+    #submit:hover:after {
+        opacity: 1;
+        right: 10px;
+    }
