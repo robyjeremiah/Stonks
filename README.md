@@ -1,5 +1,12 @@
 # Stonks-App
 
+## Demo Video
+
+Watch the demo video below:
+<iframe width="560" height="315" src="https://www.youtube.com/embed/7LSWzzcURzE?si=fiIVZ389wH9Ak2YZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+
+
 Welcome to the Stonks Financial Solutions App. This project utilizes a Django Framework to manage and handle the basic financial requests for accountants and their managers.
 
 Link to Site: [Stonks Financial Solutions - Project Link](http://stonks-env.eba-p7p3wuag.us-west-2.elasticbeanstalk.com/)
