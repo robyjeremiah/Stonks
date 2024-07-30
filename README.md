@@ -1,5 +1,10 @@
 # Stonks-App
 
+## Demo Video
+
+Watch the demo video below:
+https://youtu.be/7LSWzzcURzE?si=n1iXLvPdgQZKc9vX
+
 Welcome to the Stonks Financial Solutions App. This project utilizes a Django Framework to manage and handle the basic financial requests for accountants and their managers.
 
 Link to Site: [Stonks Financial Solutions - Project Link](http://stonks-env.eba-p7p3wuag.us-west-2.elasticbeanstalk.com/)
@@ -104,33 +109,10 @@ Link to Sprint #1: [Sprint List](https://kennesawedu.sharepoint.com/:w:/r/sites/
 
   `python manage.py runserver`
 
-### How to Use Docker Containers (Windows Only) --> Working on MacOS soon
-
-  #### Setting Up Environment Variables for Docker
-  - In the directory, you should see a .env.example file. Open that file, and change the following:
-    
-    MY_USER='your-username'
-    MY_PASSWORD='password_of_your_choice'
-  
-  - The remaining items can remain the same. After saving the file, rename the file to be '.env' instead of '.env.example'
-  - You have successfully created your environment variables!
-  #### Running Docker
-  - Make sure that you have Docker Desktop downloaded from [Docker](https://www.docker.com/get-started).
-  - After installing docker on your system, you can execute the following command:
-
-  `docker-compose build --no-cache` - This will pull the docker images and build the docker-compose.yml file in the repo
-
-  - After the containers are built, you can execute the following command:
-
-  `docker-compose up -d` - This will start up the containers that were built, and run them in a detached mode.
-  
-  - After the containers are running, you can browse to view the project at [Stonks-App](http://localhost:9000)
-  - The last thing left to do is connect to the database!
-
-  #### Using Docker to Run the environment
+  #### Acquire migrations
 
   - To get the latest migrations for the project run the following command in your terminal:
-    `docker-compose run web python manage.py migrate`
+    'python manage.py migrate`
 ## Resources & Guides
 
 - [Django Project & App Tutorial](https://docs.djangoproject.com/en/4.0/intro/tutorial01/)
