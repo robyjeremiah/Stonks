@@ -13,7 +13,6 @@ cryptography
 Django
 mysqlclient
 docker
-docker-compose
 dockerpty
 docopt
 future
@@ -27,7 +26,7 @@ PyNaCl
 pyrsistent
 python-dateutil
 pytz
-PyYAML
+PyYAML==6.0.1
 requests
 semantic-version
 six
